@@ -1,0 +1,26 @@
+{% extends "bookings/base.html" %}
+{% load bootstrap3 %}
+{% load static %}
+
+{% block content %}  
+
+  <!-- Section: contact -->
+  <section id="contact" class="home-section nopadd-bot color-dark bg-white text-center">
+    <div class="container marginbot-50" style="padding:25px 75px 300px 75px">
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+          <div class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
+            <div class="section-heading text-center">
+              <h2 class="h-bold">Booked!</h2>
+              <div class="divider-header"></div>
+              <p>Your reservation has been successfully booked. For your security, we sent you an email with your payment confirmation. </p>
+              <p>You may also contact us at service@ThePartyBusCompany.com</p>
+              <p>See you soon!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   </section>
+
+{% endblock content %}

@@ -1,0 +1,55 @@
+{% extends "bookings/base.html" %}
+{% load static %}
+
+{% block content %}
+
+ <!-- Section: contact -->
+  <section id="contact" class="home-section nopadd-bot color-dark bg-white text-center">
+    <div class="container marginbot-50" style="padding:0px 75px 15% 75px">
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+          <div class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
+            <div class="section-heading text-center">
+              <h2 class="h-bold">Special Offers</h2>
+              <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
+              </div>
+              <p style="padding:5% 75px 5% 75px" class="wow bounceInDown" data-wow-delay="0.2s">We offer the best specials in DFW
+              </p>
+              <div style="padding:3% 0px 3% 0px">
+              <p class="text-left h-bold">12 Passenger Party Van Special</p> 
+              <table class="table-striped table-hover" align="center">
+              	<thead>
+              		<tr>
+              			<th width="20%" class="text-center">Group Size</th>
+              			<th width="20%" class="text-center">Base Rate - 3 hours</th>
+              			<th width="20%" class="text-center">Additional Hour</th>
+              		</tr>
+              	</thead>
+              	<tr>
+              		<td>12 Passengers</td>
+              		<td>$249</td>
+              		<td>$89</td>
+              	</tr>
+              </table>
+                <ul style="padding:5% 0px 10% 0px">
+                <li class="text-left body-text" >Great for Children's Parties!</li>
+          	</div>
+            <div class="divider-header wow bounceInDown" style="padding:10% 25px 10% 25px" data-wow-delay="0.2s">
+            </div>
+            <div style="padding:5% 25px 10% 25px">
+              <p>Referral Bonus - Refer a friend and you and your friend receive $20 off your next reservation.</p>
+
+              <div style="padding:3% 0px 2% 0px">
+              	<a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:reservation' %}">Start Your Reservation</a>
+              </div>
+              <p>or</p>
+              <div style="padding:1% 0px 1% 0px">
+              	<a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:prices' %}">See Our Other Prices</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   </section> 
+{% endblock content %}

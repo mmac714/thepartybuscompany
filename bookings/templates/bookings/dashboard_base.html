@@ -1,0 +1,107 @@
+{% load static %}
+{% load bootstrap3 %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta heetp-quiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=yes">
+    <title>Dashboard</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- Sidebar CSS -->
+    <link href="{% static 'users/sidebar.css' %}" rel="stylesheet">
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+
+  </head>
+  <body>
+
+
+	<div class="wrapper">
+  		<!-- sidebar holder -->
+  		<nav id="sidebar">
+		<!-- Sidebar Header -->
+			<div class="sidebar-header">
+				<h3>Dashboard Links</h3>
+			</div>
+
+
+		<!-- Sidebar Links -->
+			<ul class="list-unstyled components">
+				<p>Operations</p>
+				<li>
+					<a href="{% url 'bookings:booking_list' %}">Booking List</a>
+					<a href="{% url 'bookings:backend_reservation' %}">Custom Reservation</a>
+					<a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Pages</a>
+					<ul class="collapse list-unstyled" id="pageSubmenu">
+						<li><a href="#">Page 1</a></li>
+						<li><a href="#">Page 2</a></li>
+						<li><a href="#">Page 3</a></li>
+					</ul>
+				</li>
+			</ul>
+  		</nav>
+
+
+
+
+		<!-- Header content -->
+  		<div id="content">
+  			<nav class="navbar navbar-default">
+		<!-- We will fill this with dummy content -->
+				<div class="container-fluid">
+					<div class="navbar-header">
+                        <button type="button" id="sidebarCollapse" class="navbar-btn">
+                        	<span></span>
+                        	<span></span>
+                        	<span></span>
+                        </button> 
+                    </div>
+
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+						<div class="nav navbar-nav h4 navbar-right">
+							{% if user.is_authenticated %}
+
+								Hello, {{ user.username }}.
+								<div>
+									&nbsp;
+								</div>
+								<div class="text-right">
+									<a class="navbar-link" href="{%url 'users:logout' %}">
+										log out
+									</a>
+								</div>
+							{% else %}
+							<div>
+  							<a class="navbar-link" href="{% url 'users:login' %}">
+  								log in
+  							</a>
+  							</div>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</nav>	
+			{% block content %}
+			{% endblock content %}
+  		</div>
+  	</div>
+
+  	<div class="overlay"></div>
+
+         <!-- jQuery CDN -->
+        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+        <!-- Bootstrap Js CDN -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <!-- Custom Scroller Js CDN -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+
+       <script type="text/javascript" src="{% static 'users/sidebar.js' %}"></script>
+
+  </body>
+</html>
+

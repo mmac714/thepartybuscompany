@@ -1,0 +1,46 @@
+{% extends "bookings/dashboard_base.html" %}
+
+{% block content %}
+
+<div class="jumbotron">
+	<h4 class="text-left">
+		Bookings
+	</h4>
+	<div class="text-left" style="font-size:8;">
+		sorted by booking date	
+	</div>
+
+	<table class="table-striped table-hover">
+		<thead>
+			<tr>
+				<th width="15%">#</th>
+				<th width="20%" >Happening</th>
+				<th width="20%">date</th>
+				<th width="23%">Payment Status</th>
+				<th scope="col">email</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for booking in bookings %}
+				<tr>
+					<td>
+						<a href="{% url 'bookings:booking' booking.id %}">
+							{{ booking }}
+						</a>
+					</td>
+					<td>{{ booking.happening }}</td>
+					<td>{{ booking.date }}</td>
+					<td>{{ booking.payment.charge_status }}</td>
+					<td>{{ booking.payment.email }}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+<p style="color:red"> tap on the booking number to access the details.</p>
+<p style="color:red"> incomplete bookings display when the customer creates a reservation but does not pay.</p>
+<div class="line">
+</div>
+
+
+{% endblock content %}

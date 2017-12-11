@@ -1,0 +1,64 @@
+<h1>
+	The Party Bus Company
+</h1>
+
+<h2>
+invoice: {{ reservation.id }}
+</h2>
+
+<div>
+
+	<p>
+	Customer Name: {{ reservation.first_name }} {{ reservation.last_name }}
+	</p>
+	<p>
+		Contact: {{ payment.email }}
+	<p>
+	Date: {{ reservation.date }}
+	</p>
+	<p>
+	Group Size: up to {{ reservation.bus_size }} people
+	</p>
+	<p>
+	Time: {{ reservation.start_time }}
+	</p>
+	<p>
+	Amount of Hours: {{ reservation.duration }}
+	</p>
+	<p>
+	pick up: {{ reservation.location_pick_up }}
+	</p>
+	<p>
+	drop off: {{ reservation.location_drop_off }}
+	</p>
+	<p>
+		Comments/Request: {{ reservation.comments }}
+	</p>
+
+</div>
+
+
+<div style="padding:25px">
+	<p>
+		Tip amount: __________ (in $ or % of sale)
+	</p>
+</div>
+<div style="padding:25px">
+	<p>
+		Customer signature: _________________________
+	</p>
+</div>
+<div style="padding:25px">
+	<p>
+			Driver signature: _________________________
+	</p>
+</div>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,69 @@
+{% extends "bookings/dashboard_base.html" %}
+{% load bootstrap3 %}
+{% block content %}
+
+<body>
+<div class="jumbotron">
+	<div class="jumbotron-inner">
+		<h2>
+		Profile for Booking: {{ reservation.id }}
+		</h2>
+		<p>
+			Name: {{ reservation.first_name }} {{ reservation.last_name }}
+		</p>
+		<p>
+			Email: {{ payment.email }}
+		</p>
+
+	</div>
+
+	<div class="jumbotron-inner">
+		<h3>
+			Payment info:
+		</h3>
+		<div class="line">
+		</div>
+		<p>
+			Charge Status: {{ payment.charge_status }}
+		</p>
+		<p>
+			Charge Amount: {{ payment.charge_amount }}
+		</p>
+		<p>
+			Charge Description: {{ payment.charge_desription }} 
+		</p>
+		<p>
+			Stripe id: {{ payment.stripe_id }}
+		</p>
+	</div>
+
+
+	<div class="jumbotron-inner">
+		<h3>
+			Reservation Data:
+		</h3>
+		<div class="line">
+		</div>
+
+			<form action="{% url 'bookings:booking' reservation.id %}" method="post">
+				{% csrf_token %}
+				<div>
+					{% bootstrap_field r_form.date %}
+				</div>
+				<div>
+					{% bootstrap_field r_form.duration %}
+				</div>
+				<div>
+					{% bootstrap_field r_form.quote_amount %}
+				</div>
+				<button type="submit" name="btn-r_form">Save Changes</button>
+			</form>
+
+	</div>
+
+</div>
+
+<a href="{% url 'bookings:invoice' reservation.id %}" class="btn btn-info" role="button">Get invoice</a>
+
+</body>
+{% endblock content %}
