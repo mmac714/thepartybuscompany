@@ -202,6 +202,8 @@ STATICFILES_DIRS = [
 STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 STATICFILES_STORAGE = os.environ.get("STATICFILES_STORAGE")
 
+#STATIC_URL = '/static/'
+
 # Stripe Settings
 # STRIPE_LIVE_PIBLIC_KEY = grab from stripe when testing prod
 # STRIPE_LIVE_SECRET_KEY = grab from stripe when testing prod
