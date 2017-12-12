@@ -12,9 +12,10 @@ import stripe
 from .forms import ReservationForm, BackendReservationForm, BookingResForm
 from .models import Reservation, Payment
 
-from pb_config.settings import STRIPE_SECRET_KEY
+from pb_config.settings import STRIPE_SECRET_KEY, STRIPE_PUBLIC_KEY
 
 stripe.api_key = STRIPE_SECRET_KEY
+stripe_api_key = STRIPE_PUBLIC_KEY
 
 # Static pages
 def home(request):
@@ -73,6 +74,7 @@ def payment(request, reservation_id):
 	context = {
 		'reservation': reservation,
 		'payment': payment,
+		'stripe_api_key':stripe_api_key,
 		}
 	sent = False
 

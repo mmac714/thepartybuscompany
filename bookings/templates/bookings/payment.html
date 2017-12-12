@@ -73,7 +73,7 @@
           <form action="{% url 'bookings:payment' reservation.id %}" method="post">
             <script
             src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-            data-key="pk_test_DpPhRMRAYLkZqgZxgFLTM3vY"
+            data-key="{{ stripe_api_key }}"
             data-amount="{{ reservation.quote_amount }}"
             data-name="Party Bus"
             data-description="{{ reservation.bus_size }}"
