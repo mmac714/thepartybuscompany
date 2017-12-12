@@ -131,7 +131,6 @@ DB_PASSWORD = os.environ.get("DB_PASSWORD")
 # Heroku settings
 if os.getcwd() == '/app':
     # in development og.getcwd is
-    # /Users/macbook/djangoProjects/sixtymill/sixty_mill/sixty_mill
     DATABASES = {
         'default': dj_database_url.config(default='DATABASE_URL')
      }
@@ -205,16 +204,17 @@ STATICFILES_STORAGE = os.environ.get("STATICFILES_STORAGE")
 #STATIC_URL = '/static/'
 
 # Stripe Settings
+# local settings 
+STRIPE_LIVE_MODE = False
+STRIPE_PUBLIC_KEY = os.environ.get("STRIPE_TEST_PUBLIC_KEY", '')
+STRIPE_SECRET_KEY = os.environ.get("STRIPE_TEST_SECRET_KEY", '')
+
+# prod settings
 if os.getcwd() == '/app':
+
+    STRIPE_LIVE_MODE = True
     STRIPE_PUBLIC_KEY=os.environ.get("STRIPE_LIVE_PUBLIC_KEY", '')
     STRIPE_SECRET_KEY=os.environ.get("STRIPE_LIVE_SECRET_KEY", '')
-    STRIPE_LIVE_MODE = True
-
-# Local settings
-else:
-    STRIPE_PUBLIC_KEY = os.environ.get("STRIPE_TEST_PUBLIC_KEY", '')
-    STRIPE_SECRET_KEY = os.environ.get("STRIPE_TEST_SECRET_KEY", '')
-    STRIPE_LIVE_MODE = False
 
 # Email configurations
 # http://status.sendgrid.com/ for email status updares
