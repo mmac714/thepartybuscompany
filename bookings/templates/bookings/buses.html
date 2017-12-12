@@ -1,1 +1,71 @@
-buses.html
+{% extends "bookings/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<section id="contact" class="home-section nopadd-bot color-dark bg-white text-center">
+    <div class="container marginbot-50" style="padding:0px 10% 5% 10%">
+        <div class="col-lg-8 col-lg-offset-2">
+        </div>
+          <div class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
+            <div class="section-heading text-center">
+              <h2 class="h-bold">Buses</h2>
+              <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
+              </div>
+              <p style="padding:5% 75px 5% 75px" class="wow bounceInDown" data-wow-delay="0.2s">We offer the one of the largest Party Bus fleets in DFW
+              </p>
+          	</div>
+      	  </div>
+
+      	<div class="illustration">
+  			<img src="{% static 'Bookings/img/henock/white-outside.png' %}" alt="Party Van">
+  		</div>
+
+      	<div class="illustration">
+  			<img src="{% static 'Bookings/img/henock/Limo_Bus.png' %}" alt="Party Van">
+  		</div>
+
+  		<div class="illustration">
+  			<img src="{% static 'Bookings/img/henock/pb-black-outside.png' %}" alt="Party Van">
+  		</div>
+  		<div class="illustration">
+  			<img src="{% static 'Bookings/img/SprintOutside.png' %}" alt="Party Van">
+  		</div>
+  		  		<div class='illustration'>
+  			<img src="{% static 'Bookings/img/alliance22/2.png' %}" alt="Party bus">
+        </div>
+
+  		<div class="illustration text-center">
+  			<img src="{% static 'Bookings/img/alliance22/1.png' %}" alt="Party bus">
+  		</div>
+        <div class='illustration' >
+        	<img src="{% static 'Bookings/img/alliance22/3.png' %}" alt="Party bus">
+        </div>
+        <div class="illustration">
+  			<img src="{% static 'Bookings/img/henock/black-inside.png' %}" alt="Party Van">
+  		</div>
+  		<div class="illustration">
+  			<img src="{% static 'Bookings/img/henock/red-inside.png' %}" alt="Party Van">
+  		</div>
+  		<div class="illustration">
+  			<img src="{% static 'Bookings/img/henock/blue-tint-inside.png' %}" alt="Party Van">
+  		</div>
+
+
+
+
+      </div>
+			<div style="padding:3% 0px 2% 0px">
+              	<a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:reservation' %}">Start Your Reservation</a>
+              </div>
+              <p>or</p>
+              <div style="padding:1% 0px 1% 0px">
+              	<a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:prices' %}">See Our prices</a>
+              </div>
+
+
+
+
+</section>
+
+{% endblock content %}
