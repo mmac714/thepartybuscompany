@@ -12,9 +12,9 @@ import stripe
 from .forms import ReservationForm, BackendReservationForm, BookingResForm
 from .models import Reservation, Payment
 
-from pb_config.settings import STRIPE_TEST_SECRET_KEY
+from pb_config.settings import STRIPE_SECRET_KEY
 
-stripe.api_key = STRIPE_TEST_SECRET_KEY
+stripe.api_key = STRIPE_SECRET_KEY
 
 # Static pages
 def home(request):
@@ -29,6 +29,9 @@ def buses(request):
 def specials(request):
 	return render(request, 'bookings/specials.html')
 
+def highdemand(request):
+	return render(request, 'bookings/highdemand.html')
+
 # Create your views here.
 def reservation(request):
 	""" Show the reservation form and add a new reservation"""
@@ -42,9 +45,17 @@ def reservation(request):
 			# clean data?
 			Reservation().create_payment_instance(new_reservation)
 			Reservation().derive_quote_amount(new_reservation)
-			return HttpResponseRedirect(reverse('bookings:payment',
-				args=[new_reservation.id]))
-				# Send to relevant payment.html
+			
+			# Send to high demand page if date in high demand list
+			reservation = Reservation.objects.get(id=new_reservation.id)
+			from .high_demand import high_demand_list
+
+			if reservation.date in high_demand_list:
+				return HttpResponseRedirect(reverse('bookings:highdemand'))
+			else:	
+				return HttpResponseRedirect(reverse('bookings:payment',
+					args=[new_reservation.id]))
+					# Send to relevant payment.html
 	else:
 		form = ReservationForm()
 

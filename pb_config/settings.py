@@ -205,12 +205,16 @@ STATICFILES_STORAGE = os.environ.get("STATICFILES_STORAGE")
 #STATIC_URL = '/static/'
 
 # Stripe Settings
-# STRIPE_LIVE_PIBLIC_KEY = grab from stripe when testing prod
-# STRIPE_LIVE_SECRET_KEY = grab from stripe when testing prod
+if os.getcwd() == '/app':
+    STRIPE_PUBLIC_KEY=os.environ.get("STRIPE_LIVE_PUBLIC_KEY", '')
+    STRIPE_SECRET_KEY=os.environ.get("STRIPE_LIVE_SECRET_KEY", '')
+    STRIPE_LIVE_MODE = True
 
-STRIPE_TEST_PUBLIC_KEY = os.environ.get("STRIPE_TEST_PUBLIC_KEY", '')
-STRIPE_TEST_SECRET_KEY = os.environ.get("STRIPE_TEST_SECRET_KEY", '')
-STRIPE_LIVE_MODE = False
+# Local settings
+else:
+    STRIPE_PUBLIC_KEY = os.environ.get("STRIPE_TEST_PUBLIC_KEY", '')
+    STRIPE_SECRET_KEY = os.environ.get("STRIPE_TEST_SECRET_KEY", '')
+    STRIPE_LIVE_MODE = False
 
 # Email configurations
 # http://status.sendgrid.com/ for email status updares
@@ -224,6 +228,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # Date format
 DATE_INPUT_FORMATS = ('%d-%m-%Y','%Y-%m-%d')
+TIME_INPUT_FORMATS = ['%I:%M %p',]
 USE_L10N = True 
 
 

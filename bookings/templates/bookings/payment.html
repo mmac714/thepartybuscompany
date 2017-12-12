@@ -24,6 +24,7 @@
         <div class="col-md-8 col-md-offset-2 text-left">
           <p>Reservation ID: {{ reservation.id }}</p>
           <p>Date: {{ reservation.date }}</p>
+          <p>Pick Up Time: {{ reservation.start_time }}</p>
           <p>Group size: {{ reservation.bus_size }}</p>
 
           <script type="text/javascript">
@@ -44,8 +45,12 @@
           </script>
           <div id="division"></div>
 
+          <p>Transportation Fee: 20% </p>
+          <p>
+            Taxes: 7.25%
+          </p>
 
-          <p>Total Price: ${{ reservation.quote_amount|div:100 }}0</p>
+          <p>Total Price: ${{ reservation.quote_amount|div:100 }}</p>
           <div class="section-heading text-center">
           </div>
         </div>

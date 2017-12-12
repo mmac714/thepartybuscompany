@@ -22,7 +22,9 @@ class ReservationForm(forms.ModelForm):
 			"format": "mm/dd/yyyy",
 			"autoclose": True,
 		}))
-	duration = forms.IntegerField(widget=forms.NumberInput, initial=3, min_value=3, label='# of hours')
+	duration = forms.IntegerField(widget=forms.NumberInput, initial=5, min_value=4,
+		max_value=12, label='Number of hours')
+	start_time = forms.TimeField(initial='4:00 PM')
 
 	class Meta:
 		model = Reservation

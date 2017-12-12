@@ -6,12 +6,12 @@
 <section id="contact" class="home-section nopadd-bot color-dark bg-white text-center">
 	<div class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
         <div class="section-heading text-center">
-            <h2 class="h-bold">Reservation Form</h2>
+            <h2 class="h-bold">On Your Way!</h2>
         </div>
         </div>
               <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
               </div>
-              <p style="padding:5% 75px 5% 75px" class="wow bounceInDown" data-wow-delay="0.2s">Our pricing is straight forward.
+              <p style="padding:5% 75px 5% 75px" class="wow bounceInDown" data-wow-delay="0.2s">Complete the reservation form below.
               </p>
 	<form id="reservationform" action="{% url 'bookings:reservation' %}" method="post" class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
 		{% csrf_token %}

@@ -12,8 +12,9 @@ import datetime, time
 import stripe
 import uuid
 
-from pb_config.settings import STRIPE_TEST_SECRET_KEY
-stripe.api_key = STRIPE_TEST_SECRET_KEY
+from pb_config.settings import STRIPE_SECRET_KEY
+
+stripe.api_key = STRIPE_SECRET_KEY
 
 #from .reservation_num_generator import reservation_num_generator
 
@@ -53,33 +54,34 @@ class Reservation(models.Model):
 		bus_size = reservation.bus_size
 		date = reservation.date
 		day_of_week = date.weekday()
-		added_hours = duration - 3
+		added_hours = duration - 4
 
 		if bus_size == "30":
-			base_price = 419
-			added_hour_price = 129
+			base_price = 520
+			added_hour_price = 120
 		elif bus_size == "22":
-			base_price = 359
-			added_hour_price = 109
+			base_price = 480
+			added_hour_price = 110
 		elif bus_size == "16":
-			base_price = 329
-			added_hour_price = 99
+			base_price = 440
+			added_hour_price = 100
 		elif bus_size == "12":
-			base_price = 299
-			added_hour_price = 89
+			base_price = 400
+			added_hour_price = 90
 
 		# Friday and Saturday pricing
 		if day_of_week in [4, 5]:
-			base_price += 30
+			base_price += 40
 			added_hour_price += 10
 
 		# promotional offer 
-		if (bus_size == "12" and day_of_week in [0, 1, 2, 3, 6]):
-			base_price = 249
-			added_hour_price = 79
+		if bus_size == "12" and day_of_week in [0,1,2,3]:
+			base_price = 320
+			added_hour_price = 80
 
 		reservation.quote_amount = (base_price + (added_hours * added_hour_price))*100
-		reservation.quote_amount = reservation.quote_amount*1.20
+		reservation.quote_amount = reservation.quote_amount*1.2
+		reservation.quote_amount = reservation.quote_amount*1.0725
 		reservation.save()
 
 	def create_payment_instance(self, reservation):
@@ -209,7 +211,14 @@ class Payment(models.Model):
 			'charge_description':charge_description,
 			'reservation_date':reservation_date,
 			})
-		sender = 'operations@partybus.com'
+		sender = 'service@ThePartyBusCompany.io'
 		recipient = email
 
 		send_mail(subject, "", sender, recipient, html_message=body, fail_silently=False)
+
+		#send to service email address
+		recipient = ['service@ThePartyBusCompany.io']
+		subject = 'New Reservation ' + str(reservation.date)
+		send_mail(subject, "", sender, recipient, html_message=body, fail_silently=False)
+
+
