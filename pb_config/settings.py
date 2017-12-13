@@ -184,7 +184,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
-STATIC_URL = '/static/'
+
 
 if os.getcwd() == '/app':
 
@@ -202,6 +202,10 @@ if os.getcwd() == '/app':
     ]
     STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
     STATICFILES_STORAGE = os.environ.get("STATICFILES_STORAGE")
+
+else:
+    
+    STATIC_URL = '/static/'
 
 
 # Stripe Settings
