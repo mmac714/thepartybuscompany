@@ -3,6 +3,18 @@
 
 {% block content %}
 
+<nav class="navbar navbar-default navbar-fixed-top">
+      <a class="navbar-header navbar-brand h-1 text-center" href="http://127.0.0.1:8000/">The Party Bus Company</a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#intro">Reserve</a></li>
+         <li><a href="#pricing">Pricing</a></li>
+         <li><a href="#amenities">Amenities</a></li>
+        </ul>
+      </div>
+</nav>
+
  <!-- Section: contact -->
   <section id="contact" class="home-section nopadd-bot color-dark bg-white text-center">
     <div class="container marginbot-50" style="padding:0px 75px 15% 75px">
@@ -22,7 +34,7 @@
               	<thead>
               		<tr>
               			<th width="20%" class="text-center">Group Size</th>
-              			<th width="20%" class="text-center">Base Rate - 3 hours</th>
+              			<th width="20%" class="text-center">Base Rate</th>
               			<th width="20%" class="text-center">Additional Hour</th>
               		</tr>
               	</thead>
@@ -54,7 +66,7 @@
               	<thead>
               		<tr>
               			<th width="20%" class="text-center">Group Size</th>
-              			<th width="20%" class="text-center">Base Rate - 3 hours</th>
+              			<th width="20%" class="text-center">Base Rate</th>
               			<th width="20%" class="text-center">Additional Hour</th>
               		</tr>
               	</thead>
@@ -81,7 +93,7 @@
               </table>	
               </div>
               <p style="font-size: small">
-                prices do not include drivers tip, and 20% transportation fee. Please conctact us directly for high demand days and prom season pricing at service@ThePartyBusCompany.io.
+                Base rate includes 4 hour minumum. Prices do not include the 20% service and transport fee.
               </p>
               <div style="padding:3% 0px 2% 0px">
               	<a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:reservation' %}">Start Your Reservation</a>
