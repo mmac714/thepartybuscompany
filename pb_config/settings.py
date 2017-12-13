@@ -47,11 +47,14 @@ if os.getcwd() == '/app':
     DEBUG = False
 
     #DATABASES = {
-     #   'default': dj_database_url.config(default='DATABASE_URL')
-     #}
+    #   'default': dj_database_url.config(default='DATABASE_URL')
+    #}
 
-     # Honor the 'X-Forwarded-Proto' header for request.is_secure().
+    # Honor the 'X-Forwarded-Proto' header for request.is_secure().
+    SECURE_SSL_REDIRECT = True
+
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    
 
      # Alow all host headers.
     ALLOWED_HOSTS = ['*']
