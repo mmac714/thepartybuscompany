@@ -4,6 +4,10 @@ from django.conf.urls import url
 
 from . import views
 
+from django.contrib.staticfiles.storage import staticfiles_storage
+from django.views.generic.base import RedirectView
+
+
 urlpatterns = [
 	# Home page
 	url(r'^$', views.home, name='home'),
@@ -26,6 +30,10 @@ urlpatterns = [
 	url(r'^invoice/(?P<reservation_id>[0-9a-f-]+)/$',
 		views.invoice, name='invoice'),
 	url(r'^booking_list/$', views.booking_list, name='booking_list'),
-	url(r'^sitemap\.xml$', views.sitemap, name="sitemap")
+	url(r'^sitemap\.xml$', views.sitemap, name="sitemap"),
+	url(r'^favicon.ico$', 
+		RedirectView.as_view(url=staticfiles_storage.url('logo.png'),
+			permanent=False),
+		name="favicon"),
 
 ]

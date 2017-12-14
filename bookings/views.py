@@ -172,6 +172,12 @@ def sitemap(request):
 		open('bookings/static/Bookings/sitemap.xml').read(),
 		content_type='text/xml')
 
+def favicon(request):
+
+	return HttpResponse(
+		open('bookings/static/Bookings/img/logo.png').read(),
+		content_type='image/png')
+
 
 # Create your views here.
 def backend_reservation(request):
