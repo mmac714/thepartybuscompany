@@ -169,7 +169,7 @@ def booking_list(request):
 def sitemap(request):
 
 	return HttpResponse(
-		open('bookings/static/PartyBus/sitemap.xml').read(),
+		open('bookings/static/Bookings/sitemap.xml').read(),
 		content_type='text/xml')
 
 
