@@ -33,6 +33,9 @@ def specials(request):
 def highdemand(request):
 	return render(request, 'bookings/highdemand.html')
 
+def contact(request):
+	return render(request, 'bookings/contact.html')
+
 # Create your views here.
 def reservation(request):
 	""" Show the reservation form and add a new reservation"""

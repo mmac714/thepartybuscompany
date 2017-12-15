@@ -17,6 +17,7 @@ urlpatterns = [
 	url(r'^buses/$', views.buses, name='buses'),
 	url(r'^specials/$', views.specials, name='specials'),
 	url(r'^highdemand/$', views.highdemand, name='highdemand'),
+	url(r'^contact/$', views.contact, name='contact'),
 
 	# dynamic pages
 	url(r'^reservation/$', views.reservation, name='reservation'),
