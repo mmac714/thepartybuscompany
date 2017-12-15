@@ -31,6 +31,7 @@ class ReservationForm(forms.ModelForm):
 		fields = [
 		'first_name', 
 		'last_name', 
+		'phone_number',
 		'bus_size',
 		'date',
 		'start_time',
@@ -42,6 +43,7 @@ class ReservationForm(forms.ModelForm):
 		labels = {
 			'first_name': 'First Name',
 			'last_name': 'Last Name',
+			'phone_number': 'Phone Number',
 			'bus_size': 'Group Size',
 			'date': 'Reservation Date',
 			'start_time': 'Start Time',
@@ -66,6 +68,7 @@ class BackendReservationForm(forms.ModelForm):
 		fields = [
 		'first_name', 
 		'last_name', 
+		'phone_number',
 		'bus_size',
 		'date',
 		'start_time',
@@ -78,6 +81,7 @@ class BackendReservationForm(forms.ModelForm):
 		labels = {
 			'first_name': 'First Name',
 			'last_name': 'Last Name',
+			'phone_number': 'Phone Number',
 			'bus_size': 'Group Size',
 			'date': 'Reservation Date',
 			'start_time': 'Start Time',

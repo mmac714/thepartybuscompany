@@ -43,6 +43,7 @@ class Reservation(models.Model):
 	location_drop_off= models.CharField(max_length=1024, null=True, blank=True)
 	comments = models.CharField(max_length=1024, null=True, blank=True)
 	quote_amount = models.IntegerField(default=0)
+	phone_number = models.CharField(max_length=12)
 
 	def __str__(self):
 		""" Return the id of the model """
@@ -64,10 +65,10 @@ class Reservation(models.Model):
 			added_hour_price = 110
 		elif bus_size == "16":
 			base_price = 440
-			added_hour_price = 100
+			added_hour_price = 105
 		elif bus_size == "12":
 			base_price = 400
-			added_hour_price = 90
+			added_hour_price = 95
 
 		# Friday and Saturday pricing
 		if day_of_week in [4, 5]:
