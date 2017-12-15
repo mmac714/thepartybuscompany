@@ -178,8 +178,7 @@ def favicon(request):
 		open('bookings/static/Bookings/img/logo.png').read(),
 		content_type='image/png')
 
-
-# Create your views here.
+@login_required
 def backend_reservation(request):
 	""" Show the reservation form and add a new reservation"""
 	if request.method == 'POST':
