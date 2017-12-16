@@ -18,10 +18,14 @@ urlpatterns = [
 	url(r'^specials/$', views.specials, name='specials'),
 	url(r'^highdemand/$', views.highdemand, name='highdemand'),
 	url(r'^contact/$', views.contact, name='contact'),
-	url(r'^success/$', views.success, name='success'),
 
 	# dynamic pages
 	url(r'^reservation/$', views.reservation, name='reservation'),
+
+	url(r'^quote_form/$', views.quote_form, name='quote_form'),
+	url(r'^quote/(?P<reservation_id>[0-9a-f-]+)/$', views.quote, name='quote'),
+
+
 	url(r'^backend-reservation/$', views.backend_reservation, 
 		name='backend_reservation'),
 	url(r'^payment/(?P<reservation_id>[0-9a-f-]+)/$', views.payment, name='payment'),

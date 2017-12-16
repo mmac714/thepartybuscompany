@@ -13,6 +13,28 @@ from pb_config.settings import DATE_INPUT_FORMATS
 today = datetime.date.today()
 saturday = today + datetime.timedelta( (5-today.weekday()) % 7)
 
+class QuoteForm(forms.ModelForm):
+	date = forms.DateField(initial=saturday, widget=DatePicker(
+		options={
+			"format": "mm/dd/yyyy",
+			"autoclose": True,
+		}))
+	duration = forms.IntegerField(widget=forms.NumberInput, initial=5, min_value=4,
+		max_value=12, label='Number of hours')
+
+	class Meta:
+		model = Reservation
+		fields = [
+		'date',
+		'bus_size',
+		'duration'
+			]
+
+		labels = {
+		'date':'Reservation Date',
+		'bus_size':'Group Size',
+		'duration': 'Number of hours',
+			}
 
 class ReservationForm(forms.ModelForm):
 

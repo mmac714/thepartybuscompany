@@ -10,7 +10,8 @@ from django.template import Context
 import stripe
 
 from .forms import ReservationForm, BackendReservationForm, BookingResForm,\
-ContactForm
+ContactForm, QuoteForm
+
 from .models import Reservation, Payment
 
 from pb_config.settings import STRIPE_SECRET_KEY, STRIPE_PUBLIC_KEY
@@ -19,10 +20,22 @@ stripe.api_key = STRIPE_SECRET_KEY
 stripe_api_key = STRIPE_PUBLIC_KEY
 
 # Static pages
-def success(request):
-	return HttpResponse('Your email has been sent, \
-		we will follow up within 2 business hours.')
+def prices(request):
+	return render(request, 'bookings/prices.html')
 
+def buses(request):
+	return render(request, 'bookings/buses.html')
+
+def specials(request):
+	return render(request, 'bookings/specials.html')
+
+def highdemand(request):
+	return render(request, 'bookings/highdemand.html')
+
+def contact(request):
+	return render(request, 'bookings/contact.html')
+
+# Non static pages
 def home(request):
 	form = ContactForm()
 
@@ -60,20 +73,6 @@ def home(request):
 		}
 	return render(request, 'bookings/home.html', context)
 
-def prices(request):
-	return render(request, 'bookings/prices.html')
-
-def buses(request):
-	return render(request, 'bookings/buses.html')
-
-def specials(request):
-	return render(request, 'bookings/specials.html')
-
-def highdemand(request):
-	return render(request, 'bookings/highdemand.html')
-
-def contact(request):
-	return render(request, 'bookings/contact.html')
 
 # Create your views here.
 def reservation(request):
@@ -106,6 +105,48 @@ def reservation(request):
 		'form': form,
 		}
 	return render(request, 'bookings/reservation.html', context)
+
+def quote_form(request):
+	""" Show the Initial quote form, and calculate quote """
+	if request.method == 'POST':
+		# Form was submitted
+		form = QuoteForm(request.POST)
+		if form.is_valid():
+			# Form fields passed validation.
+			form.save()
+			new_reservation = form.save()
+			Reservation().create_payment_instance(new_reservation)
+			Reservation().derive_quote_amount(new_reservation)
+
+			# Send to high demand page if date in high demand list
+			reservation = Reservation.objects.get(id=new_reservation.id)
+			from .high_demand import high_demand_list
+
+			if reservation.date in high_demand_list:
+				return HttpResponseRedirect(reverse('bookings:highdemand'))
+			else:	
+				return HttpResponseRedirect(reverse('bookings:quote',
+					args=[new_reservation.id]))
+					# Send to relevant payment.html
+
+	else:
+		form = QuoteForm()
+
+	context = {
+		'form': form,
+		}
+	return render(request, 'bookings/quote_form.html', context)
+
+def quote(request, reservation_id):
+	reservation = Reservation.objects.get(id=reservation_id)
+
+	context = {
+		'reservation': reservation,
+		}
+
+	return render(request, 'bookings/quote.html', context)
+
+
 
 
 @csrf_exempt #cannot pass CSRF cookie to stripe and back

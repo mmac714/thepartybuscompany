@@ -1,0 +1,18 @@
+{% extends "bookings/base.html" %}
+{% load bootstrap3 %}
+{% load static %}
+<script src="{% static 'Bookings/js/jquery.min.js' %}"></script>
+{% block content %}
+	<form id="quoteform" action="{% url 'bookings:reservation' %}" method="post" class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
+		{% csrf_token %}
+		<div class="form-padding form-group">
+			{% bootstrap_field form.date %}
+			{% bootstrap_field form.bus_size %}
+			{% bootstrap_field form.duration %}
+		</div>
+
+		<div style="padding:0% 0px 10% 0px">
+    	<a class="big-heading highlight-dark wow bounceInDown btn-red" onclick="document.getElementById('quoteform').submit()">Continue</a>
+    	</div>
+    </form>
+{% endblock content %}
