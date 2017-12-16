@@ -9,7 +9,8 @@ from django.template import Context
 
 import stripe
 
-from .forms import ReservationForm, BackendReservationForm, BookingResForm
+from .forms import ReservationForm, BackendReservationForm, BookingResForm,\
+ContactForm
 from .models import Reservation, Payment
 
 from pb_config.settings import STRIPE_SECRET_KEY, STRIPE_PUBLIC_KEY
@@ -18,8 +19,46 @@ stripe.api_key = STRIPE_SECRET_KEY
 stripe_api_key = STRIPE_PUBLIC_KEY
 
 # Static pages
+def success(request):
+	return HttpResponse('Your email has been sent, \
+		we will follow up within 2 business hours.')
+
 def home(request):
-	return render(request, 'bookings/home.html')
+	form = ContactForm()
+
+	if request.method == 'POST':
+		form = ContactForm(request.POST)
+
+		if form.is_valid():
+			email = request.POST.get("from_email")
+			customer_email = [str(email),]
+
+			try:
+				sender = 'service@ThePartyBusCompany.io'
+				recipient = customer_email
+				message = form.cleaned_data['message']
+				body = get_template('bookings/web_message_confirmation.html').render(
+					{'message': message,
+					})
+				# Send email to customer
+				send_mail('The Party Bus Company',"", sender, recipient,
+					html_message=body, fail_silently=False)
+				# Send email to service
+				recipient = ['service@ThePartyBusCompany.io']
+				subject = 'Web Contact - ' + str(customer_email)
+
+				send_mail(subject, "", email, recipient, html_message=body,
+					fail_silently=False)
+
+			except BadHeaderError:
+				return HttpResponse('Invalid header found.')
+
+			return HttpResponseRedirect(reverse('bookings:contact'))
+
+	context = {
+		'form': form,
+		}
+	return render(request, 'bookings/home.html', context)
 
 def prices(request):
 	return render(request, 'bookings/prices.html')

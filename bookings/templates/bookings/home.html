@@ -81,20 +81,34 @@
 
 -->
 
-    <section id="parallax2" class="home-section parallax text-light" data-stellar-background-ratio="0.3">
-    <div class="container" style="padding: 0 0 0 0">
-      <div class="row">
+<section id="contact" class="home-section nopadd-bot color-dark bg-white text-center">
+    <div class="container marginbot-50" style="padding:0px 10% 5% 10%">
         <div class="col-lg-8 col-lg-offset-2">
+        </div>
           <div class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
             <div class="section-heading text-center">
-              <div style="padding:5% 75px 0% 75px">
-                <a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:reservation' %}">Reserve Online</a>
-              </div>
-              <h2 class="h-bold">or</h2>
+              <h2 class="h-bold">Unsure? Contact us. we're quick!</h2>
               <div class="divider-header"></div>
-              <p>Call/text 817-513-4168 or email
-                <a href='mailto:service@ThePartyBusCompany.io' style="color: red"> service@ThePartyBusCompany.io
-                </a>to reserve your party bus!</p>
+              <p>Call or text us at <a style="color: red" href="tel:+18175134168">817-513-4168</a> - 9:00 AM to 9:00 PM.</p>
+              <div class="section-heading text-center">
+              <h2 class="h-bold">Or</h2>
+              <form id="Contactform" method="post">
+                <div class="form-padding form-group" style="padding-bottom: 1%">
+                {% csrf_token %}
+                {% bootstrap_field form.from_email %}
+                {% bootstrap_field form.message %}
+              </div>
+                <div class="form-actions">
+                  <a class="big-heading highlight-dark wow bounceInDown btn-red" onclick="document.getElementById('Contactform').submit()">Send Message</a>
+                </div>
+              </form><!--
+              <div style="padding-top: 10%">
+              <h2 class="h-bold">Phones your thing?</h2>
+              <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
+              </div>
+              <p>Call or text us at <a style="color: red" href="tel:+18175134168">817-513-4168</a> - 9:00 AM to 9:00 PM.</p>
+            </div> -->
+          </div>
             </div>
           </div>
         </div>

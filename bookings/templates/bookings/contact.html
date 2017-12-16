@@ -4,7 +4,7 @@
 {% block content %}
 <!-- Section: Navbar -->
 <nav class="navbar navbar-default navbar-fixed-top">
-      <a class="navbar-header navbar-brand h-1 text-center" href="http://www.thepartybuscompany.io">The Party Bus Company</a>
+      <a class="navbar-header navbar-brand h-1 text-center" href="{% url 'bookings:home' %}">The Party Bus Company</a>
       </div>
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
@@ -13,10 +13,10 @@
       </button>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="http://www.thepartybuscompany.io/reservation">Reserve</a></li>
-         <li><a href="http://www.thepartybuscompany.io/prices">Prices</a></li>
-         <li><a href="http://www.thepartybuscompany.io/buses">Buses</a></li>
-         <li><a href="http://www.thepartybuscompany.io/specials">Specials</a></li>
+          <li><a href="{% url 'bookings:reservation' %}">Reserve</a></li>
+         <li><a href="{% url 'bookings:prices' %}">Prices</a></li>
+         <li><a href="{% url 'bookings:buses' %}">Buses</a></li>
+         <li><a href="{% url 'bookings:specials' %}">Specials</a></li>
         </ul>
       </div>
 </nav>
@@ -28,18 +28,30 @@
         </div>
           <div class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
             <div class="section-heading text-center">
-              <h2 class="h-bold">Questions?</h2>
+              <h2 class="h-bold">Success!</h2>
               <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
               </div>
-              <p>Call or text 817-513-4168 or email
-                <a href='mailto:service@ThePartyBusCompany.io' style="color: red"> service@ThePartyBusCompany.io
-                </a>for questions or reservations!</p>
+              <p>Your email has been delivered to <a href='mailto:service@ThePartyBusCompany.io' style="color: red"> service@ThePartyBusCompany.io
+                </a> - we will follow up within 2 business hours.</p>
             </div>
           </div>
+        </div>
 
+
+
+    <div class="container marginbot-50" style="padding:0px 10% 5% 10%">
+        <div class="col-lg-8 col-lg-offset-2">
+
+          <div class="section-heading text-center wow flipInY" data-wow-offset="0" data-wow-delay="0.4s" style="padding:15%">
+              <h2 class="h-bold">Phones your thing?</h2>
+              <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
+              </div>
+              <p>Call or text us at <a style="color: red" href="tel:+18175134168">817-513-4168</a>. 9:00 AM to 11:00 PM.</p>
+            </div>
+          </div>
       </div>
-      <div style="padding:3% 0px 2% 0px">
-                <a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:reservation' %}">Reserve online</a>
+      <div style="padding:0% 0px 10% 0px">
+                <a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:home' %}">Return To The Home Page</a>
               </div>
               </section>
 

@@ -98,6 +98,11 @@ class BookingResForm(forms.ModelForm):
 		model = Reservation
 		fields = ['date','duration', 'quote_amount' ] 
 
+class ContactForm(forms.Form):
+	from_email = forms.EmailField(required=True, label='Your email address')
+	message = forms.CharField(widget=forms.Textarea, required=True)
+
+
 
 
 
