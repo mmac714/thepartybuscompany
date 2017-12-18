@@ -14,7 +14,6 @@
       </button>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="{% url 'bookings:reservation' %}">Reserve</a></li>
          <li><a href="{% url 'bookings:prices' %}">Prices</a></li>
          <li><a href="{% url 'bookings:buses' %}">Buses</a></li>
          <li><a href="{% url 'bookings:specials' %}">Specials</a></li>
@@ -62,8 +61,8 @@
             <div style="padding:5% 25px 10% 25px">
               <p>Referral Bonus - Refer a friend and you and your friend receive $20 off your next reservation.</p>
 
-              <div style="padding:3% 0px 2% 0px">
-              	<a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:reservation' %}">Start Your Reservation</a>
+              <div style="padding:3% 0px 2% 0px"> 
+                <a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:quote_form' %}">Get your total price</a>
               </div>
               <p>or</p>
               <div style="padding:1% 0px 1% 0px">

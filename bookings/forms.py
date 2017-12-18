@@ -1,5 +1,5 @@
 from django import forms
-from .models import Reservation
+from .models import Reservation, NoResSurvey
 from django.contrib.admin import widgets   
 
 import datetime
@@ -38,15 +38,16 @@ class QuoteForm(forms.ModelForm):
 
 class ReservationForm(forms.ModelForm):
 
+	#def write_quoteform_date_to_form
 
 	date = forms.DateField(initial=saturday, widget=DatePicker(
 		options={
 			"format": "mm/dd/yyyy",
 			"autoclose": True,
 		}))
+
 	duration = forms.IntegerField(widget=forms.NumberInput, initial=5, min_value=4,
 		max_value=12, label='Number of hours')
-	start_time = forms.TimeField(initial='4:00 PM')
 
 	class Meta:
 		model = Reservation
@@ -54,25 +55,23 @@ class ReservationForm(forms.ModelForm):
 		'first_name', 
 		'last_name', 
 		'phone_number',
-		'bus_size',
-		'date',
 		'start_time',
-		'duration',
 		'location_pick_up',
 		'location_drop_off',
 		'comments',
+		'date',
+		'duration',
 		] 
 		labels = {
 			'first_name': 'First Name',
 			'last_name': 'Last Name',
 			'phone_number': 'Phone Number',
 			'bus_size': 'Group Size',
-			'date': 'Reservation Date',
 			'start_time': 'Start Time',
-			'duration': 'Number of Hours',
 			'location_pick_up': 'Pick Up Location',
 			'location_drop_off': 'Drop Off Location',
 			'comments': 'Service Comments or Request',
+			'duration': 'Number of Hours',
 			}
 
 
@@ -124,6 +123,14 @@ class ContactForm(forms.Form):
 	from_email = forms.EmailField(required=True, label='Your email address')
 	message = forms.CharField(widget=forms.Textarea, required=True)
 
+class NoResSurveyForm(forms.ModelForm):
+	""" form to take a survey of why people did not want reserve. """
+	class Meta:
+		model = NoResSurvey
+		fields = ['reason', 'detail']
+		labels = {
+			'detail': 'Open feedback (optional)',
+			}
 
 
 

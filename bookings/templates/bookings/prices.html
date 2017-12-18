@@ -13,7 +13,6 @@
       </button>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="{% url 'bookings:reservation' %}">Reserve</a></li>
          <li><a href="{% url 'bookings:prices' %}">Prices</a></li>
          <li><a href="{% url 'bookings:buses' %}">Buses</a></li>
          <li><a href="{% url 'bookings:specials' %}">Specials</a></li>
@@ -22,8 +21,8 @@
 </nav>
 
  <!-- Section: contact -->
-  <section id="contact" class="home-section nopadd-bot color-dark bg-white text-center">
-    <div class="container marginbot-50" style="padding:0px 75px 15% 75px">
+  <section class="home-section nopadd-bot color-dark bg-white text-center">
+    <div class="container marginbot-50" style="padding:0px 10% 15% 10%">
       <div class="row">
         <div class="col-lg-8 col-lg-offset-2">
           <div class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
@@ -31,7 +30,7 @@
               <h2 class="h-bold">Prices</h2>
               <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
               </div>
-              <p style="padding:5% 75px 5% 75px" class="wow bounceInDown" data-wow-delay="0.2s">Our pricing is clear.
+              <p style="padding:5% 10% 5% 10%" class="wow bounceInDown" data-wow-delay="0.2s">Our pricing is clear.
               </p>
 
               <div style="padding:5% 0px 5% 0px">
@@ -101,8 +100,8 @@
               <p style="font-size: small">
                 *4 hour minumum. Prices do not include the 20% service and transport fee.
               </p>
-              <div style="padding:3% 0px 2% 0px">
-              	<a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:reservation' %}">Start Your Reservation</a>
+              <div style="padding:3% 0px 2% 0px"> 
+              	<a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:quote_form' %}">Get your total price</a>
               </div>
               <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
               </div>
@@ -119,5 +118,5 @@
         </div>
       </div>
     </div>
-   </section> 
+   </section> -->
 {% endblock content %}

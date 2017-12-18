@@ -3,16 +3,27 @@
 {% load static %}
 <script src="{% static 'Bookings/js/jquery.min.js' %}"></script>
 {% block content %}
-	<form id="quoteform" action="{% url 'bookings:reservation' %}" method="post" class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
-		{% csrf_token %}
-		<div class="form-padding form-group">
-			{% bootstrap_field form.date %}
-			{% bootstrap_field form.bus_size %}
-			{% bootstrap_field form.duration %}
-		</div>
+<section id="contact" class="home-section nopadd-bot color-dark bg-white text-center">
+	<div class="container marginbot-50" style="padding:0px 10% 15% 10%">
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+          <div class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
+            <div class="section-heading text-center">
+              <h2 class="h-bold">Nothing to hide</h2>
+              <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
+              </div>
+              <p class="wow bounceInDown" data-wow-delay="0.2s">Complete the form to get your total price.</p>
+              <form id="quoteform" action="{% url 'bookings:quote_form' %}" method="post" class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
+              	{% csrf_token %}
+              	<div class="form-padding form-group">
+              		{% bootstrap_field form.date %}
+              		{% bootstrap_field form.bus_size %}
+              		{% bootstrap_field form.duration %}
+              	</div>
 
 		<div style="padding:0% 0px 10% 0px">
-    	<a class="big-heading highlight-dark wow bounceInDown btn-red" onclick="document.getElementById('quoteform').submit()">Continue</a>
+    	<a class="big-heading highlight-dark wow bounceInDown btn-red text-center" onclick="document.getElementById('quoteform').submit()">Get Price</a>
     	</div>
     </form>
+</section>
 {% endblock content %}

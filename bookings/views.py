@@ -10,7 +10,7 @@ from django.template import Context
 import stripe
 
 from .forms import ReservationForm, BackendReservationForm, BookingResForm,\
-ContactForm, QuoteForm
+ContactForm, QuoteForm, NoResSurveyForm
 
 from .models import Reservation, Payment
 
@@ -75,36 +75,29 @@ def home(request):
 
 
 # Create your views here.
-def reservation(request):
+def reservation(request, reservation_id):
+	reservation = Reservation.objects.get(id=reservation_id)
 	""" Show the reservation form and add a new reservation"""
 	if request.method == 'POST':
 		# Form was submitted
-		form = ReservationForm(request.POST)
+		form = ReservationForm(request.POST, instance=reservation)
+		form.date = reservation.date
 		if form.is_valid():
 			# Form fields passed validation.
 			form.save()
-			new_reservation = form.save()
 			# clean data?
-			Reservation().create_payment_instance(new_reservation)
-			Reservation().derive_quote_amount(new_reservation)
-			
-			# Send to high demand page if date in high demand list
-			reservation = Reservation.objects.get(id=new_reservation.id)
-			from .high_demand import high_demand_list
-
-			if reservation.date in high_demand_list:
-				return HttpResponseRedirect(reverse('bookings:highdemand'))
-			else:	
-				return HttpResponseRedirect(reverse('bookings:payment',
-					args=[new_reservation.id]))
-					# Send to relevant payment.html
+			return HttpResponseRedirect(reverse('bookings:payment',
+					args=[reservation]))
+		else:
+			return HttpResponse(form.errors.as_data())
 	else:
-		form = ReservationForm()
+		form = ReservationForm(instance=reservation)
 
-	context = {
-		'form': form,
-		}
-	return render(request, 'bookings/reservation.html', context)
+		context = {
+			'form': form,
+			'reservation': reservation
+			}
+		return render(request, 'bookings/reservation.html', context)
 
 def quote_form(request):
 	""" Show the Initial quote form, and calculate quote """
@@ -126,7 +119,7 @@ def quote_form(request):
 				return HttpResponseRedirect(reverse('bookings:highdemand'))
 			else:	
 				return HttpResponseRedirect(reverse('bookings:quote',
-					args=[new_reservation.id]))
+					args=[new_reservation]))
 					# Send to relevant payment.html
 
 	else:
@@ -141,11 +134,29 @@ def quote(request, reservation_id):
 	reservation = Reservation.objects.get(id=reservation_id)
 
 	context = {
-		'reservation': reservation,
-		}
+	'reservation': reservation,
+	}
 
 	return render(request, 'bookings/quote.html', context)
 
+def quote_no_reservation(request, reservation_id):
+	reservation = Reservation.objects.get(id=reservation_id)
+
+	if request.method == 'POST':
+		form = NoResSurveyForm(request.POST, instance=reservation)
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect(reverse('bookings:home'))
+
+	else:
+		form = NoResSurveyForm()
+		
+		context = {
+		'reservation': reservation,
+		'form': form,
+		}
+
+	return render(request, 'bookings/quote_no_reservation.html', context)
 
 
 

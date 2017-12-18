@@ -13,7 +13,7 @@
             <div class="section-heading text-center">
               <h2 class="h-bold">You're one step away!</h2>
               <div class="divider-header"></div>
-              <p>Confirm your reservation details below, then tap "Pay with Card" to complete your Party Bus reservation.</p>
+              <p>Confirm your reservation details, then pay the non-refundable deposit by tapping "Pay with Card" to complete your Party Bus reservation.</p>
             </div>
           </div>
         </div>
@@ -22,9 +22,16 @@
     <div class="container">
       <div class="row marginbot-80">
         <div class="col-md-8 col-md-offset-2 text-left">
+          <div><p style="font-size: xx-large;"> Contact Info:</p>
+            </div>
           <p>Reservation ID: {{ reservation.id }}</p>
+          <p>Name: {{ reservation.first_name }} {{ reservation.last_name }}</p>
+          <p>Phone number: {{reservation.phone_number }}</p>
+            <div><p style="font-size: xx-large;"> Reservation Info:</p>
+            </div>
           <p>Date: {{ reservation.date }}</p>
-          <p>Pick Up Time: {{ reservation.start_time }}</p>
+          <p>Pick up: {{ reservation.start_time }} at {{ reservation.location_pick_up }}</p>
+          <p>Hours: {{ reservation.duration }} </p>
           <p>Group size: {{ reservation.bus_size }}</p>
 
           <script type="text/javascript">
@@ -44,12 +51,6 @@
             document.getElementsByID('division').innerHTML=quote;
           </script>
           <div id="division"></div>
-
-          <p>Transportation Fee: 20% </p>
-          <p>
-            Taxes: 7.25%
-          </p>
-
           <p>Total Price: ${{ reservation.quote_amount|div:100 }}</p>
           <div class="section-heading text-center">
           </div>
@@ -87,10 +88,10 @@ Electronic Signatures and Modifications to the Agreement. I agree to transact bu
             <script
             src="https://checkout.stripe.com/checkout.js" class="stripe-button"
             data-key="{{ stripe_api_key }}"
-            data-amount="{{ reservation.quote_amount }}"
-            data-name="Party Bus"
-            data-description="{{ reservation.bus_size }}"
-            data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+            data-amount="20000"
+            data-name="Deposit for Reservation"
+            data-description="{{ reservation.bus_size }} person bus on {{ reservation.date }}"
+            data-image="{% static 'Bookings/img/logo.png' %}"
             data-locale="auto">    
             </script>
           </form>

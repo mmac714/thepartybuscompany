@@ -1,9 +1,54 @@
 {% extends "bookings/base.html" %}
 {% load bootstrap3 %}
 {% load static %}
+{% load mathfilters %}
 
 {% block content %}
-Quote amount {{ reservation.quote_amount }}
 
+<!-- Section: Navbar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+      <a class="navbar-header navbar-brand h-1 text-center" href="{% url 'bookings:home' %}">The Party Bus Company</a>
+      </div>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav navbar-right">
+         <li><a href="{% url 'bookings:prices' %}">Prices</a></li>
+         <li><a href="{% url 'bookings:buses' %}">Buses</a></li>
+         <li><a href="{% url 'bookings:specials' %}">Specials</a></li>
+        </ul>
+      </div>
+</nav>
+
+
+<section id="contact" class="home-section nopadd-bot color-dark bg-white text-center">
+    <div class="container marginbot-50" style="padding:0px 10% 0% 10%">
+        <div class="col-lg-8 col-lg-offset-2">
+        </div>
+          <div class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
+            <div class="section-heading text-center">
+              <h2 class="h-bold">Our best price</h2>
+              <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
+              </div>
+              <p>We have a {{ reservation.bus_size }} person bus for {{ reservation.duration }} hours on {{reservation.date }} available for ${{ reservation.quote_amount|div:100 }}. Your price includes service/transportation fees, and taxes.<span style="color: red"> Prices may increase with demand. </span></p>
+              <h2 class="h-bold">A $200 deposit</h2>
+              <p>reserves your bus and your price!</p>
+            </div>
+          </div>
+        </div>
+        <div style="padding:0% 0px 5% 0px">
+                <a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:reservation' reservation.id %}">Reserve Now</a>
+              </div>
+
+        <div style="padding:0% 0px 5% 0px">
+                <a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:quote_no_reservation' reservation.id %}">Not Yet</a>
+              </div>
+      <div style="padding:0% 0px 10% 0px">
+                <a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:home' %}#contact">Unsure?</a>
+              </div>
+              </section>
 
 {% endblock content %}

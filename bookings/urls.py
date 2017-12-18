@@ -20,10 +20,14 @@ urlpatterns = [
 	url(r'^contact/$', views.contact, name='contact'),
 
 	# dynamic pages
-	url(r'^reservation/$', views.reservation, name='reservation'),
+	url(r'^reservation/(?P<reservation_id>[0-9a-f-]+)/$', 
+		views.reservation, name='reservation'),
 
 	url(r'^quote_form/$', views.quote_form, name='quote_form'),
-	url(r'^quote/(?P<reservation_id>[0-9a-f-]+)/$', views.quote, name='quote'),
+	url(r'^quote/(?P<reservation_id>[0-9a-f-]+)/$', 
+		views.quote, name='quote'),
+	url(r'^quote_no_reservation/(?P<reservation_id>[0-9a-f-]+)/$', views.quote_no_reservation,
+		name='quote_no_reservation'),
 
 
 	url(r'^backend-reservation/$', views.backend_reservation, 
@@ -31,11 +35,14 @@ urlpatterns = [
 	url(r'^payment/(?P<reservation_id>[0-9a-f-]+)/$', views.payment, name='payment'),
 	url(r'^confirmation/(?P<reservation_id>[0-9a-f-]+)/$', views.confirmation, 
 		name='confirmation'),
+	
 	url(r'^booking/(?P<reservation_id>[0-9a-f-]+)/$',
 		views.booking, name='booking'),
 	url(r'^invoice/(?P<reservation_id>[0-9a-f-]+)/$',
 		views.invoice, name='invoice'),
 	url(r'^booking_list/$', views.booking_list, name='booking_list'),
+
+
 	url(r'^sitemap\.xml$', views.sitemap, name="sitemap"),
 	url(r'^favicon.ico$', 
 		RedirectView.as_view(url=staticfiles_storage.url('logo.png'),

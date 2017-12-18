@@ -26,6 +26,15 @@ bus_sizes = (
 	('30', '30 passengers'),
 	)
 
+no_res_survey_choices = {
+	('service', "I'm not sure if you offer the service I'm looking for."),
+	('prices too high', "Party buses are too expensive"),
+	('prices not competitive', "I found a lower price somewhere else"),
+	('bus',"I want more info on the bus"),
+	('quotes',"I'm just here to get a quote"),
+}
+
+
 # Create your models here.
 class Reservation(models.Model):
 	"""User entry reservation data.
@@ -37,7 +46,7 @@ class Reservation(models.Model):
 	last_name = models.CharField(max_length=100)
 	bus_size = models.CharField(max_length=2,choices=bus_sizes)
 	date = models.DateField()
-	start_time = models.TimeField()
+	start_time = models.TimeField(default="19:00", null=True, blank=True)
 	duration = models.IntegerField("Number of hours")
 	location_pick_up = models.CharField(max_length=1024, null=True, blank=True)
 	location_drop_off= models.CharField(max_length=1024, null=True, blank=True)
@@ -87,6 +96,17 @@ class Reservation(models.Model):
 
 	def create_payment_instance(self, reservation):
 		Payment.objects.create(reservation=reservation)
+
+class NoResSurvey(models.Model):
+	reservation = models.OneToOneField(Reservation,
+		primary_key=True,
+		)
+	reason = models.CharField(max_length=2,choices=no_res_survey_choices)
+	detail = models.TextField(null=True, blank=True)
+
+	def __str__(self):
+		""" Return the id of the model """
+		return str(self.id)
 
 
 class Payment(models.Model):
@@ -174,7 +194,7 @@ class Payment(models.Model):
 
 		try:
 			charge = stripe.Charge.create(
-				amount=fee,
+				amount=20000,
 				currency="usd",
 				customer=stripe_customer_id,
 				description=bus_size,
