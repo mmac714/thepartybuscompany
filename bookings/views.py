@@ -141,22 +141,23 @@ def quote(request, reservation_id):
 
 def quote_no_reservation(request, reservation_id):
 	reservation = Reservation.objects.get(id=reservation_id)
+	survey = NoResSurvey.objects.get(reservation=reservation_id)
 
 	if request.method == 'POST':
-		form = NoResSurveyForm(request.POST, instance=reservation)
+		form = NoResSurveyForm(request.POST, instance=survey)
 		if form.is_valid():
 			form.save()
 			return HttpResponseRedirect(reverse('bookings:home'))
 
 	else:
-		form = NoResSurveyForm(instance=reservation)
+		form = NoResSurveyForm()
 		
 		context = {
 		'reservation': reservation,
 		'form': form,
 		}
 
-	return render(request, 'bookings/quote_no_reservation.html', context)
+		return render(request, 'bookings/quote_no_reservation.html', context)
 
 
 

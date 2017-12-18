@@ -102,7 +102,7 @@ class NoResSurvey(models.Model):
 	reservation = models.OneToOneField(Reservation,
 		primary_key=True,
 		)
-	reason = models.CharField(max_length=150,choices=no_res_survey_choices)
+	reason = models.CharField(max_length=150, choices=no_res_survey_choices)
 	detail = models.TextField(null=True, blank=True, max_length=300)
 
 	def __str__(self):
