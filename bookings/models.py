@@ -27,7 +27,7 @@ bus_sizes = (
 	)
 
 no_res_survey_choices = {
-	('service', "I'm not sure if you offer the service I'm looking for."),
+	('service', "I'm not sure if you offer the service I'm looking for"),
 	('prices too high', "Party buses are too expensive"),
 	('prices not competitive', "I found a lower price somewhere else"),
 	('bus',"I want more info on the bus"),
@@ -102,7 +102,8 @@ class NoResSurvey(models.Model):
 	reservation = models.OneToOneField(Reservation,
 		primary_key=True,
 		)
-	reason = models.CharField(max_length=150, choices=no_res_survey_choices)
+	reason = models.CharField(max_length=150, choices=no_res_survey_choices,
+		null=True, blank=True)
 	detail = models.TextField(null=True, blank=True, max_length=300)
 
 	def __str__(self):
