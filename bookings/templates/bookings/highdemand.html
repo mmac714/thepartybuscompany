@@ -14,7 +14,6 @@
       </button>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="{% url 'bookings:reservation' %}">Reserve</a></li>
          <li><a href="{% url 'bookings:prices' %}">Prices</a></li>
          <li><a href="{% url 'bookings:buses' %}">Buses</a></li>
          <li><a href="{% url 'bookings:specials' %}">Specials</a></li>
@@ -31,10 +30,11 @@
               <h2 class="h-bold">Sorry!</h2>
               <div class="divider-header"></div>
               <p>We have special pricing for this date due to very high demand.</p>
-              <p>Please contact us at service@ThePartyBusCompany.io and we will be better able to assist.</p>
             </div>
           </div>
         </div>
+        <div style="padding:10% 0px 1% 0px">
+                <a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:home' %}#contact">Contact us for pricing</a>
       </div>
     </div>
    </section>

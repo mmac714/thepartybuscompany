@@ -96,17 +96,18 @@ class Reservation(models.Model):
 
 	def create_payment_instance(self, reservation):
 		Payment.objects.create(reservation=reservation)
+		NoResSurvey.objects.create(reservation=reservation)
 
 class NoResSurvey(models.Model):
 	reservation = models.OneToOneField(Reservation,
 		primary_key=True,
 		)
-	reason = models.CharField(max_length=2,choices=no_res_survey_choices)
-	detail = models.TextField(null=True, blank=True)
+	reason = models.CharField(max_length=150,choices=no_res_survey_choices)
+	detail = models.TextField(null=True, blank=True, max_length=300)
 
 	def __str__(self):
 		""" Return the id of the model """
-		return str(self.id)
+		return str(self.reservation_id)
 
 
 class Payment(models.Model):

@@ -41,6 +41,7 @@ urlpatterns = [
 	url(r'^invoice/(?P<reservation_id>[0-9a-f-]+)/$',
 		views.invoice, name='invoice'),
 	url(r'^booking_list/$', views.booking_list, name='booking_list'),
+	url(r'^survey_list/$', views.survey_list, name='survey_list'),
 
 
 	url(r'^sitemap\.xml$', views.sitemap, name="sitemap"),

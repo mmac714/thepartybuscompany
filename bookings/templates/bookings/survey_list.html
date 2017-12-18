@@ -1,0 +1,37 @@
+{% extends "bookings/dashboard_base.html" %}
+
+{% block content %}
+
+<div class="jumbotron">
+	<h4 class="text-left">
+		Surveys
+	</h4>
+	<div class="text-left" style="font-size:8;">
+		sorted by booking date	
+	</div>
+
+	<table class="table-striped tabe-hover">
+		<thead>
+			<tr>
+				<th width="15%">#</th>
+				<th width="20%" >reason</th>
+				<th width="20%" >detail</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for survey in surveys %}
+				<tr>
+					<td>{{ survey }}
+					</td>
+					<td>{{ survey.reason }}</td>
+					<td>{{ survey.detail }}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+<div class="line">
+</div>
+
+
+{% endblock content %}

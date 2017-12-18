@@ -12,7 +12,7 @@ import stripe
 from .forms import ReservationForm, BackendReservationForm, BookingResForm,\
 ContactForm, QuoteForm, NoResSurveyForm
 
-from .models import Reservation, Payment
+from .models import Reservation, Payment, NoResSurvey
 
 from pb_config.settings import STRIPE_SECRET_KEY, STRIPE_PUBLIC_KEY
 
@@ -149,7 +149,7 @@ def quote_no_reservation(request, reservation_id):
 			return HttpResponseRedirect(reverse('bookings:home'))
 
 	else:
-		form = NoResSurveyForm()
+		form = NoResSurveyForm(instance=reservation)
 		
 		context = {
 		'reservation': reservation,
@@ -259,6 +259,16 @@ def booking_list(request):
 		'payment': payment,
 		}
 	return render(request, 'bookings/booking_list.html', context)
+
+@login_required
+def survey_list(request):
+	""" Show all bookings. """
+	surveys = NoResSurvey.objects.all()
+
+	context = {	
+		'surveys': surveys,
+		}
+	return render(request, 'bookings/survey_list.html', context)
 
 def sitemap(request):
 
