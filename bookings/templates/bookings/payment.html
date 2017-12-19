@@ -1,6 +1,8 @@
 {% extends "bookings/base.html" %}
+{% load bootstrap3 %}
 {% load static %}
 {% load mathfilters %}
+{% load humanize %}
 
 {% block content %}
 
@@ -51,7 +53,7 @@
             document.getElementsByID('division').innerHTML=quote;
           </script>
           <div id="division"></div>
-          <p>Total Price: ${{ reservation.quote_amount|div:100 }}</p>
+          <p>Total Price: ${{ reservation.quote_amount|div:100|floatformat:2 }}</p>
           <div class="section-heading text-center">
           </div>
         </div>

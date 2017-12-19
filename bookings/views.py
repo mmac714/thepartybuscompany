@@ -86,7 +86,7 @@ def reservation(request, reservation_id):
 		if form.is_valid():
 			# Form fields passed validation.
 			form.save()
-			# clean data?
+			Reservation().derive_quote_amount(reservation)
 			return HttpResponseRedirect(reverse('bookings:payment',
 					args=[reservation]))
 		else:

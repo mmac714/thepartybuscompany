@@ -2,6 +2,7 @@
 {% load bootstrap3 %}
 {% load static %}
 {% load mathfilters %}
+{% load humanize %}
 
 {% block content %}
 
@@ -33,8 +34,13 @@
               <h2 class="h-bold">Our best price</h2>
               <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
               </div>
-              <p>We have a {{ reservation.bus_size }} person bus for {{ reservation.duration }} hours on {{reservation.date }} available for ${{ reservation.quote_amount|div:100 }}. Your price includes service/transportation fees, and taxes.<span style="color: red"> Prices may increase with demand. </span></p>
-              <h2 class="h-bold">A $200 deposit</h2>
+              <p>We have a {{ reservation.bus_size }} person bus for {{ reservation.duration }} hours on {{reservation.date }} available for ${{ reservation.quote_amount|div:100|floatformat:2|intcomma }}. Your price includes service/transportation fees, and taxes.<span style="color: red"> Prices may increase with demand. </span></p>
+              <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
+              </div>
+              <h2 class="h-bold">${{ reservation.quote_amount|div:100|div:reservation.bus_size|div:reservation.duration|floatformat:2 }} </h2><p> an hour per person for a BYOB party bus.</p>
+              <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
+              </div>
+              <h2 class="h-bold">$200 deposit</h2>
               <p>reserves your bus and your price!</p>
             </div>
           </div>
