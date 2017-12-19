@@ -42,6 +42,9 @@ urlpatterns = [
 		views.invoice, name='invoice'),
 	url(r'^booking_list/$', views.booking_list, name='booking_list'),
 	url(r'^survey_list/$', views.survey_list, name='survey_list'),
+	url(r'^completed_reservation_list/$', 
+		views.completed_reservation_list, 
+		name='completed_reservation_list'),
 
 
 	url(r'^sitemap\.xml$', views.sitemap, name="sitemap"),

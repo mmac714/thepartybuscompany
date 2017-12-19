@@ -6,13 +6,14 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.template.loader import get_template
 from django.template import Context
+from django.db.models import Q
 
 import stripe
 
 from .forms import ReservationForm, BackendReservationForm, BookingResForm,\
 ContactForm, QuoteForm, NoResSurveyForm
 
-from .models import Reservation, Payment, NoResSurvey
+from .models import Reservation, Payment, NoResSurvey, SurveyManager
 
 from pb_config.settings import STRIPE_SECRET_KEY, STRIPE_PUBLIC_KEY
 
@@ -143,6 +144,7 @@ def quote_no_reservation(request, reservation_id):
 	reservation = Reservation.objects.get(id=reservation_id)
 	survey = NoResSurvey.objects.get(reservation=reservation_id)
 
+
 	if request.method == 'POST':
 		form = NoResSurveyForm(request.POST, instance=survey)
 		if form.is_valid():
@@ -252,7 +254,7 @@ def invoice(request, reservation_id):
 @login_required
 def booking_list(request):
 	""" Show all bookings. """
-	bookings = Reservation.objects.order_by('date')
+	bookings = Reservation.objects.order_by('created').exclude(first_name='')
 	payment = Payment()
 
 	context = {	
@@ -261,10 +263,32 @@ def booking_list(request):
 		}
 	return render(request, 'bookings/booking_list.html', context)
 
+
+@login_required
+def completed_reservation_list(request):
+	""" Show all completed reservations. """
+	reservations = Reservation.objects.order_by('-date').filter(
+		payment__charge_status='authorized')
+	payment = Payment()
+
+	context = {	
+		'reservations': reservations,
+		'payment': payment,
+		}
+	return render(request, 'bookings/completed_reservation_list.html', context)
+
+
+
+
 @login_required
 def survey_list(request):
-	""" Show all bookings. """
-	surveys = NoResSurvey.objects.all()
+	""" Show all submitted surveys. """
+	surveys = NoResSurvey.objects.all().filter(
+		Q(reason='prices not competitive')|\
+		Q(reason='service')|\
+		Q(reason='prices too high')|\
+		Q(reason='bus')|\
+		Q(reason='quotes'))
 
 	context = {	
 		'surveys': surveys,

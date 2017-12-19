@@ -34,7 +34,6 @@ no_res_survey_choices = {
 	('quotes',"I'm just here to get a quote"),
 }
 
-
 # Create your models here.
 class Reservation(models.Model):
 	"""User entry reservation data.
@@ -53,6 +52,7 @@ class Reservation(models.Model):
 	comments = models.CharField(max_length=1024, null=True, blank=True)
 	quote_amount = models.IntegerField(default=0)
 	phone_number = models.CharField(max_length=12)
+	created = models.DateTimeField(null=True, blank=True)
 
 	def __str__(self):
 		""" Return the id of the model """
@@ -97,6 +97,12 @@ class Reservation(models.Model):
 	def create_payment_instance(self, reservation):
 		Payment.objects.create(reservation=reservation)
 		NoResSurvey.objects.create(reservation=reservation)
+		#time stamp creation
+		reservation.created = timezone.now()
+
+class SurveyManager(models.Manager):
+	def get_queryset(self):
+		return super(SurveyManager, self).get_queryset().exclude(reason='None')
 
 class NoResSurvey(models.Model):
 	reservation = models.OneToOneField(Reservation,
@@ -105,10 +111,13 @@ class NoResSurvey(models.Model):
 	reason = models.CharField(max_length=150, choices=no_res_survey_choices,
 		null=True, blank=True)
 	detail = models.TextField(null=True, blank=True, max_length=300)
+	surveyed = SurveyManager()
+	objects = models.Manager()
 
 	def __str__(self):
 		""" Return the id of the model """
 		return str(self.reservation_id)
+
 
 
 class Payment(models.Model):
