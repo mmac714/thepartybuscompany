@@ -254,7 +254,7 @@ def invoice(request, reservation_id):
 @login_required
 def booking_list(request):
 	""" Show all bookings. """
-	bookings = Reservation.objects.order_by('created').exclude(first_name='')
+	bookings = Reservation.objects.order_by('created')
 	payment = Payment()
 
 	context = {	
