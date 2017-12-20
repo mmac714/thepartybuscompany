@@ -19,7 +19,7 @@ class QuoteForm(forms.ModelForm):
 			"format": "mm/dd/yyyy",
 			"autoclose": True,
 		}))
-	duration = forms.IntegerField(widget=forms.NumberInput, initial=5, min_value=4,
+	duration = forms.IntegerField(widget=forms.NumberInput, initial=4, min_value=4,
 		max_value=12, label='Number of hours')
 
 	class Meta:
