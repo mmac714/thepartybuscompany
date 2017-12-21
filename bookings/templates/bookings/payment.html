@@ -18,7 +18,7 @@
             <div class="section-heading text-center">
               <h2 class="h-bold">You're one step away!</h2>
               <div class="divider-header"></div>
-              <p>Confirm your reservation details, then pay the non-refundable deposit by tapping "Pay with Card" to complete your Party Bus reservation.</p>
+              <p>Confirm your reservation details, then tap "Pay with Card" to pay the non-refundable deposit and complete your Party Bus reservation.</p>
             </div>
           </div>
         </div>
@@ -93,7 +93,7 @@ Electronic Signatures and Modifications to the Agreement. I agree to transact bu
             <script
             src="https://checkout.stripe.com/checkout.js" class="stripe-button"
             data-key="{{ stripe_api_key }}"
-            data-amount="20000"
+            data-amount="10000"
             data-name="Deposit for Reservation"
             data-description="{{ reservation.bus_size }} person bus on {{ reservation.date }}"
             data-image="{% static 'Bookings/img/logo.png' %}"

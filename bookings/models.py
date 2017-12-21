@@ -53,10 +53,45 @@ class Reservation(models.Model):
 	quote_amount = models.IntegerField(default=0)
 	phone_number = models.CharField(max_length=12)
 	created = models.DateTimeField(null=True, blank=True)
+	quote_savings = models.IntegerField(null=True, blank=True)
 
 	def __str__(self):
 		""" Return the id of the model """
 		return str(self.id)
+
+	def calculate_decayed_price(self, base_price, added_hour_price, 
+		duration, date):
+		min_hours = 4
+		transport_charge = 1.15
+		tax_charge = 1.0725
+		added_hours = duration - min_hours
+		today = datetime.date.today()
+		day_delta = date - today
+		day_delta = day_delta.days
+
+		if day_delta > 60: #Discount stops at 60 days
+			day_delta = 60
+
+		if day_delta > 3: # Within 72 hours is considered day of rate
+			daily_rate_decay = .1
+		else:
+			daily_rate_decay = 0
+
+		# calculate early reservation discount
+		base_price_decayed = ((base_price / min_hours) 
+			- (daily_rate_decay * day_delta)) * min_hours
+
+		add_hourly_price_decayed = (added_hour_price 
+			- (daily_rate_decay * day_delta)) * added_hours
+
+
+		# calculate total price
+		total_price = base_price_decayed + add_hourly_price_decayed
+		total_price = total_price * transport_charge * tax_charge * 100
+
+		return total_price
+
+
 
 	def derive_quote_amount(self, reservation):
 		""" Calculate and store the payment amount. """
@@ -64,7 +99,6 @@ class Reservation(models.Model):
 		bus_size = reservation.bus_size
 		date = reservation.date
 		day_of_week = date.weekday()
-		added_hours = duration - 4
 
 		if bus_size == "30":
 			base_price = 520
@@ -84,14 +118,30 @@ class Reservation(models.Model):
 			base_price += 40
 			added_hour_price += 10
 
+		min_hours = 4
+		transport_charge = 1.2
+		tax_charge = 1.0725
+		added_hours = duration - min_hours
+
+		zero_day_price = (base_price + (added_hours * added_hour_price))*100
+		zero_day_price = zero_day_price*1.15
+		zero_day_price = zero_day_price*1.0725
+
+		reservation.quote_amount = Reservation().calculate_decayed_price(
+			base_price, added_hour_price, duration, date)
+
+		reservation.quote_savings = zero_day_price - reservation.quote_amount \
+		+ 522 # taking into account 3 google ad cost at 1.74 avg
+
 		# promotional offer 
 		if bus_size == "12" and day_of_week in [0,1,2,3]:
 			base_price = 320
 			added_hour_price = 80
 
-		reservation.quote_amount = (base_price + (added_hours * added_hour_price))*100
-		reservation.quote_amount = reservation.quote_amount*1.2
-		reservation.quote_amount = reservation.quote_amount*1.0725
+			reservation.quote_amount = (base_price + (added_hours * added_hour_price))*100
+			reservation.quote_amount = reservation.quote_amount*1.2
+			reservation.quote_amount = reservation.quote_amount*1.0725
+
 		reservation.save()
 
 	def create_payment_instance(self, reservation):
@@ -205,7 +255,7 @@ class Payment(models.Model):
 
 		try:
 			charge = stripe.Charge.create(
-				amount=20000,
+				amount=10000,
 				currency="usd",
 				customer=stripe_customer_id,
 				description=bus_size,

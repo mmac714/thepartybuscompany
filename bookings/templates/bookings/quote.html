@@ -34,13 +34,15 @@
               <h2 class="h-bold">Our best price</h2>
               <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
               </div>
-              <p>We have a {{ reservation.bus_size }} person bus for {{ reservation.duration }} hours on {{reservation.date }} available for ${{ reservation.quote_amount|div:100|floatformat:2|intcomma }}. Your price includes service/transportation fees, and taxes.<span style="color: red"> Prices may increase with demand. </span></p>
+              <p>Your price is ${{ reservation.quote_amount|div:100|floatformat:2|intcomma }}, or ${{ reservation.quote_amount|div:100|div:reservation.bus_size|div:reservation.duration|floatformat:2 }} an hour per person for a BYOB party bus. Your price includes cleaning and transport fees, and taxes.</p>
+              <h2 class="h-bold">Why reserve now?</h2>
               <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
               </div>
-              <h2 class="h-bold">${{ reservation.quote_amount|div:100|div:reservation.bus_size|div:reservation.duration|floatformat:2 }} </h2><p> an hour per person for a BYOB party bus.</p>
+              <p>We project that you will <span style="color: green">save ${{ reservation.quote_savings|div:100|floatformat:2|intcomma }} </span>by reserving right now.</p>
+              <p><span style="color: red">Prices are time and demand sensitive. </span>This means that this price is lower than any future prices.</p>
               <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
               </div>
-              <h2 class="h-bold">$200 deposit</h2>
+              <h2 class="h-bold">$100 deposit</h2>
               <p>reserves your bus and your price!</p>
             </div>
           </div>
