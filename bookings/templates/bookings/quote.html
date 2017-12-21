@@ -26,7 +26,7 @@
 
 
 <section id="contact" class="home-section nopadd-bot color-dark bg-white text-center">
-    <div class="container marginbot-50" style="padding:0px 10% 0% 10%">
+    <div class="container marginbot-50" style="padding:0px 10% 0% 5%">
         <div class="col-lg-8 col-lg-offset-2">
         </div>
           <div class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
@@ -34,16 +34,22 @@
               <h2 class="h-bold">Our best price</h2>
               <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
               </div>
-              <p>Your price is ${{ reservation.quote_amount|div:100|floatformat:2|intcomma }}, or ${{ reservation.quote_amount|div:100|div:reservation.bus_size|div:reservation.duration|floatformat:2 }} an hour per person for a BYOB party bus. Your price includes cleaning and transport fees, and taxes.</p>
+              <p>Your price is ${{ reservation.quote_amount|div:100|floatformat:2|intcomma }} for a {{reservation.bus_size }} person bus, or ${{ reservation.quote_amount|div:100|div:reservation.bus_size|div:reservation.duration|floatformat:2 }} an hour per person. Your price includes cleaning and transport fees, and taxes.</p>
               <h2 class="h-bold">Why reserve now?</h2>
               <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
               </div>
               <p>We project that you will <span style="color: green">save ${{ reservation.quote_savings|div:100|floatformat:2|intcomma }} </span>by reserving right now.</p>
-              <p><span style="color: red">Prices are time and demand sensitive. </span>This means your price will not be lower than it is now.</p>
+              <p><span style="color: red">Prices are time and demand sensitive. </span>This means prices edge higher the closer it is to the reservation date.</p>
+              <p>Our buses are BYOB, and our drivers are pre-screened. We guarantee the perfect environment for your event!</p>
               <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
               </div>
               <h2 class="h-bold">$100 deposit</h2>
-              <p>reserves your bus and your price!</p>
+              <p>reserves a bus for your price!</p>
+              <div class="illustration">
+              <img src="{% static 'Bookings/img/henock/white-outside.png' %}" alt="Party Van">
+              <p style="font-size: x-small;">*No guarantee the bus shown will be used for your reservation. We reserve the right to change buses.</p>
+            </div>
+
             </div>
           </div>
         </div>
