@@ -91,7 +91,31 @@ class Reservation(models.Model):
 
 		return total_price
 
+	def get_demand_fee(self, date):
+		""" Determine the demand of a date, by counting the amount
+		of reservation objects created for that date not including 
+		quotes created today. """
 
+		# get dates and convert them to query readable strings.
+		today = datetime.datetime.today().strftime('%Y-%m-%d')
+		date = date.strftime('%Y-%m-%d')
+
+		# Retrieve reservation objects that have a reservation date
+		# equal to the instance's reservation date.
+		# Remove objects that were created today.
+		# Count the remaining objects.
+		#query_date_count = Reservation.objects.all(
+		#	).filter(date=date).exclude(created__contains=today).count()
+		reservations = Reservation.objects.all()
+		
+		query_date_count = \
+		reservations.filter(date=date).exclude(created__contains=today).count()
+
+		# Demand fee increase by 58 cents, which is the average cost 
+		# per click on google as of 12/21/2017 divided by 3 (arbitrary)
+		demand_fee = query_date_count * 58
+
+		return demand_fee
 
 	def derive_quote_amount(self, reservation):
 		""" Calculate and store the payment amount. """
@@ -127,11 +151,12 @@ class Reservation(models.Model):
 		zero_day_price = zero_day_price*1.15
 		zero_day_price = zero_day_price*1.0725
 
-		reservation.quote_amount = Reservation().calculate_decayed_price(
-			base_price, added_hour_price, duration, date)
+		reservation.quote_amount = \
+		Reservation().calculate_decayed_price(base_price, added_hour_price, 
+			duration, date) # + Reservation().get_demand_fee(date)
 
 		reservation.quote_savings = zero_day_price - reservation.quote_amount \
-		+ 522 # taking into account 3 google ad cost at 1.74 avg
+		+ 522 # + Reservation().get_demand_fee(date) # taking into account 3 google ad cost at 1.74 avg
 
 		# promotional offer 
 		if bus_size == "12" and day_of_week in [0,1,2,3]:
