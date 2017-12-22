@@ -34,35 +34,35 @@
               <h2 class="h-bold">Our best price</h2>
               <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
               </div>
-              <p>Your total price is ${{ reservation.quote_amount|div:100|floatformat:2|intcomma }} for a {{reservation.bus_size }} person bus on {{ reservation.date }}. Your price includes cleaning and transport fees, and taxes.</p>
+              <p>Your total price is ${{ reservation.quote_amount|div:100|floatformat:2|intcomma }} for a {{reservation.bus_size }} person bus on {{ reservation.date }}. Your price includes transport fees, and taxes.</p>
+              <div style="padding:3% 0px 5% 0px">
+                <a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:reservation' reservation.id %}">Reserve Now</a>
+              </div>
               <h2 class="h-bold">Why reserve now?</h2>
               <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
               </div>
-              <p>We project that you will <span style="color: green">save ${{ reservation.quote_savings|div:100|floatformat:2|intcomma }} </span>by reserving right now.</p>
+              <p>We project that you will <span style="color: green;">SAVE ${{ reservation.quote_savings|div:100|floatformat:2|intcomma }} </span>by reserving right now.</p>
               <p><span style="color: red">Prices are based on time and demand. </span>Our prices start incredibly low and edge higher the closer it gets to your reservation date.</p>
-              <p>Our buses are BYOB, our drivers are pre-screened, and our bus is yours to do as wish during your event!</p>
               <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
-              </div>
+              </div> <!--
               <h2 class="h-bold">$100 deposit</h2>
               <p>reserves a bus for your price!</p>
-              <div class="illustration">
+              <p>Call or text us if you have questions at: <a style="color: red" href="tel:+18175134168">817-513-4168</a></p> -->
+              <div class="illustration"> 
               <img src="{% static 'Bookings/img/henock/white-outside.png' %}" alt="Party Van">
               <p style="font-size: x-small;">*No guarantee the bus shown will be used for your reservation. We reserve the right to change buses.</p>
             </div>
-
+</section>
             </div>
           </div>
         </div>
-        <div style="padding:0% 0px 5% 0px">
-                <a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:reservation' reservation.id %}">Reserve Now</a>
-              </div>
-
+<!--
         <div style="padding:0% 0px 5% 0px">
                 <a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:quote_no_reservation' reservation.id %}">Not Yet</a>
               </div>
       <div style="padding:0% 0px 10% 0px">
                 <a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:home' %}#contact">Unsure?</a>
               </div>
-              </section>
 
+-->
 {% endblock content %}
