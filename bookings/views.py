@@ -36,6 +36,9 @@ def highdemand(request):
 def contact(request):
 	return render(request, 'bookings/contact.html')
 
+def faq(request):
+	return render(request, 'bookings/faq.html')
+
 # Non static pages
 def home(request):
 	form = ContactForm()
