@@ -17,6 +17,9 @@ urlpatterns = [
 	url(r'^buses/$', views.buses, name='buses'),
 	url(r'^specials/$', views.specials, name='specials'),
 	url(r'^highdemand/$', views.highdemand, name='highdemand'),
+	url(r'^more_than_sixty_days/$', 
+		views.more_than_sixty_days,
+		name='more_than_sixty_days'),
 	url(r'^contact/$', views.contact, name='contact'),
 	url(r'^faq/$', views.faq, name='faq'),
 

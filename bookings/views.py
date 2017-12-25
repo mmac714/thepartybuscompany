@@ -9,6 +9,7 @@ from django.template import Context
 from django.db.models import Q
 
 import stripe
+import datetime, time
 
 from .forms import ReservationForm, BackendReservationForm, BookingResForm,\
 ContactForm, QuoteForm, NoResSurveyForm
@@ -32,6 +33,10 @@ def specials(request):
 
 def highdemand(request):
 	return render(request, 'bookings/highdemand.html')
+
+
+def more_than_sixty_days(request):
+	return render(request, 'bookings/more_than_sixty_days.html')
 
 def contact(request):
 	return render(request, 'bookings/contact.html')
@@ -115,12 +120,29 @@ def quote_form(request):
 			Reservation().create_payment_instance(new_reservation)
 			Reservation().derive_quote_amount(new_reservation)
 
-			# Send to high demand page if date in high demand list
 			reservation = Reservation.objects.get(id=new_reservation.id)
 			from .high_demand import high_demand_list
 
-			if reservation.date in high_demand_list:
+			# Variables for redirect logic
+			res_date = reservation.date
+			today = datetime.date.today()
+			day_delta = res_date - today
+
+			# send to high demand page if the date is in the
+			# High demand list
+			if res_date in high_demand_list:
 				return HttpResponseRedirect(reverse('bookings:highdemand'))
+			
+			# Send to hgih demand if the customer wants to book within
+			# 2 days
+			elif day_delta < datetime.timedelta(2):
+				return HttpResponseRedirect(reverse('bookings:highdemand'))
+
+			# Only give quotes and allow reservations if 
+			# within 60 days of the reservation date.
+			elif day_delta > datetime.timedelta(60):
+				return HttpResponseRedirect(reverse(
+					'bookings:more_than_sixty_days'))
 			else:	
 				return HttpResponseRedirect(reverse('bookings:quote',
 					args=[new_reservation]))

@@ -1,12 +1,12 @@
 from django import forms
-from .models import Reservation, NoResSurvey
-from django.contrib.admin import widgets   
+from django.contrib.admin import widgets
+from django.core.exceptions import ValidationError
 
 import datetime
 
 from bootstrap_datepicker.widgets import DatePicker
 
-
+from .models import Reservation, NoResSurvey
 from pb_config.settings import DATE_INPUT_FORMATS
 
 # find the next saturday for date initial value
@@ -21,6 +21,16 @@ class QuoteForm(forms.ModelForm):
 		}))
 	duration = forms.IntegerField(widget=forms.NumberInput, initial=4, min_value=4,
 		max_value=12, label='Number of hours')
+
+	# extend date validation
+	def clean_date(self):
+		date = self.cleaned_data['date']
+		# Don't allow before today
+		if date < today:
+			raise forms.ValidationError("\
+				The reservation date is before today.")
+		return date
+
 
 	class Meta:
 		model = Reservation
