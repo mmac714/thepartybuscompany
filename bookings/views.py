@@ -117,7 +117,7 @@ def quote_form(request):
 			# Form fields passed validation.
 			form.save()
 			new_reservation = form.save()
-			Reservation().create_payment_instance(new_reservation)
+			Reservation().create_payment_survey_instance_and_timestamp(new_reservation)
 			Reservation().derive_quote_amount(new_reservation)
 
 			reservation = Reservation.objects.get(id=new_reservation.id)
@@ -343,7 +343,7 @@ def backend_reservation(request):
 			form.save()
 			new_reservation = form.save()
 			# clean data?
-			Reservation().create_payment_instance(new_reservation)
+			Reservation().create_payment_survey_instance_and_timestamp(new_reservation)
 			return HttpResponseRedirect(reverse('bookings:payment',
 				args=[new_reservation.id]))
 				# Send to relevant payment.html

@@ -28,7 +28,7 @@
 </nav>
   <!-- Section: contact -->
   <section id="contact" class="home-section nopadd-bot color-dark bg-white text-center">
-    <div class="container marginbot-50" style="padding:25px 75px 300px 75px">
+    <div class="container marginbot-50" style="padding:10% 10% 20% 10%">
       <div class="row">
         <div class="col-lg-8 col-lg-offset-2">
           <div class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
@@ -40,10 +40,10 @@
             </div>
           </div>
         </div>
-        <div style="padding:10% 0px 1% 0px">
+        <div style="padding:5% 0px 1% 0px">
                 <a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:home' %}#contact">Tap to Email</a>
       </div>
-    </div>
+    </div><!--
     <div style="padding:10% 0px 5% 0px">
               <p class="text-left"> New Years Eve Pricing (12/31) - Bus Sizes Currently Available: </p>
               <table class="table-striped table-hover" align="center">
@@ -59,7 +59,6 @@
                   <td>$1050</td>
                   <td>$150</td>
                 </tr>
-                <tr>
                 <tr>
                   <td>18 Passengers</td>
                   <td>$1150</td>
@@ -85,8 +84,49 @@
                   <td>$1400</td>
                   <td>$175</td>
                 </tr>
-              </table>
+              </table> -->
+          <div class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
+            <div class="section-heading text-center">
+              <h2 class="h-bold">New Year's Eve Prices</h2>
+              <div class="divider-header wow bounceInDown" data-wow-delay="0.2s"></div>
+                <p class="wow bounceInDown" data-wow-delay="0.2s"> All prices include 6 hours (NYE minimum), transportation fees and taxes. Driver's tip not included. Call or Text to reserve.
+              </p>
+              <div class="divider-header wow bounceInDown" data-wow-delay="0.2s"></div>
+              <!-- 12 person bus -->
+              <p class="wow bounceInDown" data-wow-delay="0.2s"> 12 Person Party Van - $1,100 and $150 for each additional hour.</p>
+              <div class="illustration" style="padding-bottom: 10%">
+                <img src="{% static 'Bookings/img/PartyBusesPhotos/HenockOutside12.png' %}" alt="Party Van">
+                <img src="{% static 'Bookings/img/PartyBusesPhotos/HenockInside12_1.png' %}" alt="Party Van">
+              </div>
+              <div class="divider-header wow bounceInDown" data-wow-delay="0.2s"></div>
+              <!-- 20 person bus -->
+              <p class="wow bounceInDown" data-wow-delay="0.2s"> 20 Person Party Bus - $1,200 and $160 for each additional hour. (2 available)</p>
+              <div class="illustration" style="padding-bottom: 10%">
+                <img src="{% static 'Bookings/img/PartyBusesPhotos/HenockOutside20.png' %}" alt="Party Van">
+                <img src="{% static 'Bookings/img/PartyBusesPhotos/HenockInside20.png' %}" alt="Party Van">
+                <img src="{% static 'Bookings/img/PartyBusesPhotos/HenockInside20_2.png' %}" alt="Party Van">
+              </div>
+              <div class="divider-header wow bounceInDown"" data-wow-delay="0.2s"></div>
+              <!-- 30 person bus -->
+              <P class="wow bounceInDown" data-wow-delay="0.2s"> 30 Person Party Bus - $1,400 and $175 for each additional hour.</P>
+              <div class="illustration" style="padding-bottom: 10%">
+                <img src="{% static 'Bookings/img/PartyBusesPhotos/HenockOutside30.png' %}" alt="Party Van">
+                <img src="{% static 'Bookings/img/PartyBusesPhotos/HenockInside30.png' %}" alt="Party Van">
+              </div>
+              <div class="divider-header wow bounceInDown"" data-wow-delay="0.2s"></div>
+              <!-- 26 person bus -->
+              <P class="wow bounceInDown" data-wow-delay="0.2s"> 24-26 Person Party Bus - $1,400 and $175 for each additional hour.</P>
+              <div class="illustration" style="padding-bottom: 10%">
+                <img src="{% static 'Bookings/img/PartyBusesPhotos/AllianceOutside26.png' %}" alt="Party Van">
+                <img src="{% static 'Bookings/img/PartyBusesPhotos/AllianceInside26_1.png' %}" alt="Party Van">
+                <img src="{% static 'Bookings/img/PartyBusesPhotos/AllianceInside26_2.png' %}" alt="Party Van">
+              </div>
+
             </div>
+          </div>
+        </div>
    </section>
+
+
 
 {% endblock content %}

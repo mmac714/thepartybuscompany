@@ -18,7 +18,7 @@ stripe.api_key = STRIPE_SECRET_KEY
 
 #from .reservation_num_generator import reservation_num_generator
 
-
+# bus sizes offered
 bus_sizes = (
 	('12', '12 passengers'),
 	('16', '16 passengers'),
@@ -26,6 +26,7 @@ bus_sizes = (
 	('30', '30 passengers'),
 	)
 
+# Survey choice
 no_res_survey_choices = {
 	('service', "I'm not sure if you offer the service I'm looking for"),
 	('prices too high', "Party buses are too expensive"),
@@ -34,11 +35,15 @@ no_res_survey_choices = {
 	('quotes',"I'm just here to get a quote"),
 }
 
+# Constant reservation model variables
+min_hours = 4
+transport_charge = 1.15
+tax_charge = 1.0725
+
 # Create your models here.
 class Reservation(models.Model):
-	"""User entry reservation data.
-	This is a one to many rationship. 
-	Detail and payment will relate to this model."""
+	""" User entry reservation data. This is a one to one ralationship. 
+	other models will relate to this model using a UUID Primary key."""
 	id = models.UUIDField(primary_key=True,
 		default=uuid.uuid4, editable=False)
 	first_name = models.CharField(max_length=100)
@@ -61,9 +66,10 @@ class Reservation(models.Model):
 
 	def calculate_decayed_price(self, base_price, added_hour_price, 
 		duration, date):
-		min_hours = 4
-		transport_charge = 1.15
-		tax_charge = 1.0725
+		""" Derive a discounted price depending on how far out the 
+		customer is reserving. The max discount is at 60 days, and 
+		reservations made within 3 days of the reservation date will not
+		be discounted. """
 		added_hours = duration - min_hours
 		today = datetime.date.today()
 		day_delta = date - today
@@ -72,27 +78,28 @@ class Reservation(models.Model):
 		if day_delta > 60: #Discount stops at 60 days
 			day_delta = 60
 
-		if day_delta > 3: # Within 72 hours is considered day of rate
+		if day_delta > 3: # Within three days is considered day of rate
 			daily_rate_decay = .1
 		else:
 			daily_rate_decay = 0
 
-		# calculate early reservation discount
+		# Derive early reservation discount for the base rate
 		base_price_decayed = ((base_price / min_hours) 
 			- (daily_rate_decay * day_delta)) * min_hours
 
+		# Derive early reservation discount for hours over the base rate
 		add_hourly_price_decayed = (added_hour_price 
 			- (daily_rate_decay * day_delta)) * added_hours
 
-
-		# calculate total price
+		# calculate total discounted price
+		# 100 is for stripe conversion pricing
 		total_price = base_price_decayed + add_hourly_price_decayed
 		total_price = total_price * transport_charge * tax_charge * 100
 
 		return total_price
 
 	def get_demand_fee(self, date):
-		""" Determine the demand of a date, by counting the amount
+		""" Determine the demand fee by counting the amount
 		of reservation objects created for that date not including 
 		quotes created today. """
 
@@ -104,8 +111,6 @@ class Reservation(models.Model):
 		# equal to the instance's reservation date.
 		# Remove objects that were created today.
 		# Count the remaining objects.
-		#query_date_count = Reservation.objects.all(
-		#	).filter(date=date).exclude(created__contains=today).count()
 		reservations = Reservation.objects.all()
 		
 		query_date_count = \
@@ -142,14 +147,12 @@ class Reservation(models.Model):
 			base_price += 40
 			added_hour_price += 10
 
-		min_hours = 4
-		transport_charge = 1.2
-		tax_charge = 1.0725
 		added_hours = duration - min_hours
 
+		# derive price if reserved on the reservation date
 		zero_day_price = (base_price + (added_hours * added_hour_price))*100
-		zero_day_price = zero_day_price*1.15
-		zero_day_price = zero_day_price*1.0725
+		zero_day_price = zero_day_price * (transport_charge + 0.05) # 20% fee
+		zero_day_price = zero_day_price * tax_charge
 
 		reservation.quote_amount = \
 		Reservation().calculate_decayed_price(base_price, added_hour_price, 
@@ -169,7 +172,8 @@ class Reservation(models.Model):
 
 		reservation.save()
 
-	def create_payment_instance(self, reservation):
+	def create_payment_survey_instance_and_timestamp(self, reservation):
+		""" Create a payment, and survey object"""
 		Payment.objects.create(reservation=reservation)
 		NoResSurvey.objects.create(reservation=reservation)
 		#time stamp creation
