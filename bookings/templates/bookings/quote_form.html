@@ -31,4 +31,73 @@
     	</div>
     </form>
 </section>
+
+
+<section id="p" class="home-section parallax text-light" data-stellar-background-ratio="0.3" style="width:100%; height: auto; background-image: url({% static 'Bookings/img/henock/blue-tint-inside.png' %}" )>
+    <div class="container" style="padding: 0 0 0 0">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="text-center">
+            <div class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
+            <div class="section-heading text-center">
+              <h2 class="h-bold">No tricks here</h2>
+              <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
+              </div>
+              <p class="wow bounceInDown" data-wow-delay="0.2s">Complete the form and select "Get Price" to instantly get your total price.</p>
+              <form id="quoteform" action="{% url 'bookings:quote_form' %}" method="post" class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
+                {% csrf_token %}
+                <div class="form-padding form-group">
+                  {% bootstrap_field form.date %}
+                  {% bootstrap_field form.bus_size %}
+                  {% bootstrap_field form.duration %}
+                </div>
+                <div style="padding:0% 0px 10% 0px">
+                  <a class="big-heading highlight-dark wow bounceInDown btn-red text-center" onclick="document.getElementById('quoteform').submit()">Get Price</a>
+                </div>
+              </form>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<body class="bg-image">
+  <img src="{% static 'Bookings/img/henock/blue-tint-inside.png' %}">
+
+  
+</body>
+
+     <!-- Section: parallax 5 
+  <section id="parallax5" class="home-section parallax text-light" data-stellar-background-ratio="0.3">
+    <div class="container" style="padding: 0 0 0 0">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="text-center">
+            <div class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
+            <div class="section-heading text-center">
+              <h2 class="h-bold">No tricks here</h2>
+              <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
+              </div>
+              <p class="wow bounceInDown" data-wow-delay="0.2s">Complete the form and select "Get Price" to instantly get your total price.</p>
+              <form id="quoteform" action="{% url 'bookings:quote_form' %}" method="post" class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
+                {% csrf_token %}
+                <div class="form-padding form-group">
+                  {% bootstrap_field form.date %}
+                  {% bootstrap_field form.bus_size %}
+                  {% bootstrap_field form.duration %}
+                </div>
+
+    <div style="padding:0% 0px 10% 0px">
+      <a class="big-heading highlight-dark wow bounceInDown btn-red text-center" onclick="document.getElementById('quoteform').submit()">Get Price</a>
+      </div>
+    </form>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>-->
 {% endblock content %}

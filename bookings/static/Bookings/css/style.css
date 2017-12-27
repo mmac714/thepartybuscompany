@@ -180,6 +180,15 @@ img {
   display: block;
   padding-top: 5%;
 }
+
+body {
+	width: 100%;
+}
+
+.bg-image {
+	width: 100%
+}
+
 /* --- */
 /* ------- Navigation ------------ */
 #navigation {
@@ -1463,8 +1472,8 @@ Parallax
 }
 
 #parallax5{	
-	background-image: url(../img/parallax/1.jpg);
-    background-position: bottom;
+	background-image: url(../img/PartyBusesPhotos/AllianceInside26_2.png);
+    background-position: top;
     background-repeat: no-repeat;
     display:block;
     position:relative;
