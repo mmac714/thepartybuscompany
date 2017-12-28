@@ -59,6 +59,7 @@ class Reservation(models.Model):
 	phone_number = models.CharField(max_length=12)
 	created = models.DateTimeField(null=True, blank=True)
 	quote_savings = models.IntegerField(null=True, blank=True)
+	email = models.EmailField()
 
 	def __str__(self):
 		""" Return the id of the model """
