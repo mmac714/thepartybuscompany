@@ -62,8 +62,12 @@
 	</div>
 
 </div>
-
-<a href="{% url 'bookings:invoice' reservation.id %}" class="btn btn-info" role="button">Get invoice</a>
+<div>
+	<span>
+		<a href="{% url 'bookings:invoice' reservation.id %}" class="btn btn-info" role="button">Get invoice</a>
+		<a href="{% url 'bookings:send_follow_up_email' reservation.id %}" class="btn btn-info" role="button">Send follow up email</a>
+	</span>
+</div>
 
 </body>
 {% endblock content %}

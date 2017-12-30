@@ -264,6 +264,29 @@ def booking(request, reservation_id):
 		return render(request, 'bookings/booking.html', context)
 
 @login_required
+def send_follow_up_email(request, reservation_id):
+	""" Sends followup_quote_email.html to the 
+	reservation.email address. """
+	reservation = Reservation.objects.get(id=reservation_id)
+	customer_email = [str(reservation.email),]
+
+	# Email arguments
+	subject = 'First time?'
+	body = get_template('bookings/followup_quote_email.html').render(
+		{
+		})
+	sender = 'service@ThePartyBusCompany.io'
+	recipient = customer_email
+
+
+	send_mail(subject, "", sender, recipient,
+		html_message=body,
+		fail_silently=False)
+
+	return HttpResponse("email sent")
+
+
+@login_required
 def invoice(request, reservation_id):
 	""" Page for associate to fill out Reservation detail. """
 	reservation = Reservation.objects.get(id=reservation_id)

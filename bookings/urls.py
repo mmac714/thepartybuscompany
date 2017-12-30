@@ -42,6 +42,8 @@ urlpatterns = [
 	
 	url(r'^booking/(?P<reservation_id>[0-9a-f-]+)/$',
 		views.booking, name='booking'),
+	url(r'^send_follow_up_email/(?P<reservation_id>[0-9a-f-]+)/$',
+		views.send_follow_up_email, name='send_follow_up_email'),
 	url(r'^invoice/(?P<reservation_id>[0-9a-f-]+)/$',
 		views.invoice, name='invoice'),
 	url(r'^booking_list/$', views.booking_list, name='booking_list'),
