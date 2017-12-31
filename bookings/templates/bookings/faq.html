@@ -21,7 +21,7 @@
          <li><a href="{% url 'bookings:quote_form' %}">Prices</a></li>
          <li><a href="{% url 'bookings:buses' %}">Buses</a></li>
          <li><a href="{% url 'bookings:specials' %}">Specials</a></li>
-         <li><a href="{% url 'bookings:faq' %}">FAQ's</a></li>
+         <li><a href="{% url 'bookings:faq' %}">Question Center</a></li>
         </ul>
       </div> <!-- navbar collapse -->
     </div> <!-- container fluid -->
@@ -34,59 +34,58 @@
         </div>
           <div class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
             <div class="section-heading text-center">
-              <h2 class="h-bold">Frequent Questions</h2>
+              <h2 class="h-bold">Question Center</h2>
               <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
               </div>
-              <p style="padding:5% 10% 5% 10%" class="wow bounceInDown text-left" data-wow-delay="0.2s">1. Who are you?
+              <p style="padding:5% 10% 5% 10%" class="wow bounceInDown text-left" data-wow-delay="0.2s"><strong>1. Who are you?</strong>
               </p>
               <p class="text-left" > We are a team of Silicon Valley veterans who are offering top quality party bus rentals at a low and straightforward cost.</p> 
               <p class="text-left">We have experience managing operations for million plus customer companies, working for Apple and Google award winning applications, and creating innovative financial products. </p>
               &nbsp;
-              <p style="padding:5% 10% 5% 10%" class="wow bounceInDown text-left" data-wow-delay="0.2s">2. So why did you choose to offer Party Bus rentals?
+              <p style="padding:5% 10% 5% 10%" class="wow bounceInDown text-left" data-wow-delay="0.2s"><strong>2. So why did you choose to offer Party Bus rentals?</strong>
               </p>
               <p class="text-left" > We rented a party bus and noticed how many companies would advertise low online prices, if any prices at all, and then raise the price when the customer called in. </p>
                 <p class="text-left">The back and forth price haggling, terrible web experiences, and aggressive sales tactics really turned us off. <span><strong>You deserve better.</strong></span> That's why we aim to provide a transparent experience for you, the customer. </p>
                  &nbsp;
-                <p style="padding:5% 10% 5% 10%" class="wow bounceInDown text-left" data-wow-delay="0.2s">3. How is your pricing so much lower than you competitors?
+                <p style="padding:5% 10% 5% 10%" class="wow bounceInDown text-left" data-wow-delay="0.2s"><strong>3. How is your pricing so much lower than you competitors?</strong>
               </p>
               <p class="text-left" >Our team is very small, and we rely on technology to do all of our processing. This means our cost are incredibly low, and we are able to pass the savings on to you, the customer. </p>
               &nbsp;
 
-               <p style="padding:5% 10% 5% 10%" class="wow bounceInDown text-left" data-wow-delay="0.2s">4. How does your pricing work?
+               <p style="padding:5% 10% 5% 10%" class="wow bounceInDown text-left" data-wow-delay="0.2s"><strong>4. How does your pricing work?</strong>
               </p>
               <p class="text-left" >We have developed a pricing algorithm that is based on a number of factors including demand and time till reservation date. This means that prices may increase if enough people are interested in the date you are looking to reserve. The earlier you reserve, the more you will save. </p>
               <p class="text-left" >Our pricing does not include driver tip. You will be able to sign off on the driver tip after your service and we can charge the card on file.  </p>
                &nbsp;
 
-                <p style="padding:5% 10% 5% 10%" class="wow bounceInDown text-left" data-wow-delay="0.2s">5. Do you own the buses?
+                <p style="padding:5% 10% 5% 10%" class="wow bounceInDown text-left" data-wow-delay="0.2s"><strong>5. Do you own the buses?</strong>
               </p>
               <p class="text-left" >We do not own the buses, and that saves you money. We partner with bus owners in the area to offer these buses to you at a low price.</p>
               <p class="text-left" >We did the haggling for you and you reap the savings. In fact, our pricing algorithm knows that it is cheaper for you to reserve with us than it is to reserve directly with the bus company that will service you. Sometimes, we even take a loss.</p>
                &nbsp;
 
-               <p style="padding:5% 10% 5% 10%" class="wow bounceInDown text-left" data-wow-delay="0.2s">6. How do I know which bus I will get and what it will look like?
+               <p style="padding:5% 10% 5% 10%" class="wow bounceInDown text-left" data-wow-delay="0.2s"><strong>6. How do I know which bus I will get and what it will look like?</strong>
               </p>
               <p class="text-left" >Once you reserve a bus, our system will read your data and match you up with a bus and a company. If you are not satisfied, or you have specific request for your bus then leave it in the reservation comments and we will follow up with you to make sure you get what you want. If we can't, we will give your deposit back. </p>
                &nbsp;
 
-               <p style="padding:5% 10% 5% 10%" class="wow bounceInDown text-left" data-wow-delay="0.2s">7. Quality of service, timeliness and professionalism are important to me. How do I know what kind of service I am going to get with you?
+               <p style="padding:5% 10% 5% 10%" class="wow bounceInDown text-left" data-wow-delay="0.2s"><strong>7. Quality of service, timeliness and professionalism are important to me. How do I know what kind of service I am going to get with you?</strong>
               </p>
               <p class="text-left" >These qualities are important to us too, so much so that we’re willing to guarantee it. If the service you receive is not up to standard we will refund some or all of your money back. </p>
               <p class="text-left" >To make sure you will get the service you deserve, we pre-screened all our partners and drivers to make sure that you will get a world class experience, and that you will comeback to us the next time you are in the market for a party bus. </p>
-               &nbsp;
+              
+              <div style="padding:0% 0px 5% 0px">
+                <a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:home' %}#contact">I have a different question</a>
+              </div>
+                <div style="padding:0% 0px 10% 0px">
+               <a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:quote_form' %}">Get a price</a>
+              </div>
 
           	</div>
       	  </div>
 
 
       </div>
-			<div style="padding:0% 0px 2% 0px">
-              	<a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:quote_form' %}">Get a quote</a>
-              </div>
-              <p>or</p>
-              <div style="padding:0% 0px 10% 0px">
-                <a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:home' %}#contact">I have a different question</a>
-              </div>
 
 
 

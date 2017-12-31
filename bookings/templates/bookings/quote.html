@@ -6,7 +6,6 @@
 
 {% block content %}
 
-<!-- Section: Navbar -->
 <nav role="navigation" class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -24,7 +23,7 @@
          <li><a href="{% url 'bookings:quote_form' %}">Prices</a></li>
          <li><a href="{% url 'bookings:buses' %}">Buses</a></li>
          <li><a href="{% url 'bookings:specials' %}">Specials</a></li>
-         <li><a href="{% url 'bookings:faq' %}">FAQ's</a></li>
+         <li><a href="{% url 'bookings:faq' %}">Question Center</a></li>
         </ul>
       </div> <!-- navbar collapse -->
     </div> <!-- container fluid -->
@@ -58,7 +57,7 @@
                 <p>2. The driver is under your direction during your reservation. We can make as many stop-and-go's as you like.</p>
                 <p>3. All our buses are limo-style seating and BYOB. We will provide drinking glasses and napkins. Dancing pole available upon request.</p>
                 <div style="padding:1% 0px 5% 0px" class="text-center">
-                  <a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:faq' %}">See More FAQ's</a> </div>
+                  <a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:faq' %}">See Our Question Center</a> </div>
                 </div>
 
               <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
