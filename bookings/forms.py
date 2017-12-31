@@ -11,7 +11,7 @@ from pb_config.settings import DATE_INPUT_FORMATS
 
 # find the next saturday for date initial value
 today = datetime.date.today()
-saturday = today + datetime.timedelta( (5-today.weekday()) % 7)
+saturday = today + datetime.timedelta( (12 - today.weekday()) % 7)
 
 class QuoteForm(forms.ModelForm):
 	date = forms.DateField(initial=saturday, widget=DatePicker(
