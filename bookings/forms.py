@@ -36,14 +36,12 @@ class QuoteForm(forms.ModelForm):
 		model = Reservation
 		fields = [
 		'date',
-		'bus_size',
 		'duration',
 		'email',
 			]
 
 		labels = {
 		'date':'Reservation Date',
-		'bus_size':'Group Size',
 		'duration': 'Number of hours',
 		'email': 'Your email',
 			}
@@ -102,7 +100,6 @@ class BackendReservationForm(forms.ModelForm):
 		'first_name', 
 		'last_name', 
 		'phone_number',
-		'bus_size',
 		'date',
 		'start_time',
 		'duration',
@@ -115,7 +112,6 @@ class BackendReservationForm(forms.ModelForm):
 			'first_name': 'First Name',
 			'last_name': 'Last Name',
 			'phone_number': 'Phone Number',
-			'bus_size': 'Group Size',
 			'date': 'Reservation Date',
 			'start_time': 'Start Time',
 			'duration': 'Number of Hours',

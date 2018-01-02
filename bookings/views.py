@@ -14,7 +14,7 @@ import datetime, time
 from .forms import ReservationForm, BackendReservationForm, BookingResForm,\
 ContactForm, QuoteForm, NoResSurveyForm
 
-from .models import Reservation, Payment, NoResSurvey, SurveyManager
+from .models import Reservation, Payment, NoResSurvey, SurveyManager, Bus
 
 from pb_config.settings import STRIPE_SECRET_KEY, STRIPE_PUBLIC_KEY
 
@@ -47,6 +47,9 @@ def faq(request):
 # Non static pages
 def home(request):
 	form = ContactForm()
+	# import all bus objects to display on the home page
+	buses = Bus.objects.all()
+
 
 	if request.method == 'POST':
 		form = ContactForm(request.POST)
@@ -77,8 +80,10 @@ def home(request):
 
 			return HttpResponseRedirect(reverse('bookings:contact'))
 
+
 	context = {
 		'form': form,
+		'buses':buses,
 		}
 	return render(request, 'bookings/home.html', context)
 

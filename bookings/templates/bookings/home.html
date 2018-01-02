@@ -30,6 +30,13 @@
       </div>
     </div>
   </section>
+<section id="buses" class="home-section">
+  <div>
+    {% for bus in buses %}
+      <a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:quote_form' %}">{{ bus.name }}</a>
+    {% endfor %}
+  </div>
+</section>
 
     <!-- Section: parallax 4 
   <section id="parallax1" class="home-section parallax text-light" data-stellar-background-ratio="0.3">

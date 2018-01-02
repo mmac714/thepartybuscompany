@@ -35,6 +35,16 @@ no_res_survey_choices = {
 	('quotes',"I'm just here to get a quote"),
 }
 
+class Bus(models.Model):
+	name = models.CharField(max_length=100)
+	cost = models.IntegerField(null=True, blank=True)
+	slug = models.SlugField(max_length=250, unique=True)
+
+	def __str__(self):
+		""" Return the name of the bus """
+		return str(self.name)
+
+
 # Constant reservation model variables
 min_hours = 4
 transport_charge = 1.15
@@ -46,9 +56,10 @@ class Reservation(models.Model):
 	other models will relate to this model using a UUID Primary key."""
 	id = models.UUIDField(primary_key=True,
 		default=uuid.uuid4, editable=False)
+	bus = models.ForeignKey(
+		Bus, on_delete = models.CASCADE)
 	first_name = models.CharField(max_length=100)
 	last_name = models.CharField(max_length=100)
-	bus_size = models.CharField(max_length=2,choices=bus_sizes)
 	date = models.DateField()
 	start_time = models.TimeField(default="19:00", null=True, blank=True)
 	duration = models.IntegerField("Number of hours")
