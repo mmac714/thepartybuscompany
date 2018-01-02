@@ -271,7 +271,7 @@ def send_follow_up_email(request, reservation_id):
 	customer_email = [str(reservation.email),]
 
 	# Email arguments
-	subject = 'First time?'
+	subject = 'Look no further'
 	body = get_template('bookings/followup_quote_email.html').render(
 		{
 		})
