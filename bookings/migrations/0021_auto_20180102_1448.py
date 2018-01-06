@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='reservation',
             name='bus',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='bookings.Bus'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='bookings.Bus'),
             preserve_default=False,
         ),
         migrations.AlterField(
