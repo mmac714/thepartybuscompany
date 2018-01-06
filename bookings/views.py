@@ -334,8 +334,8 @@ def send_follow_up_email(request, reservation_id):
 	"/"
 
 	# Email arguments
-	subject = str(bus) + " for " + str(price) + " - " + str(duration) +\
-	" hours"
+	subject = str(bus) + "Party Bus for " + str(price) + " - " + \
+	str(duration) + " hours"
 	body = get_template('bookings/followup_quote_email.html').render(
 		{
 		'price': price,
