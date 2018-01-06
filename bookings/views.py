@@ -325,10 +325,23 @@ def send_follow_up_email(request, reservation_id):
 	reservation = Reservation.objects.get(id=reservation_id)
 	customer_email = [str(reservation.email),]
 
+	price = str(int(reservation.quote_amount)/100)
+	price = "$" + price + "0"
+	bus = reservation.bus.name
+	date = reservation.date
+	duration = reservation.duration
+	quote_link = "www.ThePartyBusCompany.io/quote/" + str(reservation.id) + \
+	"/"
+
 	# Email arguments
-	subject = 'Look no further'
+	subject = str(bus) + " for " + str(price) + " - " + str(duration) +\
+	" hours"
 	body = get_template('bookings/followup_quote_email.html').render(
 		{
+		'price': price,
+		'date': date,
+		'bus': bus,
+		'quote_link': quote_link,
 		})
 	sender = 'service@ThePartyBusCompany.io'
 	recipient = customer_email
