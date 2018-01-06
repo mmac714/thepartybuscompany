@@ -205,7 +205,6 @@ os.path.join(BASE_DIR, 'bookings/static'),
 STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 STATICFILES_STORAGE = os.environ.get("STATICFILES_STORAGE")
 
-
 #STATIC_URL = '/static/' #
 
 ########### Media files ###############
