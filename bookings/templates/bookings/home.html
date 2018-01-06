@@ -3,10 +3,10 @@
 {% load static %}
 {% block content %}
 
-<nav role="navigation" class="navbar navbar-default navbar-fixed-top">
+<nav role="navigation" class="navbar navbar-default navbar-fixed-top" style="padding: 5% 0 1% 0;"">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="{% url 'bookings:home' %}">The Party Bus Company</a>
+      <a class="navbar-brand text-center" href="{% url 'bookings:home' %}">The Party Bus Company</a>
 
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
@@ -32,7 +32,7 @@
         <div class="col-md-12">
           <div class="text-center">
             <div class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
-            <div class="section-heading text-center" style="padding: 10% 0% 5% 0%;">
+            <div class="section-heading text-center" style="padding: 15% 0% 5% 0%;">
               <h2 class="h-bold" style="background-color: #000; opacity: 0.7; padding: 0 10% 0 10%">DFW's party buses in one place</h2>
 
               <h2>
@@ -41,7 +41,7 @@
 
               <div class="h-bold" style="background-color: #000; opacity: 0.7; padding: 0 10% 0 10%">
 
-              <h2 class="h-bold">Get your bus and get your price below</h2>
+              <h2 class="h-bold">Find a bus and get a price instantly</h2>
               <h2 class="h-bold">or</h2>
               <h2 class="h-bold">Call: <a style="color: red" href="tel:+18175134168">817-513-4168</a></h2>
             </div>
@@ -70,7 +70,7 @@
         </div>
   {% for bus in buses %}
     <!-- Card formatting -->
-  <div class="container">
+  <div class="container" style="padding: 5% 3% 5% 3%;">
     <div class="row">
         <!-- Card Projects -->
         <div class="col-md-6 col-md-offset-3">

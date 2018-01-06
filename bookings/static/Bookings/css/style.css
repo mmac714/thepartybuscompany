@@ -321,8 +321,9 @@ Card CSS
 .navbar-brand {
   height: 40px;
   padding: 5px 5px;
-  font-size: 36px;
+  font-size: 30px;
   line-height: 1em;
+  margin: auto;
 }
 
 .navbar-brand:focus {
