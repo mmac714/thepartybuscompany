@@ -284,7 +284,8 @@ def confirmation(request, reservation_id):
 def booking(request, reservation_id):
 	""" Page for associate to fill out Reservation detail. """
 	reservation = Reservation.objects.get(id=reservation_id)
-	payment = Payment.objects.get(reservation=reservation_id)
+	# payment = Payment.objects.get(reservation=reservation_id)
+	#bus = Bus.objects.get(reservation=reservation_id)
 
 	if request.method == 'POST' and 'btn-r_form':
 		r_form = BookingResForm(request.POST, instance=reservation)
@@ -306,12 +307,13 @@ def booking(request, reservation_id):
 			'date': reservation.date,
 			'duration': reservation.duration,
 			'quote_amount': reservation.quote_amount,
+			'bus': reservation.bus,
 			})
 
 		context = {
     		'reservation': reservation,
     		'r_form': r_form,
-    		'payment': payment,
+    		#'payment': payment,
     		}
 
 		return render(request, 'bookings/booking.html', context)

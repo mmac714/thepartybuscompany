@@ -12,8 +12,10 @@
 			Name: {{ reservation.first_name }} {{ reservation.last_name }}
 		</p>
 		<p>
-			Email: {{ payment.email }}
+			email: {{ reservation.email }}
 		</p>
+
+
 
 	</div>
 
@@ -23,18 +25,7 @@
 		</h3>
 		<div class="line">
 		</div>
-		<p>
-			Charge Status: {{ payment.charge_status }}
-		</p>
-		<p>
-			Charge Amount: {{ payment.charge_amount }}
-		</p>
-		<p>
-			Charge Description: {{ payment.charge_desription }} 
-		</p>
-		<p>
-			Stripe id: {{ payment.stripe_id }}
-		</p>
+
 	</div>
 
 
@@ -55,6 +46,9 @@
 				</div>
 				<div>
 					{% bootstrap_field r_form.quote_amount %}
+				</div>
+				<div>
+					{% bootstrap_field r_form.bus %}
 				</div>
 				<button type="submit" name="btn-r_form">Save Changes</button>
 			</form>

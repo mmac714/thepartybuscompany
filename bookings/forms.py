@@ -158,7 +158,7 @@ class BookingResForm(forms.ModelForm):
 	""" list all reservation objects """
 	class Meta:
 		model = Reservation
-		fields = ['date','duration', 'quote_amount' ] 
+		fields = ['date','duration', 'quote_amount','bus' ] 
 
 class ContactForm(forms.Form):
 	from_email = forms.EmailField(required=True, label='Your email address')
