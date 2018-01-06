@@ -6,7 +6,7 @@ import datetime
 
 from bootstrap_datepicker.widgets import DatePicker
 
-from .models import Reservation, NoResSurvey
+from .models import Reservation, NoResSurvey, Bus
 from pb_config.settings import DATE_INPUT_FORMATS
 
 # find the next saturday for date initial value
@@ -15,7 +15,8 @@ saturday = today + datetime.timedelta( (12 - today.weekday()) % 7)
 
 class QuoteForm(forms.ModelForm):
 	date = forms.DateField(initial=saturday, widget=DatePicker(
-		options={
+		options=
+		{
 			"format": "mm/dd/yyyy",
 			"autoclose": True,
 		}))
@@ -31,6 +32,40 @@ class QuoteForm(forms.ModelForm):
 				The reservation date is before today.")
 		return date
 
+	class Meta:
+		model = Reservation
+		fields = [
+		'date',
+		'duration',
+		'email',
+		'bus',
+			]
+
+		labels = {
+		'date':'Reservation Date',
+		'duration': 'Number of hours',
+		'email': 'Your email',
+			}
+
+class PriceForm(forms.ModelForm):
+	
+	date = forms.DateField(initial=saturday, widget=DatePicker(
+		options=
+		{
+			"format": "mm/dd/yyyy",
+			"autoclose": True,
+		}))
+	duration = forms.IntegerField(widget=forms.NumberInput, initial=4, min_value=4,
+		max_value=12, label='Number of hours')
+
+	# extend date validation
+	def clean_date(self):
+		date = self.cleaned_data['date']
+		# Don't allow before today
+		if date < today:
+			raise forms.ValidationError("\
+				The reservation date is before today.")
+		return date
 
 	class Meta:
 		model = Reservation
@@ -49,7 +84,7 @@ class QuoteForm(forms.ModelForm):
 class ReservationForm(forms.ModelForm):
 
 	#def write_quoteform_date_to_form
-
+	"""
 	date = forms.DateField(initial=saturday, widget=DatePicker(
 		options={
 			"format": "mm/dd/yyyy",
@@ -58,6 +93,7 @@ class ReservationForm(forms.ModelForm):
 
 	duration = forms.IntegerField(widget=forms.NumberInput, initial=5, min_value=4,
 		max_value=12, label='Number of hours')
+	"""
 
 	class Meta:
 		model = Reservation
@@ -69,19 +105,15 @@ class ReservationForm(forms.ModelForm):
 		'location_pick_up',
 		'location_drop_off',
 		'comments',
-		'date',
-		'duration',
 		] 
 		labels = {
 			'first_name': 'First Name',
 			'last_name': 'Last Name',
 			'phone_number': 'Phone Number',
-			'bus_size': 'Group Size',
 			'start_time': 'Start Time',
 			'location_pick_up': 'Pick Up Location',
 			'location_drop_off': 'Drop Off Location',
 			'comments': 'Service Comments or Request',
-			'duration': 'Number of Hours',
 			}
 
 
@@ -107,6 +139,7 @@ class BackendReservationForm(forms.ModelForm):
 		'location_drop_off',
 		'comments',
 		'quote_amount',
+		'bus',
 		] 
 		labels = {
 			'first_name': 'First Name',

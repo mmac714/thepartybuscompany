@@ -22,15 +22,13 @@
 
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav navbar-right fropdown-menu">
-         <li><a href="{% url 'bookings:quote_form' %}">Prices</a></li>
-         <li><a href="{% url 'bookings:buses' %}">Buses</a></li>
-         <li><a href="{% url 'bookings:specials' %}">Specials</a></li>
+         <li><a href="{% url 'bookings:home' %}#buses">Buses</a></li>
          <li><a href="{% url 'bookings:faq' %}">Question Center</a></li>
+         <li><a href="{% url 'bookings:home' %}#contact">Contact Us</a></li>
         </ul>
       </div> <!-- navbar collapse -->
     </div> <!-- container fluid -->
 </nav>
-
 
 <section id="contact" class="home-section nopadd-bot color-dark bg-white text-center">
 	<div class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
@@ -42,7 +40,7 @@
               </div>
               <p style="padding:5% 75px 5% 75px" class="wow bounceInDown" data-wow-delay="0.2s">We need a few more details...
               </p>
-	<form id="reservationform" action="{% url 'bookings:reservation' reservation.id %}" method="post" class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
+	<form id="reservationform" action="{% url 'bookings:reservation_form' reservation.id %}" method="post" class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
 		{% csrf_token %}
 		<div class="form-padding form-group">
 			{% bootstrap_field form.first_name field_class='reservation-format' %}
@@ -52,11 +50,6 @@
 			{% bootstrap_field form.location_pick_up %}
 			{% bootstrap_field form.location_drop_off %}
 			{% bootstrap_field form.comments %}
-      <p class="">Confirm the following:</p>
-
-      {% bootstrap_field form.date %}
-      {% bootstrap_field form.duration %}
-
 		</div>
 
 		<div style="padding:0% 0px 10% 0px">

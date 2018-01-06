@@ -20,15 +20,13 @@
 
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav navbar-right fropdown-menu">
-         <li><a href="{% url 'bookings:quote_form' %}">Prices</a></li>
-         <li><a href="{% url 'bookings:buses' %}">Buses</a></li>
-         <li><a href="{% url 'bookings:specials' %}">Specials</a></li>
+         <li><a href="{% url 'bookings:home' %}#buses">Buses</a></li>
          <li><a href="{% url 'bookings:faq' %}">Question Center</a></li>
+         <li><a href="{% url 'bookings:home' %}#contact">Contact Us</a></li>
         </ul>
       </div> <!-- navbar collapse -->
     </div> <!-- container fluid -->
 </nav>
-
 
 <section id="contact" class="home-section nopadd-bot color-dark bg-white text-center">
     <div class="container marginbot-50" style="padding:0px 10% 0% 5%">
@@ -39,13 +37,19 @@
               <h2 class="h-bold">Our best price</h2>
               <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
               </div>
-              <p>Your total price is ${{ reservation.quote_amount|div:100|floatformat:2|intcomma }} (includes transport fees and taxes) for a {{reservation.bus_size }} person bus on {{ reservation.date }}.</p>
-              <p><span style="color: red">Prices are based on time and demand. </span>Our prices start incredibly low and edge higher the closer it gets to your reservation date. We project that you will <span style="color: green;"><strong>SAVE ${{ reservation.quote_savings|div:100|floatformat:2|intcomma }} </strong></span>by reserving today.</p>
-              <p>Call or text<a style="color: red" href="tel:+18175134168"> 817-513-4168</a> for bookings and questions, or...</p> 
-              <div style="padding:2% 0px 2% 0px">
-                <a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:reservation' reservation.id %}">Book Now Online</a>
-              </div>
+              <p>Your total price is ${{ reservation.quote_amount|div:100|floatformat:2|intcomma }} (includes transport fees and taxes) for the {{ bus.name }} bus on {{ reservation.date }}.</p>
 
+              <!-- Decay price logic paragraph 
+              <p><span style="color: red">Prices are based on time and demand. </span>Our prices start incredibly low and edge higher the closer it gets to your reservation date. We project that you will <span style="color: green;"><strong>SAVE ${{ reservation.quote_savings|div:100|floatformat:2|intcomma }} </strong></span>by reserving today.</p>
+              -->
+
+              <p>Call or text<a style="color: red" href="tel:+18175134168"> 817-513-4168</a> for questions or to book, or...</p> 
+              <div style="padding:2% 0px 2% 0px">
+                <a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:reservation_form' reservation.id %}">Book Now Online</a>
+              </div>
+              Photos of your bus
+              <img class="img-responsive " src="{{ bus.primary_image.url }}"">
+              <img class="img-responsive " src="{{ bus.secondary_image.url }}"">
 
               <h2 class="h-bold">First Time?</h2>
               <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
@@ -55,12 +59,14 @@
               <div class="text-left">
                 <p>1. We handle all occassions - weddings, birthdays, sporting events, Winstar trips, and more...</p>
                 <p>2. The driver is under your direction during your reservation. We can make as many stop-and-go's as you like.</p>
-                <p>3. All our buses are limo-style seating and BYOB. We will provide drinking glasses and napkins. Dancing pole available upon request.</p>
+                <p>3. All our buses are limo-style seating, BYOB, and compatible with your device to play your music. We will provide drinking glasses and napkins. Dancing pole available depending on the bus.</p>
                 <div style="padding:1% 0px 5% 0px" class="text-center">
                   <a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:faq' %}">See Our Question Center</a> </div>
                 </div>
-
-              <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
+                <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
+              </div>
+                <div style="padding:2% 0px 5% 0px">
+                <a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:reservation_form' reservation.id %}">Continue Booking</a>
               </div>
 <!--
               <h2 class="h-bold">Why book now?</h2>
@@ -74,10 +80,6 @@
               <h2 class="h-bold">$100 deposit</h2>
               <p>reserves a bus for your price!</p>
               <p>Call or text us if you have questions at: <a style="color: red" href="tel:+18175134168">817-513-4168</a></p> -->
-              <div class="illustration"> 
-              <img style="max-height: 300px" src="{% static 'Bookings/img/henock/white-outside.png' %}" alt="Party Van">
-              <img style="max-height: 300px" src="{% static 'Bookings/img/alliance22/1.png' %}" alt="Party bus">
-              <p style="font-size: x-small;">*No guarantee the bus shown will be used for your reservation.</p>
             </div>
 </section>
             </div>

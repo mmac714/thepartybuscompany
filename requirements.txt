@@ -12,6 +12,8 @@ Django==1.11
 django-address==0.1.5
 django-bootstrap-datepicker==1.2.3
 django-bootstrap3==9.1.0
+django-bootstrap3-datetimepicker==2.2.3
+django-bootstrap4==0.0.4
 django-datetime-widget==0.9.3
 django-jquery==3.1.0
 django-mathfilters==0.4.0
@@ -23,6 +25,7 @@ idna==2.6
 jmespath==0.9.3
 jsonfield==2.0.2
 ndg-httpsclient==0.4.3
+Pillow==5.0.0
 psycopg2==2.7.3.2
 pyasn1==0.3.7
 pycparser==2.18

@@ -9,29 +9,43 @@ from django.views.generic.base import RedirectView
 
 
 urlpatterns = [
-	# Home page
-	url(r'^$', views.home, name='home'),
 
+	###############
 	# Static pages
+	###############
 	url(r'^prices/$', views.prices, name='prices'),
-	url(r'^buses/$', views.buses, name='buses'),
 	url(r'^specials/$', views.specials, name='specials'),
 	url(r'^highdemand/$', views.highdemand, name='highdemand'),
-	url(r'^more_than_sixty_days/$', 
-		views.more_than_sixty_days,
+	url(r'^more_than_sixty_days/$', views.more_than_sixty_days,
 		name='more_than_sixty_days'),
 	url(r'^contact/$', views.contact, name='contact'),
 	url(r'^faq/$', views.faq, name='faq'),
 
+	###############
 	# dynamic pages
-	url(r'^reservation/(?P<reservation_id>[0-9a-f-]+)/$', 
-		views.reservation, name='reservation'),
+	###############
+	url(r'^$', views.home, name='home'),
 
-	url(r'^quote_form/$', views.quote_form, name='quote_form'),
+	url(r'^reservation_form/(?P<reservation_id>[0-9a-f-]+)/$', 
+		views.reservation_form, 
+		name='reservation_form'),
+
 	url(r'^quote/(?P<reservation_id>[0-9a-f-]+)/$', 
-		views.quote, name='quote'),
-	url(r'^quote_no_reservation/(?P<reservation_id>[0-9a-f-]+)/$', views.quote_no_reservation,
+		views.quote, 
+		name='quote'),
+
+	# Not using this right now.
+	url(r'^quote_no_reservation/(?P<reservation_id>[0-9a-f-]+)/$', 
+		views.quote_no_reservation,
 		name='quote_no_reservation'),
+
+	url(r'^price_form/(?P<reservation_id>[0-9a-f-]+)/$',
+		views.price_form,
+		name='price_form'),
+
+	url(r'^get_bus_and_create_reservation/(?P<bus_id>\d+)/$',
+		views.get_bus_and_create_reservation,
+		name='get_bus_and_create_reservation'),
 
 
 	url(r'^backend-reservation/$', views.backend_reservation, 

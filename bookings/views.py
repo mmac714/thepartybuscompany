@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, \
 redirect, HttpResponseRedirect, reverse
+from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
@@ -7,12 +8,13 @@ from django.core.mail import send_mail
 from django.template.loader import get_template
 from django.template import Context
 from django.db.models import Q
+from django.db import IntegrityError
 
 import stripe
 import datetime, time
 
 from .forms import ReservationForm, BackendReservationForm, BookingResForm,\
-ContactForm, QuoteForm, NoResSurveyForm
+ContactForm, QuoteForm, NoResSurveyForm, PriceForm
 
 from .models import Reservation, Payment, NoResSurvey, SurveyManager, Bus
 
@@ -25,15 +27,11 @@ stripe_api_key = STRIPE_PUBLIC_KEY
 def prices(request):
 	return render(request, 'bookings/prices.html')
 
-def buses(request):
-	return render(request, 'bookings/buses.html')
-
 def specials(request):
 	return render(request, 'bookings/specials.html')
 
 def highdemand(request):
 	return render(request, 'bookings/highdemand.html')
-
 
 def more_than_sixty_days(request):
 	return render(request, 'bookings/more_than_sixty_days.html')
@@ -46,10 +44,9 @@ def faq(request):
 
 # Non static pages
 def home(request):
-	form = ContactForm()
-	# import all bus objects to display on the home page
-	buses = Bus.objects.all()
-
+	""" Contact form email logic.
+	List bus objects with links to create a new reservation with 
+	the selected bus. """
 
 	if request.method == 'POST':
 		form = ContactForm(request.POST)
@@ -80,52 +77,64 @@ def home(request):
 
 			return HttpResponseRedirect(reverse('bookings:contact'))
 
+	# Display only acitve buses
+	buses = Bus.objects.filter(active=True)
+
+	form = ContactForm()
 
 	context = {
-		'form': form,
 		'buses':buses,
+		'form':form,
 		}
 	return render(request, 'bookings/home.html', context)
 
+def get_bus_and_create_reservation(request, bus_id):
+	""" Called when the customer selects a bus from the home page. 
+	This function will take the bus.id from the link and create a 
+	new reservation model with default setting and pass the reservation
+	to the price form."""
+	
+	# Retrieve the bus id from the link
+	bus = Bus.objects.get(id=bus_id)
 
-# Create your views here.
-def reservation(request, reservation_id):
+	today = datetime.date.today()
+	saturday = today + datetime.timedelta( (12 - today.weekday()) % 7)
+
+	# Create a reservation model with the bus_id and default values
+	reservation = Reservation.objects.create(
+		date=saturday,
+		duration=4,
+		bus_id=bus.id,
+		created=timezone.now()
+		)
+
+	# send reservation id to price form
+	return HttpResponseRedirect(reverse('bookings:price_form',
+					args=[reservation.id]))
+
+
+def price_form(request, reservation_id):
+	""" customer is displayed the price form to complete. Once submitted,
+	the form data will be saved to the reservation instance, a payment 
+	object will be created, a price will be calculated and the customer
+	will be directed to the appropriate page depending on their input. """
+
 	reservation = Reservation.objects.get(id=reservation_id)
-	""" Show the reservation form and add a new reservation"""
+
 	if request.method == 'POST':
 		# Form was submitted
-		form = ReservationForm(request.POST, instance=reservation)
-		form.date = reservation.date
+		form = PriceForm(request.POST, instance=reservation)
 		if form.is_valid():
 			# Form fields passed validation.
 			form.save()
-			Reservation().derive_quote_amount(reservation)
-			return HttpResponseRedirect(reverse('bookings:payment',
-					args=[reservation]))
-		else:
-			return HttpResponse(form.errors.as_data())
-	else:
-		form = ReservationForm(instance=reservation)
 
-		context = {
-			'form': form,
-			'reservation': reservation
-			}
-		return render(request, 'bookings/reservation.html', context)
+			# create payment object for the reservation instance
+			# can't create payment object here, maybe create it in the 
+			# reservation view
 
-def quote_form(request):
-	""" Show the Initial quote form, and calculate quote """
-	if request.method == 'POST':
-		# Form was submitted
-		form = QuoteForm(request.POST)
-		if form.is_valid():
-			# Form fields passed validation.
-			form.save()
-			new_reservation = form.save()
-			Reservation().create_payment_survey_instance_and_timestamp(new_reservation)
-			Reservation().derive_quote_amount(new_reservation)
+			# Calculate price
+			Reservation().get_price(reservation)
 
-			reservation = Reservation.objects.get(id=new_reservation.id)
 			from .high_demand import high_demand_list
 
 			# Variables for redirect logic
@@ -138,7 +147,7 @@ def quote_form(request):
 			if res_date in high_demand_list:
 				return HttpResponseRedirect(reverse('bookings:highdemand'))
 			
-			# Send to hgih demand if the customer wants to book within
+			# Send to high demand if the customer wants to book within
 			# 2 days
 			elif day_delta < datetime.timedelta(2):
 				return HttpResponseRedirect(reverse('bookings:highdemand'))
@@ -148,28 +157,68 @@ def quote_form(request):
 			elif day_delta > datetime.timedelta(60):
 				return HttpResponseRedirect(reverse(
 					'bookings:more_than_sixty_days'))
+
+			# In good order - give customer the price
 			else:	
 				return HttpResponseRedirect(reverse('bookings:quote',
-					args=[new_reservation]))
-					# Send to relevant payment.html
-
+					args=[reservation]))
 	else:
-		form = QuoteForm()
-
-	context = {
-		'form': form,
-		}
-	return render(request, 'bookings/quote_form.html', context)
-
-def quote(request, reservation_id):
-	reservation = Reservation.objects.get(id=reservation_id)
+		form = PriceForm(instance=reservation)
 
 	context = {
 	'reservation': reservation,
+	'form': form,
+	}
+
+	return render(request, 'bookings/price_form.html', context)
+
+def quote(request, reservation_id):
+	reservation = Reservation.objects.get(id=reservation_id)
+	bus = reservation.bus
+
+	context = {
+	'reservation': reservation,
+	'bus': bus,
 	}
 
 	return render(request, 'bookings/quote.html', context)
 
+# Create your views here.
+def reservation_form(request, reservation_id):
+	reservation = Reservation.objects.get(id=reservation_id)
+	""" Form for the customer to complete their booking details. """
+	if request.method == 'POST':
+		# Form was submitted
+		form = ReservationForm(request.POST, instance=reservation)
+		form.date = reservation.date
+		if form.is_valid():
+			# Form fields passed validation.
+			form.save()
+
+			# Create Payment object
+			# Try block to avoid creating a duplicate payment object
+			# if one already exist for the reservation. This may happen
+			# if the customer submits the form and goes back to edit
+			# the form and resubmit it. 
+			try:
+				Payment.objects.create(reservation=reservation)
+			except IntegrityError:
+				pass
+
+			return HttpResponseRedirect(reverse('bookings:payment',
+					args=[reservation]))
+		else:
+			return HttpResponse(form.errors.as_data())
+	else:
+		form = ReservationForm(instance=reservation)
+
+		context = {
+			'form': form,
+			'reservation': reservation
+			}
+		return render(request, 'bookings/reservation_form.html', context)
+
+# Not using this right now
 def quote_no_reservation(request, reservation_id):
 	reservation = Reservation.objects.get(id=reservation_id)
 	survey = NoResSurvey.objects.get(reservation=reservation_id)
@@ -190,7 +239,6 @@ def quote_no_reservation(request, reservation_id):
 		}
 
 		return render(request, 'bookings/quote_no_reservation.html', context)
-
 
 
 @csrf_exempt #cannot pass CSRF cookie to stripe and back
@@ -369,11 +417,15 @@ def backend_reservation(request):
 		if form.is_valid():
 			# Form fields passed validation.
 			form.save()
-			new_reservation = form.save()
+			reservation = form.save()
 			# clean data?
-			Reservation().create_payment_survey_instance_and_timestamp(new_reservation)
+			try:
+				Payment.objects.create(reservation=reservation)
+			except IntegrityError:
+				pass
+
 			return HttpResponseRedirect(reverse('bookings:payment',
-				args=[new_reservation.id]))
+					args=[reservation]))
 				# Send to relevant payment.html
 	else:
 		form = BackendReservationForm()

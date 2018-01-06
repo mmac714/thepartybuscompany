@@ -1,0 +1,44 @@
+{% extends "bookings/base.html" %}
+{% load bootstrap3 %}
+{% load static %}
+<script src="{% static 'Bookings/js/jquery.min.js' %}"></script>
+{% block content %}
+
+<!-- simple Navbar to avoid bounces -->
+<nav class="navbar navbar-default navbar-fixed-top">
+      <a class="navbar-header navbar-brand h-1 text-center" href="{% url 'bookings:home' %}">The Party Bus Company</a>
+      </div>
+</nav>
+
+<section id="contact" class="home-section nopadd-bot color-dark bg-white text-center">
+	<div class="container marginbot-50" style="padding:0px 10% 15% 10%">
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+          <div class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
+            <div class="section-heading text-center">
+              <h2 class="h-bold">No tricks here</h2>
+              <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
+              </div>
+              <p class="wow bounceInDown" data-wow-delay="0.2s">Complete the form and select "Get Price". Prices vary by date.</p>
+
+              <!-- Price Form -->
+              <form id="PriceForm" action="{% url 'bookings:price_form' reservation.id %}" method="post" class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
+              	{% csrf_token %}
+              	<div class="form-padding form-group">
+              		{% bootstrap_field form.date %}
+              		{% bootstrap_field form.duration %}
+                  	{% bootstrap_field form.email %}
+              	</div>
+              	<div style="padding:0% 0px 10% 0px">
+              		<a class="big-heading highlight-dark wow bounceInDown btn-red text-center" onclick="document.getElementById('PriceForm').submit()">Get Price</a>
+              	</div>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>
+</div>
+</section>
+
+
+{% endblock content %}

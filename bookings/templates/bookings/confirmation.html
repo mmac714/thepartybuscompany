@@ -18,14 +18,14 @@
 
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav navbar-right fropdown-menu">
-         <li><a href="{% url 'bookings:quote_form' %}">Prices</a></li>
-         <li><a href="{% url 'bookings:buses' %}">Buses</a></li>
-         <li><a href="{% url 'bookings:specials' %}">Specials</a></li>
+         <li><a href="{% url 'bookings:home' %}#buses">Buses</a></li>
          <li><a href="{% url 'bookings:faq' %}">Question Center</a></li>
+         <li><a href="{% url 'bookings:home' %}#contact">Contact Us</a></li>
         </ul>
       </div> <!-- navbar collapse -->
     </div> <!-- container fluid -->
 </nav>
+
 
   <!-- Section: contact -->
   <section id="contact" class="home-section nopadd-bot color-dark bg-white text-center">
@@ -39,7 +39,7 @@
               <p>Your reservation has been successfully booked. For your security, we sent you an email with your payment confirmation. </p>
               <p>You may contact us at 
                 <a href='mailto:service@ThePartyBusCompany.io' style="color: blue"> service@ThePartyBusCompany.io
-                </a> for questions or comments.</p>
+                </a> or call <a style="color: red" href="tel:+18175134168">817-513-4168 </a>for questions or comments.</p>
               <p>See you soon!</p>
             </div>
           </div>

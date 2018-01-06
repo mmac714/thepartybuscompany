@@ -35,10 +35,18 @@ no_res_survey_choices = {
 	('quotes',"I'm just here to get a quote"),
 }
 
+def user_directory_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+    return 'bus_{0}/{1}'.format(instance.slug, filename)
+
 class Bus(models.Model):
 	name = models.CharField(max_length=100)
 	cost = models.IntegerField(null=True, blank=True)
 	slug = models.SlugField(max_length=250, unique=True)
+	active = models.BooleanField()
+	description = models.CharField(max_length=500, null=True, blank=True)
+	primary_image = models.ImageField(null=True, blank=True)
+	secondary_image = models.ImageField(null=True, blank=True)
 
 	def __str__(self):
 		""" Return the name of the bus """
@@ -57,7 +65,7 @@ class Reservation(models.Model):
 	id = models.UUIDField(primary_key=True,
 		default=uuid.uuid4, editable=False)
 	bus = models.ForeignKey(
-		Bus, on_delete = models.CASCADE)
+		Bus)
 	first_name = models.CharField(max_length=100)
 	last_name = models.CharField(max_length=100)
 	date = models.DateField()
@@ -75,6 +83,32 @@ class Reservation(models.Model):
 	def __str__(self):
 		""" Return the id of the model """
 		return str(self.id)
+
+	def get_price(self, reservation):
+		""" calculate the price and savings amount and save it to
+		quote_amount and quote_savings respectively. Use the bus
+		cost to get the quote amount. """
+
+		# Get variables from reservation instance and bus object
+		duration = reservation.duration
+		date = reservation.date
+		day_of_week = date.weekday()
+		bus_cost = reservation.bus.cost 
+		
+
+		transport_charge = 0.15 # Standard service fee
+		tax_rate_charge = 0.0725 # County sales tax rate
+
+		# Friday and Saturday pricing
+		if day_of_week in [4, 5]:
+			bus_cost += 10
+
+		price = bus_cost * duration * 100 * \
+		(1 + transport_charge) * (1 + tax_rate_charge)
+
+		reservation.quote_amount = price 
+
+		reservation.save()
 
 	def calculate_decayed_price(self, base_price, added_hour_price, 
 		duration, date):
@@ -184,13 +218,6 @@ class Reservation(models.Model):
 
 		reservation.save()
 
-	def create_payment_survey_instance_and_timestamp(self, reservation):
-		""" Create a payment, and survey object"""
-		Payment.objects.create(reservation=reservation)
-		NoResSurvey.objects.create(reservation=reservation)
-		#time stamp creation
-		reservation.created = timezone.now()
-
 class SurveyManager(models.Manager):
 	def get_queryset(self):
 		return super(SurveyManager, self).get_queryset().exclude(reason='None')
@@ -280,7 +307,7 @@ class Payment(models.Model):
 		""" Creates a new customer and charges their card for
 		the reservation. """
 		fee = reservation.quote_amount
-		bus_size = reservation.bus_size
+		bus = reservation.bus
 		reservation = Payment(str(reservation))
 
 		try:
@@ -296,10 +323,10 @@ class Payment(models.Model):
 
 		try:
 			charge = stripe.Charge.create(
-				amount=10000,
+				amount=20000,
 				currency="usd",
 				customer=stripe_customer_id,
-				description=bus_size,
+				description=bus,
 				)
 
 		except stripe.error.CardError as ce:

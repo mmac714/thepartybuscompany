@@ -18,10 +18,9 @@
 
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav navbar-right fropdown-menu">
-         <li><a href="{% url 'bookings:quote_form' %}">Prices</a></li>
-         <li><a href="{% url 'bookings:buses' %}">Buses</a></li>
-         <li><a href="{% url 'bookings:specials' %}">Specials</a></li>
+         <li><a href="{% url 'bookings:home' %}#buses">Buses</a></li>
          <li><a href="{% url 'bookings:faq' %}">Question Center</a></li>
+         <li><a href="{% url 'bookings:home' %}#contact">Contact Us</a></li>
         </ul>
       </div> <!-- navbar collapse -->
     </div> <!-- container fluid -->
@@ -75,10 +74,10 @@
               <p class="text-left" >To make sure you will get the service you deserve, we pre-screened all our partners and drivers to make sure that you will get a world class experience, and that you will comeback to us the next time you are in the market for a party bus. </p>
               
               <div style="padding:0% 0px 5% 0px">
-                <a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:home' %}#contact">I have a different question</a>
+                <a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:home' %}#contact">I Have A Different Question</a>
               </div>
                 <div style="padding:0% 0px 10% 0px">
-               <a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:quote_form' %}">Get a price</a>
+               <a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:home' %}">Return Home</a>
               </div>
 
           	</div>

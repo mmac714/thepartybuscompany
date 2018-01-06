@@ -18,7 +18,7 @@
             <div class="section-heading text-center">
               <h2 class="h-bold">You're one step away!</h2>
               <div class="divider-header"></div>
-              <p>Confirm your reservation details, then tap "Pay with Card" to pay a $100 *deposit to complete your Party Bus reservation.</p>
+              <p>Complete your booking by confirming your reservation details, then tapping "Pay with Card" to pay a $200 deposit* to reserve your bus.</p>
             </div>
           </div>
         </div>
@@ -37,7 +37,7 @@
           <p>Date: {{ reservation.date }}</p>
           <p>Pick up: {{ reservation.start_time }} at {{ reservation.location_pick_up }}</p>
           <p>Hours: {{ reservation.duration }} </p>
-          <p>Group size: {{ reservation.bus_size }}</p>
+          <p>Bus: {{ reservation.bus.name }}</p>
 
           <script type="text/javascript">
           $(document).ready(function () {
@@ -46,9 +46,6 @@
             $("#division").innerHTML(newquote);
           });
           </script>
-
-
-
 
           <script type="text/javascript"> 
             var x = {{ reservation.quote_amount }};
@@ -94,7 +91,7 @@ Electronic Signatures and Modifications to the Agreement. I agree to transact bu
             <script
             src="https://checkout.stripe.com/checkout.js" class="stripe-button"
             data-key="{{ stripe_api_key }}"
-            data-amount="10000"
+            data-amount="20000"
             data-name="Deposit for Reservation"
             data-description="{{ reservation.bus_size }} person bus on {{ reservation.date }}"
             data-image="{% static 'Bookings/img/logo.png' %}"

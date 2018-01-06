@@ -183,6 +183,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+########################################
+# S3 Storages
+########################################
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
@@ -192,19 +195,41 @@ AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
 AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME")
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400',}
-AWS_LOCATION = 'static'
 
+########### Static files ###############
+"""
+AWS_LOCATION = 'static'
 STATICFILES_DIRS = [
 os.path.join(BASE_DIR, 'bookings/static'),
 ]
 STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 STATICFILES_STORAGE = os.environ.get("STATICFILES_STORAGE")
+"""
+
+STATIC_URL = '/static/'
+
+########### Media files ###############
+
+# Media files
+AWS_MEDIA_LOCATION = 'media'
+
+# Media root -> The absolute filesystem path to the directory that
+# will hold user-uploaded files. (This should point to the AWS bucket?)
+MEDIA_ROOT = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_MEDIA_LOCATION)
+
+# Media url -> The URL that handles the media served from Media_Root
+MEDIA_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_MEDIA_LOCATION)
 
 
-#STATIC_URL = '/static/'
+#MEDIA_URL = '/media/'
+#MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
+DEFAULT_FILE_STORAGE = 'pb_config.storage_backends.MediaStorage'
 
+########################################
 # Stripe Settings
+########################################
+
 # local settings 
 STRIPE_LIVE_MODE = False
 STRIPE_PUBLIC_KEY = os.environ.get("STRIPE_TEST_PUBLIC_KEY", '')
