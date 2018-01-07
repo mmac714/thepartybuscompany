@@ -329,13 +329,13 @@ def send_follow_up_email(request, reservation_id):
 	price = "$" + price + "0"
 	bus = reservation.bus.name
 	date = reservation.date
+	date = date.strftime('%m/%d')
 	duration = reservation.duration
 	quote_link = "www.ThePartyBusCompany.io/quote/" + str(reservation.id) + \
 	"/"
 
 	# Email arguments
-	subject = str(bus) + "Party Bus for " + str(price) + " - " + \
-	str(duration) + " hours"
+	subject = "Your event on " + str(date) + " with The " + str(bus) + "."
 	body = get_template('bookings/followup_quote_email.html').render(
 		{
 		'price': price,
