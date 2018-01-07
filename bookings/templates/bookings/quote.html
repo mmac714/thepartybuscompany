@@ -12,18 +12,18 @@
         </div>
           <div class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
             <div class="section-heading text-center">
-              <h2 class="h-bold">Our best price</h2>
+              <h2 class="h-bold">Our price</h2>
               <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
               </div>
-              <p>Your total price is ${{ reservation.quote_amount|div:100|floatformat:2|intcomma }} (includes transport fees and taxes) for the {{ bus.name }} bus on {{ reservation.date }}.</p>
+              <p>Your total price is ${{ reservation.quote_amount|div:100|floatformat:2|intcomma }} for the {{ bus.name }} bus on {{ reservation.date }}. This price includes a personal Party Bus Company Concierge, transport fees, and taxes.</p>
 
               <!-- Decay price logic paragraph 
               <p><span style="color: red">Prices are based on time and demand. </span>Our prices start incredibly low and edge higher the closer it gets to your reservation date. We project that you will <span style="color: green;"><strong>SAVE ${{ reservation.quote_savings|div:100|floatformat:2|intcomma }} </strong></span>by reserving today.</p>
               -->
 
-              <p>Call or text<a style="color: red" href="tel:+18175134168"> 817-513-4168</a> for questions or to book, or...</p> 
+              <p>Call or text<a style="color: red" href="tel:+18175134168"> 817-513-4168</a> to book, or...</p> 
               <div style="padding:2% 0px 2% 0px">
-                <a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:reservation_form' reservation.id %}">Book Now Online</a>
+                <a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:reservation_form' reservation.id %}">Continue Online</a>
               </div>
               Photos of your bus
               <img class="img-responsive illustration" src="{{ bus.primary_image.url }}"">
@@ -35,9 +35,10 @@
               <p>Like most people you've probably never rented a party bus before, and you have some questions. Here is some more info about our service:</p>
 
               <div class="text-left">
-                <p>1. We handle all occassions - weddings, birthdays, sporting events, Winstar trips, and more...</p>
+                <p>1. We handle all occassions - weddings, birthdays, sporting events, Winstar trips, and more... Call a Party Bus Concierge to setup and customize your event.</p>
                 <p>2. The driver is under your direction during your reservation. We can make as many stop-and-go's as you like.</p>
-                <p>3. All our buses are limo-style seating, BYOB, and compatible with your device to play your music. We will provide drinking glasses and napkins. Dancing pole available depending on the bus.</p>
+                <p>3. All our buses are limo-style seating, BYOB, and compatible with your device to play your music. We will provide drinking glasses and napkins. More services available by speaking with your Party Bus Concierge.</p>
+
                 <div style="padding:1% 0px 5% 0px" class="text-center">
                   <a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:faq' %}">See Our Question Center</a> </div>
                 </div>
