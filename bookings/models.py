@@ -90,6 +90,7 @@ class Reservation(models.Model):
 		cost to get the quote amount. """
 
 		# Get variables from reservation instance and bus object
+		
 		duration = reservation.duration
 		date = reservation.date
 		day_of_week = date.weekday()
