@@ -235,12 +235,13 @@ STRIPE_PUBLIC_KEY = os.environ.get("STRIPE_TEST_PUBLIC_KEY", '')
 STRIPE_SECRET_KEY = os.environ.get("STRIPE_TEST_SECRET_KEY", '')
 
 # prod settings
+"""
 if os.getcwd() == '/app':
 
     STRIPE_LIVE_MODE = True
     STRIPE_PUBLIC_KEY=os.environ.get("STRIPE_LIVE_PUBLIC_KEY", '')
     STRIPE_SECRET_KEY=os.environ.get("STRIPE_LIVE_SECRET_KEY", '')
-
+"""
 # Email configurations
 # http://status.sendgrid.com/ for email status updares
 
