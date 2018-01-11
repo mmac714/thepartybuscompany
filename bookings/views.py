@@ -446,7 +446,7 @@ def backend_reservation(request):
 			except IntegrityError:
 				pass
 
-			return HttpResponseRedirect(reverse('bookings:payment',
+			return HttpResponseRedirect(reverse('bookings:booking',
 					args=[reservation]))
 				# Send to relevant payment.html
 	else:

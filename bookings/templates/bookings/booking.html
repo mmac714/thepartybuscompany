@@ -5,9 +5,7 @@
 <body>
 <div class="jumbotron">
 	<div class="jumbotron-inner">
-		<h2>
-		Profile for Booking: {{ reservation.id }}
-		</h2>
+		<h2>Profile for Booking: {{ reservation.id }}</h2>
 		<p>
 			Name: {{ reservation.first_name }} {{ reservation.last_name }}
 		</p>
@@ -17,9 +15,6 @@
 		<p>
 			created: {{ reservation.created }}
 		</p>
-
-
-
 	</div>
 
 
@@ -52,6 +47,24 @@
 
 	</div>
 
+		<div class="jumbotron-inner">
+		<h3>
+			Functions:
+		</h3>
+		<div class="line">
+		</div>
+		<div>
+			<p>
+				<a href="{% url 'bookings:invoice' reservation.id %}" class="btn btn-info" role="button">Get invoice</a>
+				<a href="{% url 'bookings:send_follow_up_email' reservation.id %}" class="btn btn-info" role="button">Follow Up Email</a>
+				<a href="#" class="btn btn-info" role="button">Deposit Reminder Email</a>
+				<a href="#" class="btn btn-info" role="button">Service Reminder Email</a>
+				<a href="#" class="btn btn-info" role="button">Thank you Email</a>
+
+			</p>
+		</div>
+	</div>
+
 	<div class="jumbotron-inner">
 		<h3>
 			Payment info:
@@ -73,18 +86,15 @@
 			</p>
 		</h3>
 		<div class="line">
+			<span>
 			<a href="{% url 'bookings:payment' reservation.id %}" class="btn btn-info" role="button">Charge Deposit</a>
+			<a href="{% url 'bookings:send_follow_up_email' reservation.id %}" class="btn btn-info" role="button">Charge for service</a>
+		</span>
 		</div>
 
 	</div>
 
-</div>
 
-<div>
-	<span>
-		<a href="{% url 'bookings:invoice' reservation.id %}" class="btn btn-info" role="button">Get invoice</a>
-		<a href="{% url 'bookings:send_follow_up_email' reservation.id %}" class="btn btn-info" role="button">Send follow up email</a>
-	</span>
 </div>
 
 </body>
