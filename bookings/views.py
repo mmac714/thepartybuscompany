@@ -311,6 +311,7 @@ def booking(request, reservation_id):
 			'duration': reservation.duration,
 			'quote_amount': reservation.quote_amount,
 			'bus': reservation.bus,
+			'driver': reservation.driver,
 			})
 
 		context = {
