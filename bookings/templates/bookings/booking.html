@@ -19,15 +19,6 @@
 
 	</div>
 
-	<div class="jumbotron-inner">
-		<h3>
-			Payment info:
-		</h3>
-		<div class="line">
-		</div>
-
-	</div>
-
 
 	<div class="jumbotron-inner">
 		<h3>
@@ -50,12 +41,39 @@
 				<div>
 					{% bootstrap_field r_form.bus %}
 				</div>
+				<div>
+					{% bootstrap_field r_form.driver %}
+				</div>
 				<button type="submit" name="btn-r_form">Save Changes</button>
 			</form>
 
 	</div>
 
+	<div class="jumbotron-inner">
+		<h3>
+			Payment info:
+			<p></p>
+			<p>
+				Charge Amount: {{ payment.charge_amount }}
+			</p>
+			<p>
+				Stripe Customer ID: {{ payment.stripe_customer_id }}
+			</p>
+			<p>
+				Charge ID: {{ payment.stripe_id }}
+			</p>
+			<p>
+				Charge_description: {{ payment.charge_description }}
+			</p>
+		</h3>
+		<div class="line">
+			<a href="{% url 'bookings:payment' reservation.id %}" class="btn btn-info" role="button">Charge Deposit</a>
+		</div>
+
+	</div>
+
 </div>
+
 <div>
 	<span>
 		<a href="{% url 'bookings:invoice' reservation.id %}" class="btn btn-info" role="button">Get invoice</a>

@@ -1,0 +1,39 @@
+{% extends "bookings/dashboard_base.html" %}
+{% load bootstrap3 %}
+{% block content %}
+
+<body>
+<div class="jumbotron">
+	<div class="jumbotron-inner">
+		<h2>
+		Profile for Vehicle: {{ vehicle.name }}
+		</h2>
+			<form action="{% url 'bookings:vehicle_profile' vehicle.id %}" method="post">
+				{% csrf_token %}
+				<div>
+					{% bootstrap_field form.cost %}
+				</div>
+				<div>
+					{% bootstrap_field form.active %}
+				</div>
+				<div>
+					{% bootstrap_field form.description %}
+				</div>
+				<div>
+					{% bootstrap_field form.affiliate %}
+				</div>
+				
+				<button type="submit" name="btn-form">Save Changes</button>
+			
+			</form>
+
+	</div>
+
+</div>
+
+<div>
+
+</div>
+
+</body>
+{% endblock content %}

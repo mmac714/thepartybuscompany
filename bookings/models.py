@@ -39,14 +39,32 @@ def user_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
     return 'bus_{0}/{1}'.format(instance.slug, filename)
 
+class Affiliate(models.Model):
+	name = models.CharField(max_length=100)
+	contact = models.CharField(max_length=100)
+
+	def __str__(self):
+		""" Return the name of the affiliate """
+		return str(self.name)
+
+
+
+class Driver(models.Model):
+	name = models.CharField(max_length=100)
+	contact = models.CharField(max_length=100)
+
+	def __str__(self):
+		""" Return the name of the driver """
+		return str(self.name)
+
 class Bus(models.Model):
 	name = models.CharField(max_length=100)
 	cost = models.IntegerField(null=True, blank=True)
-	slug = models.SlugField(max_length=250, unique=True)
 	active = models.BooleanField()
 	description = models.CharField(max_length=500, null=True, blank=True)
-	primary_image = models.ImageField(null=True, blank=True)
-	secondary_image = models.ImageField(null=True, blank=True)
+	#primary_image = models.ImageField(null=True, blank=True)
+	#secondary_image = models.ImageField(null=True, blank=True)
+	affiliate = models.ForeignKey(Affiliate, blank=True, null=True)
 
 	def __str__(self):
 		""" Return the name of the bus """
@@ -69,7 +87,7 @@ class Reservation(models.Model):
 	first_name = models.CharField(max_length=100)
 	last_name = models.CharField(max_length=100)
 	date = models.DateField()
-	start_time = models.TimeField(default="19:00", null=True, blank=True)
+	start_time = models.TimeField(default="4:00 PM", null=True, blank=True)
 	duration = models.IntegerField("Number of hours")
 	location_pick_up = models.CharField(max_length=1024, null=True, blank=True)
 	location_drop_off= models.CharField(max_length=1024, null=True, blank=True)
@@ -79,6 +97,7 @@ class Reservation(models.Model):
 	created = models.DateTimeField(null=True, blank=True)
 	quote_savings = models.IntegerField(null=True, blank=True)
 	email = models.EmailField()
+	driver = models.ForeignKey(Driver, blank=True, null=True)
 
 	def __str__(self):
 		""" Return the id of the model """
@@ -90,7 +109,7 @@ class Reservation(models.Model):
 		cost to get the quote amount. """
 
 		# Get variables from reservation instance and bus object
-		
+
 		duration = reservation.duration
 		date = reservation.date
 		day_of_week = date.weekday()

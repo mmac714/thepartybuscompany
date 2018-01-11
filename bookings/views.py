@@ -14,9 +14,11 @@ import stripe
 import datetime, time
 
 from .forms import ReservationForm, BackendReservationForm, BookingResForm,\
-ContactForm, QuoteForm, NoResSurveyForm, PriceForm
+ContactForm, QuoteForm, NoResSurveyForm, PriceForm, CreateBusForm, \
+CreateDriverForm, CreateAffiliateForm, EditBusForm
 
-from .models import Reservation, Payment, NoResSurvey, SurveyManager, Bus
+from .models import Reservation, Payment, NoResSurvey, SurveyManager, Bus,\
+Driver, Affiliate
 
 from pb_config.settings import STRIPE_SECRET_KEY, STRIPE_PUBLIC_KEY
 
@@ -284,7 +286,7 @@ def confirmation(request, reservation_id):
 def booking(request, reservation_id):
 	""" Page for associate to fill out Reservation detail. """
 	reservation = Reservation.objects.get(id=reservation_id)
-	# payment = Payment.objects.get(reservation=reservation_id)
+	payment = Payment.objects.get(reservation=reservation_id)
 	#bus = Bus.objects.get(reservation=reservation_id)
 
 	if request.method == 'POST' and 'btn-r_form':
@@ -313,7 +315,7 @@ def booking(request, reservation_id):
 		context = {
     		'reservation': reservation,
     		'r_form': r_form,
-    		#'payment': payment,
+    		'payment': payment,
     		}
 
 		return render(request, 'bookings/booking.html', context)
@@ -433,6 +435,8 @@ def backend_reservation(request):
 			# Form fields passed validation.
 			form.save()
 			reservation = form.save()
+			reservation.created=timezone.now()
+			reservation.save()
 			# clean data?
 			try:
 				Payment.objects.create(reservation=reservation)
@@ -449,6 +453,100 @@ def backend_reservation(request):
 		'form': form,
 		}
 	return render(request, 'bookings/backend-reservation.html', context)
+
+
+
+@login_required
+def vehicle_management(request):
+	""" Allow uses to create buses. """
+	form = CreateBusForm()
+	buses = Bus.objects.all()
+
+
+	if request.method == 'POST':
+		form = CreateBusForm(request.POST)
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect(reverse('bookings:vehicle_management'))
+
+
+	context = {
+		'form': form,
+		'buses': buses,
+		}
+	return render(request, 'bookings/vehicle_management.html', context)
+
+@login_required
+def driver_management(request):
+	""" Allow users to create drivers and see all drivers. """
+	form = CreateDriverForm()
+	drivers = Driver.objects.all()
+
+	if request.method == 'POST':
+		form = CreateDriverForm(request.POST)
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect(reverse('bookings:driver_management'))
+
+
+	context = {
+		'form': form,
+		'drivers': drivers,
+		}
+	return render(request, 'bookings/driver_management.html', context)
+
+@login_required
+def affiliate_management(request):
+	""" Allow users to create and see all affiliates. """
+	form = CreateAffiliateForm()
+	affiliates = Affiliate.objects.all()
+
+	if request.method == 'POST':
+		form = CreateAffiliateForm(request.POST)
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect(reverse('bookings:affiliate_management'))
+
+	context = {
+		'form': form,
+		'affiliates': affiliates,
+	}
+
+	return render(request, 'bookings/affiliate_management.html', context)
+
+
+@login_required
+def vehicle_profile(request, vehicle_id):
+	""" Allow users to edit and see vehicle information """
+	vehicle = Bus.objects.get(id=vehicle_id)
+
+	if request.method == 'POST':
+		form = EditBusForm(request.POST, instance=vehicle)
+		if form.is_valid():
+			form.save()
+
+			return HttpResponseRedirect(reverse('bookings:vehicle_management'))
+
+	form = EditBusForm(
+		initial={
+		'cost': vehicle.cost, 
+		'active':vehicle.active,
+		'description': vehicle.description,
+		'affiliate': vehicle.affiliate,
+		})
+
+	context = {
+	'vehicle': vehicle,
+	'form': form,
+	}
+
+	return render(request, 'bookings/vehicle_profile.html', context)
+
+
+
+
+
+
 
 
 

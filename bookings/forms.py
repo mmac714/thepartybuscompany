@@ -6,7 +6,7 @@ import datetime
 
 from bootstrap_datepicker.widgets import DatePicker
 
-from .models import Reservation, NoResSurvey, Bus
+from .models import Reservation, NoResSurvey, Bus, Driver, Affiliate
 from pb_config.settings import DATE_INPUT_FORMATS
 
 # find the next saturday for date initial value
@@ -140,6 +140,7 @@ class BackendReservationForm(forms.ModelForm):
 		'comments',
 		'quote_amount',
 		'bus',
+		'email'
 		] 
 		labels = {
 			'first_name': 'First Name',
@@ -158,7 +159,7 @@ class BookingResForm(forms.ModelForm):
 	""" list all reservation objects """
 	class Meta:
 		model = Reservation
-		fields = ['date','duration', 'quote_amount','bus' ] 
+		fields = ['date','duration', 'quote_amount','bus', 'driver' ] 
 
 class ContactForm(forms.Form):
 	from_email = forms.EmailField(required=True, label='Your email address')
@@ -173,8 +174,26 @@ class NoResSurveyForm(forms.ModelForm):
 			'detail': 'Open feedback (optional)',
 			}
 
+class CreateBusForm(forms.ModelForm):
+	class Meta:
+		model = Bus
+		fields = ['name', 'cost', 'active', 'description', 'affiliate']
+
+class EditBusForm(forms.ModelForm):
+	class Meta:
+		model = Bus
+		fields = ['cost', 'active', 'description', 'affiliate']
+
+class CreateDriverForm(forms.ModelForm):
+	class Meta:
+		model = Driver
+		fields = ['name', 'contact']
 
 
+class CreateAffiliateForm(forms.ModelForm):
+	class Meta:
+		model = Affiliate
+		fields = ['name', 'contact']
 
 
 

@@ -66,6 +66,27 @@ urlpatterns = [
 		views.completed_reservation_list, 
 		name='completed_reservation_list'),
 
+	###############
+	# Creation pages
+	###############
+	url(r'^vehicle_management/$', views.vehicle_management,
+		name='vehicle_management'),
+	
+	url(r'^driver_management/$', views.driver_management,
+		name='driver_management'),
+
+	url(r'^affiliate_management/$', views.affiliate_management,
+		name='affiliate_management'),
+
+	###############
+	# Profile pages
+	###############
+	url(r'vehicle_profile/(?P<vehicle_id>[0-9a-f-]+)/$', views.vehicle_profile,
+		name='vehicle_profile'),
+
+
+
+
 
 	url(r'^sitemap\.xml$', views.sitemap, name="sitemap"),
 	url(r'^favicon.ico$', 

@@ -1,0 +1,48 @@
+{% extends "bookings/dashboard_base.html" %}
+{% load bootstrap3 %}
+{% block content %}
+<body>
+<div class="jumbotron">
+	<div class="jumbotron-inner">
+		<form action="{% url 'bookings:driver_management' %}" method="post">
+			{% csrf_token %}
+			{{ form.as_p }}
+		<button type="submit" name="btn-form">Create Driver</button>
+	</form>
+	</div>
+
+	<div class="jumbotron-inner">
+		<h4 class="text-left">
+		All Drivers
+	</h4>
+	<div class="text-left" style="font-size:8;">
+		sorted by created date	
+	</div>
+
+	<table class="table-striped table-hover">
+		<thead>
+			<tr>
+				<th width="15%">Name</th>
+				<th width="20%">Contact</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for driver in drivers %}
+				<tr>
+					<td>
+						<a href="#">
+							{{ driver.name }}
+						</a>
+					</td>
+					<td>{{ driver.contact }}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+
+</div>
+</body>
+
+
+{% endblock content %}

@@ -11,7 +11,7 @@
         </div>
               <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
               </div>
-              <p style="padding:5% 75px 5% 75px" class="wow bounceInDown" data-wow-delay="0.2s">Our pricing is straight forward.
+              <p style="padding:5% 75px 5% 75px" class="wow bounceInDown" data-wow-delay="0.2s">Customer Reservation Data
               </p>
 	<form id="reservationform" action="{% url 'bookings:backend_reservation' %}" method="post" class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
 		{% csrf_token %}
@@ -19,7 +19,7 @@
 			{% bootstrap_field form.first_name field_class='reservation-format' %}
 			{% bootstrap_field form.last_name layout='vertical' %}
 			{% bootstrap_field form.phone_number %}
-			{% bootstrap_field form.bus %}
+			{% bootstrap_field form.email %}
 			{% bootstrap_field form.date %}
 			{% bootstrap_field form.start_time %}
 			{% bootstrap_field form.duration %}
@@ -27,6 +27,7 @@
 			{% bootstrap_field form.location_drop_off %}
 			{% bootstrap_field form.comments %}
 			{% bootstrap_field form.quote_amount field_class='reservation-format' %}
+			{% bootstrap_field form.bus %}
 		</div>
 
 		<div style="padding:0% 0px 10% 0px">

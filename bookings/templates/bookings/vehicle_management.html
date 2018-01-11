@@ -1,0 +1,50 @@
+{% extends "bookings/dashboard_base.html" %}
+{% load bootstrap3 %}
+{% block content %}
+<body>
+<div class="jumbotron">
+	<div class="jumbotron-inner">
+		<form action="{% url 'bookings:vehicle_management' %}" method="post">
+			{% csrf_token %}
+			{{ form.as_p }}
+		<button type="submit" name="btn-r_form">Create Bus</button>
+	</form>
+	</div>
+
+	<div class="jumbotron-inner">
+		<h4 class="text-left">
+		All Buses
+	</h4>
+	<div class="text-left" style="font-size:8;">
+		sorted by created date	
+	</div>
+
+	<table class="table-striped table-hover">
+		<thead>
+			<tr>
+				<th width="15%">Name</th>
+				<th width="20%">Active</th>
+				<th width="20%">Affiliate</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for bus in buses %}
+				<tr>
+					<td>
+						<a href="{% url 'bookings:vehicle_profile' bus.id %}">
+							{{ bus }}
+						</a>
+					</td>
+					<td>{{ bus.active }}</td>
+					<td>{{ bus.affiliate }}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+
+</div>
+</body>
+
+
+{% endblock content %}

@@ -34,14 +34,33 @@
 			<ul class="list-unstyled components">
 				<p>Operations</p>
 				<li>
-					<a href="{% url 'bookings:backend_reservation' %}">Custom Reservation</a>
-					<a href="{% url 'bookings:completed_reservation_list' %}">Completed Reservation List</a>
-					<a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Reservation Lists</a>
-					<ul class="collapse list-unstyled" id="pageSubmenu">
+					<a href="{% url 'bookings:backend_reservation' %}">Create Reservation</a>
+
+					<!-- Reservation list -->
+					<a href="#pageSubmenu1" data-toggle="collapse" aria-expanded="false">Reservation Lists</a>
+					<ul class="collapse list-unstyled" id="pageSubmenu1">
 						<li><a href="{% url 'bookings:booking_list' %}">All Reservations</a></li>
-						<li><a href="{% url 'bookings:survey_list' %}">Surveys</a></li>
-						<li><a href="{% url 'bookings:completed_reservation_list' %}">Completed Reservations</a></li>
+						<li><a href="#">Created</a></li>
+						<li><a href="#">Deposit Paid</a></li>
+						<li><a href="#">Upcoming</a></li>
+						<li><a href="{% url 'bookings:completed_reservation_list' %}">Completed</a></li>
 					</ul>
+
+					<!-- Vehicles -->
+					<a href="#pageSubmenu2" data-toggle="collapse" aria-expanded="false">Availability</a>
+					<ul class="collapse list-unstyled" id="pageSubmenu2">
+						<li><a href="#">Drivers</a></li>
+						<li><a href="#">Vehicles</a></li>
+					</ul>
+
+					<!-- Management list -->
+					<a href="#pageSubmenu3" data-toggle="collapse" aria-expanded="false">Management</a>
+					<ul class="collapse list-unstyled" id="pageSubmenu3">
+						<li><a href="{% url 'bookings:driver_management' %}">Drivers</a></li>
+						<li><a href="{% url 'bookings:vehicle_management' %}">Vehicles</a></li>
+						<li><a href="{% url 'bookings:affiliate_management' %}">Affiliates</a></li>
+					</ul>
+
 				</li>
 			</ul>
   		</nav>
@@ -71,7 +90,7 @@
 									&nbsp;
 								</div>
 								<div class="text-right">
-									<a class="navbar-link" href="{%url 'users:logout' %}">
+									<a class="navbar-link" href="{% url 'users:logout' %}">
 										log out
 									</a>
 								</div>
