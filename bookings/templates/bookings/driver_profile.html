@@ -6,21 +6,12 @@
 <div class="jumbotron">
 	<div class="jumbotron-inner">
 		<h2>
-		Profile for Vehicle: {{ vehicle.name }}
+		Profile for Driver: {{ driver.name }}
 		</h2>
-			<form action="{% url 'bookings:vehicle_profile' vehicle.id %}" method="post">
+			<form action="{% url 'bookings:driver_profile' driver.id %}" method="post">
 				{% csrf_token %}
 				<div>
-					{% bootstrap_field form.cost %}
-				</div>
-				<div>
-					{% bootstrap_field form.active %}
-				</div>
-				<div>
-					{% bootstrap_field form.description %}
-				</div>
-				<div>
-					{% bootstrap_field form.affiliate %}
+					{% bootstrap_field form.contact %}
 				</div>
 				
 				<button type="submit" name="btn-form">Save Changes</button>
@@ -28,6 +19,8 @@
 			</form>
 
 	</div>
+
+</div>
 	<div class="jumbotron">
 	<h4 class="text-left">
 		Reservations with completed payments
@@ -40,21 +33,21 @@
 		<thead>
 			<tr>
 				<th width="15%">#</th>
-				<th width="20%">Driver</th>
+				<th width="20%">Bus</th>
 				<th width="20%">Reservation Date</th>
 				<th width="23%">Payment Status</th>
 				<th scope="col">Name</th>
 			</tr>
 		</thead>
 		<tbody>
-			{% for reservation in vehicle_reservations %}
+			{% for reservation in driver_reservations %}
 				<tr>
 					<td>
 						<a href="{% url 'bookings:booking' reservation.id %}">
 							{{ reservation }}
 						</a>
 					</td>
-					<td>{{ reservation.driver }}</td>
+					<td>{{ reservation.bus }}</td>
 					<td>{{ reservation.date }}</td>
 					<td>{{ reservation.payment.status }}</td>
 					<td>{{ reservation.first_name }} {{ reservation.last_name }}</td>
@@ -62,9 +55,6 @@
 			{% endfor %}
 		</tbody>
 	</table>
-</div>
-
-
 </div>
 
 <div>

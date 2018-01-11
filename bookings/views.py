@@ -15,7 +15,8 @@ import datetime, time
 
 from .forms import ReservationForm, BackendReservationForm, BookingResForm,\
 ContactForm, QuoteForm, NoResSurveyForm, PriceForm, CreateBusForm, \
-CreateDriverForm, CreateAffiliateForm, EditBusForm
+CreateDriverForm, CreateAffiliateForm, EditBusForm, EditAffiliateForm, \
+EditDriverForm
 
 from .models import Reservation, Payment, NoResSurvey, SurveyManager, Bus,\
 Driver, Affiliate
@@ -203,7 +204,7 @@ def reservation_form(request, reservation_id):
 			# if the customer submits the form and goes back to edit
 			# the form and resubmit it. 
 			try:
-				Payment.objects.create(reservation=reservation)
+				Payment.objects.create(reservation=reservation,status="no deposit")
 			except IntegrityError:
 				pass
 
@@ -439,7 +440,8 @@ def backend_reservation(request):
 			reservation.save()
 			# clean data?
 			try:
-				Payment.objects.create(reservation=reservation)
+				Payment.objects.create(reservation=reservation,
+					status="no deposit")
 			except IntegrityError:
 				pass
 
@@ -458,7 +460,7 @@ def backend_reservation(request):
 
 @login_required
 def vehicle_management(request):
-	""" Allow uses to create buses. """
+	""" Allow uses to create buses and see all buses. """
 	form = CreateBusForm()
 	buses = Bus.objects.all()
 
@@ -478,7 +480,7 @@ def vehicle_management(request):
 
 @login_required
 def driver_management(request):
-	""" Allow users to create drivers and see all drivers. """
+	""" Allow users to create and see all drivers. """
 	form = CreateDriverForm()
 	drivers = Driver.objects.all()
 
@@ -519,6 +521,7 @@ def affiliate_management(request):
 def vehicle_profile(request, vehicle_id):
 	""" Allow users to edit and see vehicle information """
 	vehicle = Bus.objects.get(id=vehicle_id)
+	vehicle_reservations = vehicle.reservation_set.order_by('-date')
 
 	if request.method == 'POST':
 		form = EditBusForm(request.POST, instance=vehicle)
@@ -538,15 +541,116 @@ def vehicle_profile(request, vehicle_id):
 	context = {
 	'vehicle': vehicle,
 	'form': form,
+	'vehicle_reservations': vehicle_reservations
 	}
 
 	return render(request, 'bookings/vehicle_profile.html', context)
 
+@login_required
+def affiliate_profile(request, affiliate_id):
+	""" Allow users to edit and see affiliate information """
+	affiliate = Affiliate.objects.get(id=affiliate_id)
 
+	if request.method == 'POST':
+		form = EditAffiliateForm(request.POST, instance=affiliate)
+		if form.is_valid():
+			form.save()
 
+			return HttpResponseRedirect(reverse('bookings:affiliate_management'))
 
+	form = EditAffiliateForm(
+		initial = {
+		'contact': affiliate.contact,
+		})
 
+	context = {
+	'affiliate': affiliate,
+	'form': form,
+	}
 
+	return render(request, 'bookings/affiliate_profile.html', context)
+
+@login_required
+def driver_profile(request, driver_id):
+	""" Allow users to edit and see driver information """
+	driver = Driver.objects.get(id=driver_id)
+	driver_reservations = driver.reservation_set.order_by('-date')
+
+	if request.method == 'POST':
+		form = EditDriverForm(request.POST, instance=driver)
+		if form.is_valid():
+			form.save()
+
+			return HttpResponseRedirect(reverse('bookings:driver_management'))
+
+	form = EditDriverForm(
+		initial = {
+		'contact': driver.contact,
+		})
+
+	context = {
+	'driver': driver,
+	'form': form,
+	'driver_reservations': driver_reservations,
+	}
+
+	return render(request, 'bookings/driver_profile.html', context)
+
+@login_required
+def payment_no_deposit_list(request):
+	""" Show newly created reservations with no deposits. """
+	reservations = Reservation.objects.order_by('-date').filter(
+		payment__status='no deposit')
+	payment = Payment()
+
+	context = {
+		'reservations':reservations,
+		'payment': payment,
+	}
+
+	return render(request, 'bookings/payment_no_deposit_list.html', context)
+
+@login_required
+def payment_paid_deposit_list(request):
+	""" Show newly created reservations with no deposits. """
+	reservations = Reservation.objects.order_by('-date').filter(
+		payment__status='paid deposit')
+	payment = Payment()
+
+	context = {
+		'reservations':reservations,
+		'payment': payment,
+	}
+
+	return render(request, 'bookings/payment_paid_deposit_list.html', context)
+
+@login_required
+def payment_completed_list(request):
+	""" Show newly created reservations with no deposits. """
+	reservations = Reservation.objects.order_by('-date').filter(
+		payment__status='completed')
+	payment = Payment()
+
+	context = {
+		'reservations':reservations,
+		'payment': payment,
+	}
+
+	return render(request, 'bookings/payment_completed_list.html', context)
+
+@login_required
+def reservations_upcoming_list(request):
+	""" show upcoming reservations. """
+	today = datetime.date.today()
+	next_seven_days = datetime.date.today() + datetime.timedelta(7)
+	reservations = Reservation.objects.order_by('date').filter(
+		date__range=(today,next_seven_days))
+
+	context = {
+		'reservations': reservations,
+	}
+
+	return render(request, 'bookings/reservations_upcoming_list.html', context)
 
 
 

@@ -30,7 +30,7 @@
 			{% for affiliate in affiliates %}
 				<tr>
 					<td>
-						<a href="#">
+						<a href="{% url 'bookings:affiliate_profile' affiliate.id %}">
 							{{ affiliate.name }}
 						</a>
 					</td>

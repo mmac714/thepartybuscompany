@@ -1,34 +1,8 @@
 {% extends "bookings/dashboard_base.html" %}
-{% load bootstrap3 %}
+
 {% block content %}
 
-<body>
 <div class="jumbotron">
-	<div class="jumbotron-inner">
-		<h2>
-		Profile for Vehicle: {{ vehicle.name }}
-		</h2>
-			<form action="{% url 'bookings:vehicle_profile' vehicle.id %}" method="post">
-				{% csrf_token %}
-				<div>
-					{% bootstrap_field form.cost %}
-				</div>
-				<div>
-					{% bootstrap_field form.active %}
-				</div>
-				<div>
-					{% bootstrap_field form.description %}
-				</div>
-				<div>
-					{% bootstrap_field form.affiliate %}
-				</div>
-				
-				<button type="submit" name="btn-form">Save Changes</button>
-			
-			</form>
-
-	</div>
-	<div class="jumbotron">
 	<h4 class="text-left">
 		Reservations with completed payments
 	</h4>
@@ -40,21 +14,21 @@
 		<thead>
 			<tr>
 				<th width="15%">#</th>
-				<th width="20%">Driver</th>
+				<th width="20%">Created Date</th>
 				<th width="20%">Reservation Date</th>
 				<th width="23%">Payment Status</th>
 				<th scope="col">Name</th>
 			</tr>
 		</thead>
 		<tbody>
-			{% for reservation in vehicle_reservations %}
+			{% for reservation in reservations %}
 				<tr>
 					<td>
 						<a href="{% url 'bookings:booking' reservation.id %}">
 							{{ reservation }}
 						</a>
 					</td>
-					<td>{{ reservation.driver }}</td>
+					<td>{{ reservation.created }}</td>
 					<td>{{ reservation.date }}</td>
 					<td>{{ reservation.payment.status }}</td>
 					<td>{{ reservation.first_name }} {{ reservation.last_name }}</td>
@@ -63,13 +37,9 @@
 		</tbody>
 	</table>
 </div>
-
-
+<p style="color:red"> tap on the booking number to access the details.</p>
+<div class="line">
 </div>
 
-<div>
 
-</div>
-
-</body>
 {% endblock content %}

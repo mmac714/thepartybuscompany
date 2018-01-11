@@ -189,11 +189,24 @@ class CreateDriverForm(forms.ModelForm):
 		model = Driver
 		fields = ['name', 'contact']
 
+class EditDriverForm(forms.ModelForm):
+	class Meta:
+		model = Driver
+		fields = ['contact']
+
 
 class CreateAffiliateForm(forms.ModelForm):
 	class Meta:
 		model = Affiliate
 		fields = ['name', 'contact']
+
+class EditAffiliateForm(forms.ModelForm):
+	class Meta:
+		model = Affiliate
+		fields = ['contact']
+
+
+		
 
 
 

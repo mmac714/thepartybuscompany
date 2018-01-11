@@ -60,11 +60,33 @@ urlpatterns = [
 		views.send_follow_up_email, name='send_follow_up_email'),
 	url(r'^invoice/(?P<reservation_id>[0-9a-f-]+)/$',
 		views.invoice, name='invoice'),
+
+	###############
+	# List pages
+	###############
 	url(r'^booking_list/$', views.booking_list, name='booking_list'),
 	url(r'^survey_list/$', views.survey_list, name='survey_list'),
 	url(r'^completed_reservation_list/$', 
 		views.completed_reservation_list, 
 		name='completed_reservation_list'),
+
+	url(r'^payment_no_deposit_list/$', 
+		views.payment_no_deposit_list, 
+		name='payment_no_deposit_list'),
+
+	url(r'^payment_paid_deposit_list/$', 
+		views.payment_paid_deposit_list, 
+		name='payment_paid_deposit_list'),
+
+	url(r'^payment_completed_list/$', 
+		views.payment_completed_list, 
+		name='payment_completed_list'),
+
+	url(r'^reservations_upcoming_list/$',
+		views.reservations_upcoming_list,
+		name='reservations_upcoming_list'),
+
+
 
 	###############
 	# Creation pages
@@ -83,6 +105,14 @@ urlpatterns = [
 	###############
 	url(r'vehicle_profile/(?P<vehicle_id>[0-9a-f-]+)/$', views.vehicle_profile,
 		name='vehicle_profile'),
+
+	url(r'affiliate_profile/(?P<affiliate_id>[0-9a-f-]+)/$', views.affiliate_profile,
+		name='affiliate_profile'),
+
+	url(r'driver_profile/(?P<driver_id>[0-9a-f-]+)/$', views.driver_profile,
+		name='driver_profile'),
+
+
 
 
 

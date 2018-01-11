@@ -35,6 +35,20 @@ no_res_survey_choices = {
 	('quotes',"I'm just here to get a quote"),
 }
 
+# reservation status 
+reservation_status_choices = {
+	('new','new'),
+	('pending', 'pending'),
+	('completed', 'completed'),
+}
+
+# reservation status 
+payment_status_choices = {
+	('no deposit', 'no deposit'),
+	('paid deposit', 'paid deposit'),
+	('completed', 'completed'),
+}
+
 def user_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
     return 'bus_{0}/{1}'.format(instance.slug, filename)
@@ -46,7 +60,6 @@ class Affiliate(models.Model):
 	def __str__(self):
 		""" Return the name of the affiliate """
 		return str(self.name)
-
 
 
 class Driver(models.Model):
@@ -98,6 +111,8 @@ class Reservation(models.Model):
 	quote_savings = models.IntegerField(null=True, blank=True)
 	email = models.EmailField()
 	driver = models.ForeignKey(Driver, blank=True, null=True)
+	status = models.CharField(max_length=100, choices=reservation_status_choices,
+		null=True, blank=True)
 
 	def __str__(self):
 		""" Return the id of the model """
@@ -269,6 +284,8 @@ class Payment(models.Model):
 	charge_status = models.CharField(max_length=100, blank=True)
 	charge_description = models.CharField(max_length=200, blank=True)
 	stripe_customer_id = models.CharField(max_length=30, blank=True)
+	status = models.CharField(max_length=100, choices=payment_status_choices,
+		null=True, blank=True)
 
 	def __str__(self):
 		""" Return the id of the model """
@@ -320,6 +337,7 @@ class Payment(models.Model):
 
 		res.stripe_customer_id = customer.id
 		res.email = customer.email
+		res.status = "paid deposit"
 
 		res.save()
 
