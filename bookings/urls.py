@@ -20,6 +20,8 @@ urlpatterns = [
 		name='more_than_sixty_days'),
 	url(r'^contact/$', views.contact, name='contact'),
 	url(r'^faq/$', views.faq, name='faq'),
+	url(r'^under_construction/$', views.under_construction, 
+		name='under_construction'),
 
 	###############
 	# dynamic pages

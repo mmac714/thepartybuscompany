@@ -46,6 +46,9 @@ def contact(request):
 def faq(request):
 	return render(request, 'bookings/faq.html')
 
+def under_construction(request):
+	return render(request, 'bookings/under_construction.html')
+
 # Non static pages
 def home(request):
 	""" Contact form email logic.
