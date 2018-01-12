@@ -656,4 +656,3 @@ def reservations_upcoming_list(request):
 
 
 
-
