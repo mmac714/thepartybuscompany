@@ -25,7 +25,7 @@
 		<div class="line">
 		</div>
 
-			<form action="{% url 'bookings:booking' reservation.id %}" method="post">
+			<form id="reservationform" action="{% url 'bookings:booking' reservation.id %}" method="post">
 				{% csrf_token %}
 				<div>
 					{% bootstrap_field r_form.date %}
