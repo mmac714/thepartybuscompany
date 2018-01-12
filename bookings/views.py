@@ -9,6 +9,7 @@ from django.template.loader import get_template
 from django.template import Context
 from django.db.models import Q
 from django.db import IntegrityError
+from django.core.exceptions import ObjectDoesNotExist
 
 import stripe
 import datetime, time
@@ -288,6 +289,15 @@ def booking(request, reservation_id):
 	""" Page for associate to fill out Reservation detail. """
 	reservation = Reservation.objects.get(id=reservation_id)
 	payment = Payment.objects.get(reservation=reservation_id)
+	#else:
+	#	driver_url = 
+
+
+	#try:
+	#	driver = reservation.driver
+	#except ObjectDoesNotExist:
+	#	driver_url = "{% url 'bookings:driver_management' %}"
+
 	#bus = Bus.objects.get(reservation=reservation_id)
 
 	if request.method == 'POST' and 'btn-r_form':
@@ -297,6 +307,7 @@ def booking(request, reservation_id):
 
 			return HttpResponseRedirect(reverse('bookings:booking',
 				args=[reservation_id]))
+
 
 	#if request.method == 'POST' and 'invoice':
 	#	invoice = (request.POST, instance=detail)

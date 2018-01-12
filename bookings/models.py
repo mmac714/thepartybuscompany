@@ -70,6 +70,12 @@ class Driver(models.Model):
 		""" Return the name of the driver """
 		return str(self.name)
 
+class Customer(models.Model):
+	name = models.CharField(max_length=100)
+	phone_number = models.CharField(max_length=100, null=True, blank=True)
+	email = models.CharField(max_length=100, null=True, blank=True)
+	comments = models.CharField(max_length=1024, null=True, blank=True)
+
 class Bus(models.Model):
 	name = models.CharField(max_length=100)
 	cost = models.IntegerField(null=True, blank=True)
