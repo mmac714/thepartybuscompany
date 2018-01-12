@@ -42,7 +42,17 @@
 				<div>
 					{% bootstrap_field r_form.driver %}
 				</div>
+				<!--
 				<button type="submit" name="btn-r_form">Save Changes</button>
+			-->
+				<a class="btn btn-info" style="background: orange" onclick="document.getElementById('reservationform').submit()">Save Changes</a>
+				<p style= "padding-top: 3%">
+				<span>
+					<a href="{% url 'bookings:vehicle_management' %}" class="btn btn-info" role="button">Vehicle Profile</a>
+					<a href="{% url 'bookings:vehicle_management' %}"class="btn btn-info" role="button">Driver Profile</a>
+				</span>
+			</p>
+
 			</form>
 
 	</div>
@@ -62,15 +72,14 @@
 				<a href="#" class="btn btn-info" role="button">Service Reminder Email</a>
 				<a href="#" class="btn btn-info" role="button">Thank you Email</a>
 			</p>
+
 			<div class="line">
 		</div>
-		<p>Navigation
+		<p>Functions
 		</p>
 		<p>
 			<a href="{% url 'bookings:invoice' reservation.id %}" class="btn btn-info" role="button">Get Purchase Order</a>
-				<a href="{% url 'bookings:vehicle_management' %}" class="btn btn-info" role="button">Vehicle Profile</a>
-				<a href="{% url 'bookings:vehicle_management' %}"class="btn btn-info" role="button">Driver Profile</a>
-
+			<a href="{% url 'bookings:invoice' reservation.id %}" class="btn btn-info" role="button">Get Invoice</a>
 			</p>
 		</div>
 	</div>
