@@ -27,7 +27,21 @@
 			
 			</form>
 
-	</div>
+			</div>
+
+			<div class="jumbotron">
+
+			<div class="illistration">
+				{% if vehicle.primary_image %}
+                    <img class="img-responsive img-resize" src="{{ vehicle.primary_image.url }}" alt="first bus pic">
+                {% endif %}
+                {% if vehicle.secondary_image %}
+                    <img class="img-responsive img-resize" src="{{ vehicle.secondary_image.url }}" alt="{{ bus.secondary_image.url }}">
+                {% endif %}
+
+                </div>
+            </div>
+
 	<div class="jumbotron">
 	<h4 class="text-left">
 		Reservations with completed payments

@@ -4,7 +4,7 @@
 <body>
 <div class="jumbotron">
 	<div class="jumbotron-inner">
-		<form action="{% url 'bookings:vehicle_management' %}" method="post">
+		<form action="{% url 'bookings:vehicle_management' %}" method="post" enctype="multipart/form-data">
 			{% csrf_token %}
 			{{ form.as_p }}
 		<button type="submit" name="btn-r_form">Create Bus</button>

@@ -13,7 +13,7 @@
           <div class="text-center">
             <div class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
             <div class="section-heading text-center" style="padding: 15% 0% 5% 0%;">
-              <h2 class="h-bold" style="background-color: #000; opacity: 0.7; padding: 0 10% 0 10%">The Lowest Prices in DFW</h2>
+              <h2 class="h-bold" style="background-color: #000; opacity: 0.7; padding: 0 10% 0 10%">More Than Rentals, A Service Company</h2>
 
               <h2>
                 &nbsp;
@@ -24,7 +24,7 @@
               <h2 class="h-bold">Pick a bus and get your price</h2>
               <h2 class="h-bold">or</h2>
 -->
-              <h2 class="h-bold">Contact us at <a style="color: red" href="tel:+18175134168">817-513-4168</a> for questions and bookings</h2>
+              <h2 class="h-bold">Contact us at <a style="color: red" href="tel:+18175134168">817-513-4168</a></h2>
             </div>
                  
             </div>
@@ -41,10 +41,10 @@
         </div>
           <div class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
             <div class="section-heading text-center">
-              <h2 class="h-bold">Our Buses</h2>
+              <h2 class="h-bold">Our Service</h2>
               <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
               </div>
-               <p style="padding:5% 10% 5% 10%" class="wow bounceInDown" data-wow-delay="0.2s">Choose a bus and get your price!
+               <p style="padding:5% 10% 5% 10%" class="wow bounceInDown" data-wow-delay="0.2s">Pick a bus and contact a concierge to set up your event. 
               </p><!--
               <p style="padding:5% 10% 5% 10%" class="wow bounceInDown" data-wow-delay="0.2s">We've partnered with local companies to provide world class and custom party bus experiences here in The DFW.
               </p>
@@ -65,8 +65,12 @@
                 {{ bus.name }}
                 </div>
                 <div class="card-image">
+                  {% if bus.primary_image %}
                     <img class="img-responsive img-resize" src="{{ bus.primary_image.url }}"">
+                  {% endif %}
+                  {% if bus.secondary_image %}
                     <img class="img-responsive img-resize" src="{{ bus.secondary_image.url }}"">
+                  {% endif %}
                 </div>
                 
                 <div class="card-content">
@@ -78,7 +82,7 @@
                 </div>
               -->
               <div class="card-action text-center">
-                    <a class="big-heading highlight-dark wow bounceInDown btn-red " href="{% url 'bookings:home' %}#contact" >${{ bus.cost|sub:5 }} an hour</a>
+                    <a class="big-heading highlight-dark wow bounceInDown btn-red " href="{% url 'bookings:home' %}#contact" >Call for price</a>
                 </div>
             </div>
         </div>

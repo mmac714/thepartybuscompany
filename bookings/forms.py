@@ -177,7 +177,9 @@ class NoResSurveyForm(forms.ModelForm):
 class CreateBusForm(forms.ModelForm):
 	class Meta:
 		model = Bus
-		fields = ['name', 'cost', 'active', 'description', 'affiliate']
+		fields = ['name', 'cost', 'active', 
+		'primary_image', 'secondary_image',
+		'description', 'affiliate']
 
 class EditBusForm(forms.ModelForm):
 	class Meta:

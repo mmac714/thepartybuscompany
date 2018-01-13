@@ -10,6 +10,7 @@ from django.template import Context
 from django.db.models import Q
 from django.db import IntegrityError
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.files.storage import FileSystemStorage
 
 import stripe
 import datetime, time
@@ -479,9 +480,8 @@ def vehicle_management(request):
 	form = CreateBusForm()
 	buses = Bus.objects.all()
 
-
 	if request.method == 'POST':
-		form = CreateBusForm(request.POST)
+		form = CreateBusForm(request.POST, request.FILES)
 		if form.is_valid():
 			form.save()
 			return HttpResponseRedirect(reverse('bookings:vehicle_management'))

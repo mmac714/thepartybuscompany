@@ -51,7 +51,7 @@ payment_status_choices = {
 
 def user_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-    return 'bus_{0}/{1}'.format(instance.slug, filename)
+    return 'bus_{0}/{1}'.format(instance.bus.id, filename)
 
 class Affiliate(models.Model):
 	name = models.CharField(max_length=100)
@@ -81,8 +81,8 @@ class Bus(models.Model):
 	cost = models.IntegerField(null=True, blank=True)
 	active = models.BooleanField()
 	description = models.CharField(max_length=500, null=True, blank=True)
-	#primary_image = models.ImageField(null=True, blank=True)
-	#secondary_image = models.ImageField(null=True, blank=True)
+	primary_image = models.ImageField(null=True, blank=True)
+	secondary_image = models.ImageField(null=True, blank=True)
 	affiliate = models.ForeignKey(Affiliate, blank=True, null=True)
 
 	def __str__(self):
