@@ -18,10 +18,10 @@ import datetime, time
 from .forms import ReservationForm, BackendReservationForm, BookingResForm,\
 ContactForm, QuoteForm, NoResSurveyForm, PriceForm, CreateBusForm, \
 CreateDriverForm, CreateAffiliateForm, EditBusForm, EditAffiliateForm, \
-EditDriverForm, PriceCalculatorForm
+EditDriverForm, PriceCalculatorForm, CommentForm
 
 from .models import Reservation, Payment, NoResSurvey, SurveyManager, Bus,\
-Driver, Affiliate
+Driver, Affiliate, Comment
 
 from pb_config.settings import STRIPE_SECRET_KEY, STRIPE_PUBLIC_KEY
 
@@ -293,16 +293,7 @@ def booking(request, reservation_id):
 	""" Page for associate to fill out Reservation detail. """
 	reservation = Reservation.objects.get(id=reservation_id)
 	payment = Payment.objects.get(reservation=reservation_id)
-	#else:
-	#	driver_url = 
-
-
-	#try:
-	#	driver = reservation.driver
-	#except ObjectDoesNotExist:
-	#	driver_url = "{% url 'bookings:driver_management' %}"
-
-	#bus = Bus.objects.get(reservation=reservation_id)
+	comments = Comment.objects.filter(reservation=reservation)
 
 	if request.method == 'POST' and 'btn-r_form':
 		r_form = BookingResForm(request.POST, instance=reservation)
@@ -312,30 +303,38 @@ def booking(request, reservation_id):
 			return HttpResponseRedirect(reverse('bookings:booking',
 				args=[reservation_id]))
 
+	if request.method == 'POST' and 'CommentForm':
+		comment_form = CommentForm(request.POST)
+		if comment_form.is_valid():
+			comment = comment_form.save(commit=False)
+			comment.reservation = reservation
+			comment.author = request.user.first_name + " " + \
+			request.user.last_name
+			comment_form.save()
 
-	#if request.method == 'POST' and 'invoice':
-	#	invoice = (request.POST, instance=detail)
-		#d_form = DetailForm(request.POST, instance=detail)
+			return HttpResponseRedirect(reverse('bookings:booking',
+				args=[reservation_id]))
 
-	#	return HttpResponseRedirect(reverse('bookings:invoice',
-	#		args=[reservation_id]))
+	r_form = BookingResForm(initial={
+		'date': reservation.date,
+		'duration': reservation.duration,
+		'quote_amount': reservation.quote_amount,
+		'bus': reservation.bus,
+		'driver': reservation.driver,
+		})
 
-	else:
-		r_form = BookingResForm(initial={
-			'date': reservation.date,
-			'duration': reservation.duration,
-			'quote_amount': reservation.quote_amount,
-			'bus': reservation.bus,
-			'driver': reservation.driver,
-			})
+	comment_form = CommentForm()
+	
 
-		context = {
-    		'reservation': reservation,
-    		'r_form': r_form,
-    		'payment': payment,
-    		}
+	context = {
+    	'reservation': reservation,
+    	'r_form': r_form,
+    	'payment': payment,
+    	'comment_form':comment_form,
+    	'comments':comments,
+    	}
 
-		return render(request, 'bookings/booking.html', context)
+	return render(request, 'bookings/booking.html', context)
 
 @login_required
 def send_follow_up_email(request, reservation_id):
@@ -565,6 +564,7 @@ def vehicle_profile(request, vehicle_id):
 def affiliate_profile(request, affiliate_id):
 	""" Allow users to edit and see affiliate information """
 	affiliate = Affiliate.objects.get(id=affiliate_id)
+	affiliate_vehicles = affiliate.bus_set.all()
 
 	if request.method == 'POST':
 		form = EditAffiliateForm(request.POST, instance=affiliate)
@@ -581,6 +581,7 @@ def affiliate_profile(request, affiliate_id):
 	context = {
 	'affiliate': affiliate,
 	'form': form,
+	'affiliate_vehicles': affiliate_vehicles,
 	}
 
 	return render(request, 'bookings/affiliate_profile.html', context)
@@ -696,7 +697,7 @@ def price_calculator_form(request):
 			"Total cost: {}".format(round(total_cost, 2)) +
 			"    " +
 			"Profit: {}".format(round(round(total_charge_amount, 2) - \
-				round(total_cost, 2),2))
+			round(total_cost, 2),2))
 
 			)
 
@@ -708,10 +709,26 @@ def price_calculator_form(request):
 
 	return render(request, 'bookings/price_calculator_form.html', context)
 
+@login_required 
+def add_comment_to_post(request, reservation_id):
+	reservation = get_object_or_404(Reservation, id=reservation_id)
 
+	if request.method == "POST":
+		form = CommentForm(request.POST)
+		if form.is_valid():
+			comment = form.save(commit=False)
+			comment.reservation = reservation
+			reservation.save()
+			return redirect('bookings:booking', id=reservation_id)
 
+	else:
+		form = CommentForm()
 
+	context = {
+	'form':form
+	}
 
+	return render(request, 'bookings/booking.html', context)
 
 
 

@@ -66,6 +66,13 @@ urlpatterns = [
 	###############
 	# List pages
 	###############
+
+	url(r'^reservation/(?P<reservation_id>\d+)/comment/$', views.add_comment_to_post, 
+		name='add_comment_to_post'),
+
+	###############
+	# List pages
+	###############
 	url(r'^booking_list/$', views.booking_list, name='booking_list'),
 	url(r'^survey_list/$', views.survey_list, name='survey_list'),
 	url(r'^completed_reservation_list/$', 

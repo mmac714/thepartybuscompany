@@ -6,7 +6,8 @@ import datetime
 
 from bootstrap_datepicker.widgets import DatePicker
 
-from .models import Reservation, NoResSurvey, Bus, Driver, Affiliate
+from .models import Reservation, NoResSurvey, Bus, Driver, Affiliate,\
+Comment
 from pb_config.settings import DATE_INPUT_FORMATS
 
 # find the next saturday for date initial value
@@ -212,6 +213,13 @@ class PriceCalculatorForm(forms.Form):
 	hours = forms.IntegerField()
 	hourly_markup = forms.IntegerField()
 	service_fee_rate = forms.IntegerField()
+
+
+class CommentForm(forms.ModelForm):
+
+	class Meta:
+		model = Comment
+		fields = ['text']
 
 
 		

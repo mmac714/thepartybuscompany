@@ -61,7 +61,6 @@ class Affiliate(models.Model):
 		""" Return the name of the affiliate """
 		return str(self.name)
 
-
 class Driver(models.Model):
 	name = models.CharField(max_length=100)
 	contact = models.CharField(max_length=100)
@@ -415,4 +414,11 @@ class Payment(models.Model):
 		subject = 'New Reservation ' + str(reservation.date)
 		send_mail(subject, "", sender, recipient, html_message=body, fail_silently=False)
 
+class Comment(models.Model):
+	reservation = models.ForeignKey(Reservation, blank=True, null=True)
+	author = models.CharField(max_length=100)
+	text = models.TextField()
+	created_date = models.DateTimeField(default=timezone.now)
 
+	def __str__(self):
+		return self.text

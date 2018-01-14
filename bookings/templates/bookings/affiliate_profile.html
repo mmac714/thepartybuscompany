@@ -23,9 +23,38 @@
 
 </div>
 
+<div class="jumbotron">
+	<h4 class="text-left">
+		Reservations with completed payments
+	</h4>
+	<div class="text-left" style="font-size:8;">
+		sorted by reservation date	
+	</div>
+
+	<table class="table-striped table-hover">
+		<thead>
+			<tr>
+				<th width="15%">Name</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for vehicle in affiliate_vehicles %}
+				<tr>
+					<td>
+						<a href="{% url 'bookings:vehicle_profile' vehicle.id %}">
+							{{ vehicle }}
+						</a>
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+
 <div>
 
 </div>
+
 
 </body>
 {% endblock content %}

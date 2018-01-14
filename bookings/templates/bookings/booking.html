@@ -78,10 +78,42 @@
 		<p>Functions
 		</p>
 		<p>
-			<a href="{% url 'bookings:invoice' reservation.id %}" class="btn btn-info" role="button">Get Purchase Order</a>
-			<a href="{% url 'bookings:under_construction' %}" class="btn btn-info" role="button">Get Invoice</a>
-			</p>
+			<a href="{% url 'bookings:invoice' reservation.id %}" class="btn btn-info" role="button">Get Invoice</a>
+			<a href="{% url 'bookings:under_construction' %}" class="btn btn-info" role="button">Get Other Documents</a>
+		</p>
+		<div class="line">
 		</div>
+		<p>Comments
+		</p>
+		<div>
+			<form id="Commentform" action="{% url 'bookings:booking' reservation.id %}" method="post">
+				{% csrf_token %}
+				<div>
+					{% bootstrap_field comment_form.text %}
+				</div>
+				<!--
+				<button type="submit" name="btn-r_form">Save Changes</button>
+			-->
+				<a class="btn btn-info" style="background: orange" onclick="document.getElementById('Commentform').submit()">Add Comment</a>
+				<p style= "padding-top: 3%"></p>
+
+			</form>
+			<hr>
+			{% for comment in comments %}
+				{{ comment.text|linebreaks }}
+
+			<p>
+				- {{ comment.author }}
+				<span> {{comment.created_date }}</span>
+			</p>
+			<p>
+			</p>
+			{% empty %}
+			<p>No comments here yet</p>
+			{% endfor %}
+		</div>
+
+		</div>	
 	</div>
 
 	<div class="jumbotron-inner">
