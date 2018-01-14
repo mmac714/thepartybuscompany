@@ -118,10 +118,6 @@ urlpatterns = [
 		views.price_calculator_form,
 		name='price_calculator_form'),
 
-	url(r'^price_breakdown/$',
-		views.price_breakdown,
-		name='price_breakdown'),
-
 
 
 

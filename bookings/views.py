@@ -709,19 +709,6 @@ def price_calculator_form(request):
 	return render(request, 'bookings/price_calculator_form.html', context)
 
 
-@login_required
-def price_breakdown(request, total_charge_amount, total_cost):
-	""" return formatted P/L numbers. """
-
-	context = {
-		'total_charge_amount': total_charge_amount,
-		'total_cost': total_cost,
-	}
-
-	return render(request, 'bookings/price_breakdown.html', context)
-
-
-
 
 
 
