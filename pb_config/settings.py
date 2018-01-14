@@ -26,6 +26,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 APP_DIR = os.path.dirname(BASE_DIR)
 
+production_host = 'thepartybuscompany.io'
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
@@ -51,9 +53,6 @@ if os.getcwd() == '/app':
     #}
 
     # Honor the 'X-Forwarded-Proto' header for request.is_secure().
-
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-    
 
      # Alow all host headers.
     ALLOWED_HOSTS = ['*']
@@ -237,7 +236,7 @@ STRIPE_SECRET_KEY = os.environ.get("STRIPE_TEST_SECRET_KEY", '')
 
 # prod settings
 
-if os.getcwd() == '/app':
+if os.getcwd() == '/app' and os.environ.get('HOSTNAME') == production_host:
 
     STRIPE_LIVE_MODE = True
     STRIPE_PUBLIC_KEY=os.environ.get("STRIPE_LIVE_PUBLIC_KEY", '')
