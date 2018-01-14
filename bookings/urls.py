@@ -114,6 +114,14 @@ urlpatterns = [
 	url(r'driver_profile/(?P<driver_id>[0-9a-f-]+)/$', views.driver_profile,
 		name='driver_profile'),
 
+	url(r'^price_calculator_form/$', 
+		views.price_calculator_form,
+		name='price_calculator_form'),
+
+	url(r'^price_breakdown/$',
+		views.price_breakdown,
+		name='price_breakdown'),
+
 
 
 

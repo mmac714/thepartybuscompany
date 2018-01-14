@@ -18,7 +18,7 @@ import datetime, time
 from .forms import ReservationForm, BackendReservationForm, BookingResForm,\
 ContactForm, QuoteForm, NoResSurveyForm, PriceForm, CreateBusForm, \
 CreateDriverForm, CreateAffiliateForm, EditBusForm, EditAffiliateForm, \
-EditDriverForm
+EditDriverForm, PriceCalculatorForm
 
 from .models import Reservation, Payment, NoResSurvey, SurveyManager, Bus,\
 Driver, Affiliate
@@ -666,6 +666,91 @@ def reservations_upcoming_list(request):
 	}
 
 	return render(request, 'bookings/reservations_upcoming_list.html', context)
+
+@login_required
+def price_calculator_form(request):
+	""" Get form data to calculate a price and P/L """
+
+	if request.method == 'POST':
+		hourly_rate = int(request.POST.get("hourly_rate"))
+
+		hours = int(request.POST.get("hours"))
+
+		hourly_markup = int(request.POST.get("hourly_markup"))
+		service_fee_rate = float(request.POST.get("service_fee_rate"))/100
+		tax_rate = 0.0725
+		cc_fee_rate = 0.029
+		cc_flat_charge_fee = 0.30
+
+
+
+		total_charge_amount = ((hourly_rate + hourly_markup) * hours) *\
+		(1 + service_fee_rate) * (1 + tax_rate)
+
+		total_cost = (hourly_rate * hours) + \
+		(total_charge_amount * cc_fee_rate) + cc_flat_charge_fee
+
+		return HttpResponse(
+			"Price: {}".format(round(total_charge_amount, 2)) +
+			"    " +
+			"Total cost: {}".format(round(total_cost, 2)) +
+			"    " +
+			"Profit: {}".format(round(round(total_charge_amount, 2) - \
+				round(total_cost, 2),2))
+
+			)
+
+	form = PriceCalculatorForm()
+
+	context = {
+	'form':form
+	}
+
+	return render(request, 'bookings/price_calculator_form.html', context)
+
+
+@login_required
+def price_breakdown(request, total_charge_amount, total_cost):
+	""" return formatted P/L numbers. """
+
+	context = {
+		'total_charge_amount': total_charge_amount,
+		'total_cost': total_cost,
+	}
+
+	return render(request, 'bookings/price_breakdown.html', context)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
