@@ -2,33 +2,20 @@
 {% load bootstrap3 %}
 {% block content %}
 <body>
-	{% if form.errors %}
-    {% for field in form %}
-        {% for error in field.errors %}
-            <div class="alert alert-danger">
-                <strong>{{ error|escape }}</strong>
-            </div>
-        {% endfor %}
-    {% endfor %}
-    {% for error in form.non_field_errors %}
-        <div class="alert alert-danger">
-            <strong>{{ error|escape }}</strong>
-        </div>
-    {% endfor %}
-{% endif %}
+
 
 <div class="jumbotron">
-	<div class="jumbotron-inner" style="width: 100%">
+	<div class="jumbotron-inner" style="width: 100%; min-width: 250px">
 		<form id="pricecalculatorform" action="{% url 'bookings:price_calculator_form' %}" method="post">
 			{% csrf_token %}
-			{% bootstrap_field form.hourly_rate %}
+			{% bootstrap_field form.hourly_rate_cost %}
 			{% bootstrap_field form.hours %}
 			{% bootstrap_field form.hourly_markup %}
 			{% bootstrap_field form.service_fee_rate %}
 		<div style="padding:0% 0px 10% 0px">
-			<a class="btn btn-info" onclick="document.getElementById('pricecalculatorform').submit()">Get Price</a>
     	</div>
 	</form>
+    <a class="btn btn-info" onclick="document.getElementById('pricecalculatorform').submit()">Get Price</a>
 	</div>
 
 

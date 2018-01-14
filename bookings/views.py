@@ -672,7 +672,7 @@ def price_calculator_form(request):
 	""" Get form data to calculate a price and P/L """
 
 	if request.method == 'POST':
-		hourly_rate = int(request.POST.get("hourly_rate"))
+		hourly_rate = int(request.POST.get("hourly_rate_cost"))
 
 		hours = int(request.POST.get("hours"))
 

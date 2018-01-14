@@ -4,10 +4,16 @@
 <body>
 <div class="jumbotron">
 	<div class="jumbotron-inner">
-		<form action="{% url 'bookings:vehicle_management' %}" method="post" enctype="multipart/form-data">
+		<form id="createbusform" action="{% url 'bookings:vehicle_management' %}" method="post" enctype="multipart/form-data">
 			{% csrf_token %}
-			{{ form.as_p }}
-		<button type="submit" name="btn-r_form">Create Bus</button>
+			{% bootstrap_field form.name %}
+			{% bootstrap_field form.cost %}
+			{% bootstrap_field form.active %}
+			{% bootstrap_field form.primary_image %}
+			{% bootstrap_field form.secondary_image %}
+			{% bootstrap_field form.description %}
+			{% bootstrap_field form.affiliate %}
+			<a class="btn btn-info" onclick="document.getElementById('createbusform').submit()">Create Bus</a>
 	</form>
 	</div>
 

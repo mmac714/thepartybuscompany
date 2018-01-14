@@ -208,7 +208,7 @@ class EditAffiliateForm(forms.ModelForm):
 		fields = ['contact']
 
 class PriceCalculatorForm(forms.Form):
-	hourly_rate = forms.IntegerField()
+	hourly_rate_cost = forms.IntegerField()
 	hours = forms.IntegerField()
 	hourly_markup = forms.IntegerField()
 	service_fee_rate = forms.IntegerField()
