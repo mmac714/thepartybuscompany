@@ -128,6 +128,9 @@ urlpatterns = [
 
 
 	url(r'^sitemap\.xml$', views.sitemap, name="sitemap"),
+	url(r'^customer_agreement\.pdf$',
+	views.customer_agreement, name="customer_agreement"),
+
 	url(r'^favicon.ico$', 
 		RedirectView.as_view(url=staticfiles_storage.url('logo.png'),
 			permanent=False),

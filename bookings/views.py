@@ -11,6 +11,7 @@ from django.db.models import Q
 from django.db import IntegrityError
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.storage import FileSystemStorage
+from django.http import FileResponse, Http404
 
 import stripe
 import datetime, time
@@ -435,6 +436,14 @@ def sitemap(request):
 		open('bookings/static/Bookings/sitemap.xml').read(),
 		content_type='text/xml')
 
+def customer_agreement(request):
+	try:
+		return FileResponse(open(
+			'bookings/static/Bookings/CustomerServiceAgreement.pdf', 'rb'), 
+			content_type='application/pdf')
+	except FileNotFoundError:
+		raise Http404()
+
 def favicon(request):
 
 	return HttpResponse(
@@ -689,7 +698,8 @@ def price_calculator_form(request):
 		(1 + service_fee_rate) * (1 + tax_rate)
 
 		total_cost = (hourly_rate * hours) + \
-		(total_charge_amount * cc_fee_rate) + cc_flat_charge_fee
+		(total_charge_amount * cc_fee_rate) + cc_flat_charge_fee \
+		+ (total_charge_amount * tax_rate)
 
 		return HttpResponse(
 			"Price: {}".format(round(total_charge_amount, 2)) +
