@@ -26,8 +26,12 @@
                 <a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:reservation_form' reservation.id %}">Continue Online</a>
               </div>
               Photos of your bus
+              {% if bus.primary_image %}
               <img class="img-responsive illustration" src="{{ bus.primary_image.url }}"">
+              {% endif %}
+              {% if bus.secondary_image %}
               <img class="img-responsive illustration" src="{{ bus.secondary_image.url }}"">
+              {% endif %}
 
               <h2 class="h-bold">First Time?</h2>
               <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
