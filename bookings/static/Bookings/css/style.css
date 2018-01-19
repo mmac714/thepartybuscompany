@@ -255,9 +255,10 @@ Card CSS
 }
 
 .img-resize {
-	height: 250px;
-	width: 450px;
-	margin:auto;
+	height: 100%;
+	width: 100%;
+	margin: auto;
+
 }
 
 .card .card-image span.card-title {
