@@ -12,25 +12,32 @@
         </div>
           <div class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
             <div class="section-heading text-center">
-              <h2 class="h-bold">Our price</h2>
+              <h2 class="h-bold">We have you covered</h2>
               <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
               </div>
-              <p>Your total price is ${{ reservation.quote_amount|div:100|floatformat:2|intcomma }} for the {{ bus.name }} bus on {{ reservation.date }}. This price includes a personal Party Bus Company Concierge, transport fees, and taxes.</p>
+              <p>
+                <!--Your price is ${{ reservation.quote_amount|div:100|floatformat:2|intcomma }} for --> 
+              The {{ bus.name }} bus is available on {{ reservation.date }}.</p>
 
               <!-- Decay price logic paragraph 
               <p><span style="color: red">Prices are based on time and demand. </span>Our prices start incredibly low and edge higher the closer it gets to your reservation date. We project that you will <span style="color: green;"><strong>SAVE ${{ reservation.quote_savings|div:100|floatformat:2|intcomma }} </strong></span>by reserving today.</p>
               -->
 
-              <p>Call or text<a style="color: red" href="tel:+18175134168"> 817-513-4168</a> to book, or...</p> 
               <div style="padding:2% 0px 2% 0px">
-                <a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:reservation_form' reservation.id %}">Continue Online</a>
+                <a class="big-heading highlight-dark wow bounceInDown btn-red" href="tel:+18175134168">Call to Book 817-513-4168</a>
+              </div>
+              <p>Or
+              </p>
+
+              <div style="padding:0% 0px 2% 0px">
+                <a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:reservation_form' reservation.id %}">Continue Booking Online</a>
               </div>
               Photos of your bus
               {% if bus.primary_image %}
-              <img class="img-responsive illustration" src="{{ bus.primary_image.url }}"">
+              <img class="img-responsive illustration img-resize" src="{{ bus.primary_image.url }}"">
               {% endif %}
               {% if bus.secondary_image %}
-              <img class="img-responsive illustration" src="{{ bus.secondary_image.url }}"">
+              <img class="img-responsive illustration img-resize" src="{{ bus.secondary_image.url }}"">
               {% endif %}
 
               <h2 class="h-bold">First Time?</h2>
@@ -39,17 +46,25 @@
               <p>Like most people you've probably never rented a party bus before, and you have some questions. Here is some more info about our service:</p>
 
               <div class="text-left">
-                <p>1. We handle all occassions - weddings, birthdays, sporting events, Winstar trips, and more... Call a Party Bus Concierge to setup and customize your event.</p>
+                <p>1. We handle all occassions - weddings, birthdays, sporting events, Winstar trips, and more... Call us to setup and customize your event.</p>
                 <p>2. The driver is under your direction during your reservation. We can make as many stop-and-go's as you like.</p>
-                <p>3. All our buses are limo-style seating, BYOB, and compatible with your device to play your music. We will provide drinking glasses and napkins. More services available by speaking with your Party Bus Concierge.</p>
+                <p>3. All our buses are limo-style seating, BYOB, and compatible with your device to play your music. We will provide drinking glasses and napkins. More services available by speaking with your Party Bus Company Concierge.</p>
 
                 <div style="padding:1% 0px 5% 0px" class="text-center">
-                  <a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:faq' %}">See Our Question Center</a> </div>
+                  <!--
+                  <a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:faq' %}">See Our Question Center</a> --> </div>
                 </div>
-                <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
+                <div class="divider-header wow bounceInDown" data-wow-delay="0.2s"></div>
+
+              <div style="padding:2% 0px 2% 0px">
+                <a class="big-heading highlight-dark wow bounceInDown btn-red" href="tel:+18175134168">Call to Book 817-513-4168</a>
               </div>
-                <div style="padding:2% 0px 5% 0px">
-                <a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:reservation_form' reservation.id %}">Continue Booking</a>
+              <p>Or
+              </p>
+
+              </div>
+                <div style="padding:0% 0px 5% 0px">
+                <a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:reservation_form' reservation.id %}">Continue Booking Online</a>
               </div>
 <!--
               <h2 class="h-bold">Why book now?</h2>

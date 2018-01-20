@@ -78,7 +78,7 @@
                 </div>
 
                 <div class="card-action text-center">
-                    <a class="big-heading highlight-dark wow bounceInDown btn-red " href="{% url 'bookings:get_bus_and_create_reservation' bus.id %}" >Get More Info</a>
+                    <a class="big-heading highlight-dark wow bounceInDown btn-red " href="{% url 'bookings:get_bus_and_create_reservation' bus.id %}" >Check Availability</a>
                 </div>
 <!--
               <div class="card-action text-center">
@@ -88,19 +88,40 @@
             </div>
         </div>
     </div>
-  </div>
   {% endfor %}
+  <div class="container marginbot-50 section-heading" style="padding:0px 5% 0% 0%">
+    <p>More options available.</p>
+     <p><a class="big-heading highlight-dark wow bounceInDown btn-red" href="tel:+18175134168">Tap To Call 817-513-4168</a></p>
+  </div>
 </section>
+
+<!-- Events section -->
+<section id="events" class="home-section nopadd-bot color-dark bg-white text-center" style="padding-bottom: 10%">
+   <div class="container marginbot-50" >
+          <div class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
+            <div class="section-heading text-center">
+              <h2 class="h-bold">Events</h2>
+              <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
+              </div>
+              <p style="padding:5% 75px 5% 75px" class="wow bounceInDown" data-wow-delay="0.2s">We can cater to any event from children's parties to corporate outings, your Party Bus Company concierge will make sure your event transportation will be perfect. 
+              </p>
+              <img class="img-responsive" src="{% static 'Bookings/img/website/EventPhoto.png' %}" alt="event photo">
+            </div>
+          </div>
+        </div>
+      </section>
+
+
 
 
 <!-- Contact form section -->
 <section id="contact" class="home-section nopadd-bot color-dark bg-white text-center" style="padding-bottom: 10%">
-      <div class="container marginbot-50" style="padding:0px 10% 0% 10%">
+      <div class="container marginbot-50" >
         <div class="col-lg-8 col-lg-offset-2">
         </div>
           <div class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
             <div class="section-heading text-center">
-              <h2 class="h-bold">Questions? Contact us!</h2>
+              <h2 class="h-bold">Contact us!</h2>
               <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
               </div>
               <p style="padding:5% 75px 5% 75px" class="wow bounceInDown" data-wow-delay="0.2s">Call us at <a style="color: red" href="tel:+18175134168">817-513-4168</a> or send us a message using the form below.
