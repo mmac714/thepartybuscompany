@@ -108,7 +108,7 @@ class Reservation(models.Model):
 	first_name = models.CharField(max_length=100)
 	last_name = models.CharField(max_length=100)
 	date = models.DateField()
-	start_time = models.TimeField(default="4:00 PM", null=True, blank=True)
+	start_time = models.TimeField(default="16:00", null=True, blank=True)
 	duration = models.IntegerField("Number of hours")
 	location_pick_up = models.CharField(max_length=1024, null=True, blank=True)
 	location_drop_off= models.CharField(max_length=1024, null=True, blank=True)

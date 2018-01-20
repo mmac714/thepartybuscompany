@@ -14,7 +14,11 @@
             <div class="section-heading text-center">
               <h2 class="h-bold">You're one step away!</h2>
               <div class="divider-header"></div>
-              <p>Complete your booking by confirming your details, then tapping "Pay with Card". A $200 deposit is required to reserve your bus.*</p>
+              <p>Complete your booking by confirming your details, then tap "Pay with Card". A $200 deposit is required to reserve your bus.*</p>
+              <p>Call us for questions: 
+              </p>
+              <p><a class="big-heading highlight-dark wow bounceInDown btn-red" href="tel:+18175134168">817-513-4168</a>
+              </p>
             </div>
           </div>
         </div>
@@ -23,7 +27,7 @@
     <div class="container">
       <div class="row marginbot-80">
         <div class="col-md-8 col-md-offset-2 text-left">
-          <div><p style="font-size: xx-large;"> Contact Info:</p>
+          <div><p style="font-size: xx-large;">Your Info:</p>
             </div>
           <p>Reservation ID: {{ reservation.id }}</p>
           <p>Name: {{ reservation.first_name }} {{ reservation.last_name }}</p>
@@ -49,7 +53,7 @@
             document.getElementsByID('division').innerHTML=quote;
           </script>
           <div id="division"></div>
-          <p>Total Price: ${{ reservation.quote_amount|div:100|floatformat:2 }}</p>
+          <p>Total Price: ${{ reservation.quote_amount|div:100|floatformat:2 }}**</p>
           <p class="text-left" style="font-size: x-small;">*Deposits may be refunded within 24 hours of deposit payment date.**Total Price includes 20% transport fee and sales tax.</p>
           <div class="section-heading text-center">
           </div>
