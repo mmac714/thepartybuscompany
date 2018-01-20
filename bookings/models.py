@@ -88,6 +88,9 @@ class Bus(models.Model):
 		""" Return the name of the bus """
 		return str(self.name)
 
+	class Meta:
+		ordering = ['name']
+
 
 # Constant reservation model variables
 min_hours = 4
