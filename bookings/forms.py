@@ -126,7 +126,7 @@ class BackendReservationForm(forms.ModelForm):
 			"format": "mm/dd/yyyy",
 			"autoclose": True,
 		}))
-	duration = forms.IntegerField(widget=forms.NumberInput, initial=3, min_value=3, label='# of hours')
+	duration = forms.IntegerField(widget=forms.NumberInput, initial=4, min_value=3, label='# of hours')
 	class Meta:
 		model = Reservation
 		fields = [

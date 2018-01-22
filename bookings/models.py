@@ -139,12 +139,12 @@ class Reservation(models.Model):
 		bus_cost = reservation.bus.cost 
 		
 
-		transport_charge = 0.25 # Standard service fee
+		transport_charge = 0.20 # Standard service fee
 		tax_rate_charge = 0.0725 # County sales tax rate
 
 		# Friday and Saturday pricing
-		if day_of_week in [4, 5]:
-			bus_cost += 10
+		#if day_of_week in [4, 5]:
+		#	bus_cost += 10
 
 		price = bus_cost * duration * 100 * \
 		(1 + transport_charge) * (1 + tax_rate_charge)
