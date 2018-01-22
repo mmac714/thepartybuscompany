@@ -137,9 +137,15 @@ def price_form(request, reservation_id):
 			# Form fields passed validation.
 			form.save()
 
-			# create payment object for the reservation instance
-			# can't create payment object here, maybe create it in the 
-			# reservation view
+			# Create Payment object
+			# Try block to avoid creating a duplicate payment object
+			# if one already exist for the reservation. This may happen
+			# if the customer submits the form and goes back to edit
+			# the form and resubmit it. 
+			try:
+				Payment.objects.create(reservation=reservation,status="no deposit")
+			except IntegrityError:
+				pass
 
 			# Calculate price
 			Reservation().get_price(reservation)
@@ -203,16 +209,6 @@ def reservation_form(request, reservation_id):
 		if form.is_valid():
 			# Form fields passed validation.
 			form.save()
-
-			# Create Payment object
-			# Try block to avoid creating a duplicate payment object
-			# if one already exist for the reservation. This may happen
-			# if the customer submits the form and goes back to edit
-			# the form and resubmit it. 
-			try:
-				Payment.objects.create(reservation=reservation,status="no deposit")
-			except IntegrityError:
-				pass
 
 			return HttpResponseRedirect(reverse('bookings:payment',
 					args=[reservation]))
