@@ -736,6 +736,42 @@ def add_comment_to_post(request, reservation_id):
 
 	return render(request, 'bookings/booking.html', context)
 
+@login_required
+def send_deposit_link_email(request, reservation_id):
+	""" Send deposit_link_email.html to the reservation.email address.
+	The purpose of this email to give the customer a direct link to
+	pay their deposit to complete their booking. """
+
+	reservation = Reservation.objects.get(id=reservation_id)
+	customer_email = [str(reservation.email),]
+	customer_name = reservation.first_name
+	customer_name = customer_name.title()
+
+	date = reservation.date
+	date = date.strftime('%m/%d')
+
+	payment_link = "www.ThePartyBusCompany.io/payment/" + str(reservation.id) + \
+	"/"
+
+	# Email arguments
+	subject = "Complete Your Party Bus Reservation - " + str(date) 
+	body = get_template('bookings/deposit_link_email.html').render(
+		{
+		'date': date,
+		'payment_link': payment_link,
+		'customer_name': customer_name,
+		})
+	sender = 'service@ThePartyBusCompany.io'
+	recipient = customer_email
+
+
+	send_mail(subject, "", sender, recipient,
+		html_message=body,
+		fail_silently=False)
+
+	return HttpResponse("email sent")
+
+
 
 
 
