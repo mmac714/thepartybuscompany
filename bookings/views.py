@@ -116,6 +116,16 @@ def get_bus_and_create_reservation(request, bus_id):
 		bus_id=bus.id,
 		created=timezone.now()
 		)
+	# Create Payment object
+			# Try block to avoid creating a duplicate payment object
+			# if one already exist for the reservation. This may happen
+			# if the customer submits the form and goes back to edit
+			# the form and resubmit it. 
+	try:
+		Payment.objects.create(reservation=reservation,status="no deposit")
+	except IntegrityError:
+		pass
+
 
 	# send reservation id to price form
 	return HttpResponseRedirect(reverse('bookings:price_form',
@@ -136,16 +146,6 @@ def price_form(request, reservation_id):
 		if form.is_valid():
 			# Form fields passed validation.
 			form.save()
-
-			# Create Payment object
-			# Try block to avoid creating a duplicate payment object
-			# if one already exist for the reservation. This may happen
-			# if the customer submits the form and goes back to edit
-			# the form and resubmit it. 
-			try:
-				Payment.objects.create(reservation=reservation,status="no deposit")
-			except IntegrityError:
-				pass
 
 			# Calculate price
 			Reservation().get_price(reservation)
