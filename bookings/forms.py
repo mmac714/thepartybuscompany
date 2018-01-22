@@ -112,9 +112,9 @@ class ReservationForm(forms.ModelForm):
 			'last_name': 'Last Name',
 			'phone_number': 'Phone Number',
 			'start_time': 'Start Time',
-			'location_pick_up': 'Pick Up Location',
-			'location_drop_off': 'Drop Off Location',
-			'comments': 'Service Comments or Request',
+			'location_pick_up': 'Pick Up Location (optional)',
+			'location_drop_off': 'Drop Off Location (optional)',
+			'comments': 'Service Comments or Request (optional)',
 			}
 
 
@@ -127,6 +127,7 @@ class BackendReservationForm(forms.ModelForm):
 			"autoclose": True,
 		}))
 	duration = forms.IntegerField(widget=forms.NumberInput, initial=4, min_value=3, label='# of hours')
+	start_time = forms.TimeField(widget=forms.TimeInput(format='%H:%M'), initial="4:00 PM")
 	class Meta:
 		model = Reservation
 		fields = [

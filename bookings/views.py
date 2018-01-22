@@ -350,7 +350,7 @@ def send_follow_up_email(request, reservation_id):
 	"/"
 
 	# Email arguments
-	subject = "Your event on " + str(date) + " with The " + str(bus) + "."
+	subject = "Your event on " + str(date) + " with the " + str(bus) + "."
 	body = get_template('bookings/followup_quote_email.html').render(
 		{
 		'price': price,
