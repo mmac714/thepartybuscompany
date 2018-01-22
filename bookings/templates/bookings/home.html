@@ -25,9 +25,9 @@
               <h2 class="h-bold">Pick a bus and get your price</h2>
               <h2 class="h-bold">or</h2>
 -->
-              <h2 class="h-bold">Contact us at <a style="color: red" href="tel:+18175134168">817-513-4168</a></h2>
+              <h2 class="h-bold">Contact us</h2>
             </div>
-                 
+                 <a class="big-heading highlight-dark wow bounceInDown btn-red" href="tel:+18175134168">Tap To Call 817-513-4168</a>
             </div>
           </div>
           </div>
@@ -37,28 +37,15 @@
   </section>
 
 <section id="buses" class="home-section nopadd-bot color-dark bg-white text-center" style="padding-bottom: 10%; max-width: 100%; overflow: hidden">
-    <div class="container marginbot-50" style="">
-        <div class="col-lg-8 col-lg-offset-2">
+   <div class="container marginbot-50" >
+    <div class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
+      <div class="section-heading text-center">
+        <h2 class="h-bold">Our Buses</h2>
+        <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
         </div>
-          <div class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
-            <div class="section-heading text-center">
-              <h2 class="h-bold">Our Service</h2>
-              <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
-              </div>
-                <p style="padding:5% 75px 5% 75px" class="wow bounceInDown" data-wow-delay="0.2s">We cater to any event from children's parties to corporate outings. You'll be assigned a Party Bus Company Concierge who will make sure your event will be perfect. 
-              </p>
-              <img class="img-responsive" src="{% static 'Bookings/img/website/EventPhoto.png' %}" alt="event photo">
-              <p style="padding-top: 5%">Call us or select a bus below to get started.</p>
-
-              <p><a class="big-heading highlight-dark wow bounceInDown btn-red" href="tel:+18175134168">817-513-4168</a></p><!--
-              <p style="padding:5% 10% 5% 10%" class="wow bounceInDown" data-wow-delay="0.2s">We've partnered with local companies to provide world class and custom party bus experiences here in The DFW.
-              </p>
-              <p style="padding:5% 10% 5% 10%" class="wow bounceInDown" data-wow-delay="0.2s"> We include a prive concierge for you to speak with to get ideas, tips and event planning. You will have peace of mind knowing your event will be perfect. 
-              </p>
-            -->
-            </div>
-          </div>
-        </div>
+      </div>
+    </div>
+  </div>
   {% for bus in buses %}
     <!-- Card formatting -->
   <div id="{{ bus.name }}" class="container" style="padding: 5% 3% 5% 3%;">
@@ -98,6 +85,31 @@
     <p>More options available.</p>
      <p><a class="big-heading highlight-dark wow bounceInDown btn-red" href="tel:+18175134168">Tap To Call 817-513-4168</a></p>
   </div>
+</section>
+
+<section id="service" class="home-section nopadd-bot color-dark bg-white text-center" style="padding-bottom: 0%; max-width: 100%; overflow: hidden">
+    <div class="container marginbot-50" style="">
+        <div class="col-lg-8 col-lg-offset-2">
+        </div>
+          <div class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
+            <div class="section-heading text-center">
+              <h2 class="h-bold">Our Service</h2>
+              <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
+              </div>
+                <p class="wow bounceInDown" data-wow-delay="0.2s">We cater to any event from children's parties to corporate outings. You'll be assigned a Party Bus Company Concierge who will make sure your event will be perfect. 
+              </p>
+              <img class="img-responsive" src="{% static 'Bookings/img/website/EventPhoto.png' %}" alt="event photo">
+              <p style="padding-top: 5%">Call us or select a bus below to get started.</p>
+
+              <p><a class="big-heading highlight-dark wow bounceInDown btn-red" href="tel:+18175134168">817-513-4168</a></p><!--
+              <p style="padding:5% 10% 5% 10%" class="wow bounceInDown" data-wow-delay="0.2s">We've partnered with local companies to provide world class and custom party bus experiences here in The DFW.
+              </p>
+              <p style="padding:5% 10% 5% 10%" class="wow bounceInDown" data-wow-delay="0.2s"> We include a prive concierge for you to speak with to get ideas, tips and event planning. You will have peace of mind knowing your event will be perfect. 
+              </p>
+            -->
+            </div>
+          </div>
+        </div>
 </section>
 
 <!-- Events section 
