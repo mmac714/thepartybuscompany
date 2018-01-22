@@ -57,6 +57,11 @@ if os.getcwd() == '/app':
 
     SITE_ID = 1
 
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 
 # Application definition
 
@@ -71,6 +76,7 @@ INSTALLED_APPS = [
 
     # third party apps
     'bootstrap3',
+    'bootstrapform',
     'jquery',
     'storages',
     'address',
@@ -115,6 +121,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'pb_config.wsgi.application'
 
 PROJECT_DIR = os.path.dirname(__file__)
+
+
 
 
 # Database

@@ -54,6 +54,8 @@ class PriceForm(forms.ModelForm):
 		empty_label=('year_label', 'month_label', 'day_label')))
 	"""
 	date = forms.DateField(initial=saturday, widget=DatePicker(
+		attrs={
+		'class': 'datepicker datepicker-inline'},
 		options=
 		{
 			"format": "mm/dd/yyyy",
@@ -127,7 +129,7 @@ class BackendReservationForm(forms.ModelForm):
 	#p 2404
 
 	date = forms.DateField(initial=saturday, widget=forms.SelectDateWidget(
-		empty_label=('year_label', 'month_label', 'day_label')))
+		empty_label="nothing"))
 
 	#date = forms.DateField(initial=saturday, widget=DatePicker(
 	#	options={
