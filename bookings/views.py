@@ -346,7 +346,7 @@ def send_follow_up_email(request, reservation_id):
 	date = reservation.date
 	date = date.strftime('%m/%d')
 	duration = reservation.duration
-	quote_link = "www.ThePartyBusCompany.io/quote/" + str(reservation.id) + \
+	quote_link = "https://www.ThePartyBusCompany.io/quote/" + str(reservation.id) + \
 	"/"
 
 	# Email arguments
@@ -750,7 +750,7 @@ def send_deposit_link_email(request, reservation_id):
 	date = reservation.date
 	date = date.strftime('%m/%d')
 
-	payment_link = "www.ThePartyBusCompany.io/payment/" + str(reservation.id) + \
+	payment_link = "https://www.ThePartyBusCompany.io/payment/" + str(reservation.id) + \
 	"/"
 
 	# Email arguments
