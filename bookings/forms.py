@@ -50,12 +50,16 @@ class QuoteForm(forms.ModelForm):
 
 class PriceForm(forms.ModelForm):
 	
+	date = forms.DateField(initial=saturday, widget=forms.SelectDateWidget(
+		empty_label=('year_label', 'month_label', 'day_label')))
+	"""
 	date = forms.DateField(initial=saturday, widget=DatePicker(
 		options=
 		{
 			"format": "mm/dd/yyyy",
 			"autoclose": True,
 		}))
+	"""
 	duration = forms.IntegerField(widget=forms.NumberInput, initial=4, min_value=4,
 		max_value=12, label='Number of hours')
 
@@ -121,13 +125,18 @@ class ReservationForm(forms.ModelForm):
 
 class BackendReservationForm(forms.ModelForm):
 	#p 2404
-	date = forms.DateField(initial=saturday, widget=DatePicker(
-		options={
-			"format": "mm/dd/yyyy",
-			"autoclose": True,
-		}))
+
+	date = forms.DateField(initial=saturday, widget=forms.SelectDateWidget(
+		empty_label=('year_label', 'month_label', 'day_label')))
+
+	#date = forms.DateField(initial=saturday, widget=DatePicker(
+	#	options={
+	#		"format": "mm/dd/yyyy",
+	#		"autoclose": True,
+	#	}))
 	duration = forms.IntegerField(widget=forms.NumberInput, initial=4, min_value=3, label='# of hours')
 	start_time = forms.TimeField(widget=forms.TimeInput(format='%H:%M'), initial="4:00 PM")
+	
 	class Meta:
 		model = Reservation
 		fields = [
