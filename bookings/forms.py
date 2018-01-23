@@ -50,9 +50,9 @@ class QuoteForm(forms.ModelForm):
 
 class PriceForm(forms.ModelForm):
 	
-	date = forms.DateField(initial=saturday, widget=forms.SelectDateWidget(
-		empty_label=('year_label', 'month_label', 'day_label')))
-	"""
+	#date = forms.DateField(initial=saturday, widget=forms.SelectDateWidget(
+	#	empty_label=('year_label', 'month_label', 'day_label')))
+
 	date = forms.DateField(initial=saturday, widget=DatePicker(
 		attrs={
 		'class': 'datepicker datepicker-inline'},
@@ -61,7 +61,7 @@ class PriceForm(forms.ModelForm):
 			"format": "mm/dd/yyyy",
 			"autoclose": True,
 		}))
-	"""
+
 	duration = forms.IntegerField(widget=forms.NumberInput, initial=4, min_value=4,
 		max_value=12, label='Number of hours')
 
