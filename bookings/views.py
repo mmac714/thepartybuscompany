@@ -318,6 +318,10 @@ def booking(request, reservation_id):
 		'quote_amount': reservation.quote_amount,
 		'bus': reservation.bus,
 		'driver': reservation.driver,
+		'location_pick_up': reservation.location_pick_up,
+		'location_drop_off': reservation.location_drop_off,
+		'comments': reservation.comments,
+
 		})
 
 	comment_form = CommentForm()

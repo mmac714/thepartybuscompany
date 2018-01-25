@@ -168,7 +168,8 @@ class BookingResForm(forms.ModelForm):
 	""" list all reservation objects """
 	class Meta:
 		model = Reservation
-		fields = ['date','duration', 'quote_amount','bus', 'driver' ] 
+		fields = ['date','duration', 'quote_amount','bus', 'driver',
+		'location_pick_up', 'location_drop_off', 'comments' ] 
 
 class ContactForm(forms.Form):
 	from_email = forms.EmailField(required=True, label='Your email address')
@@ -186,14 +187,14 @@ class NoResSurveyForm(forms.ModelForm):
 class CreateBusForm(forms.ModelForm):
 	class Meta:
 		model = Bus
-		fields = ['name', 'cost', 'active', 
+		fields = ['name', 'cost', 'prom_package_price', 'active', 
 		'primary_image', 'secondary_image',
 		'description', 'affiliate']
 
 class EditBusForm(forms.ModelForm):
 	class Meta:
 		model = Bus
-		fields = ['cost', 'active', 'description', 'affiliate']
+		fields = ['cost', 'prom_package_price','active', 'description', 'affiliate']
 
 class CreateDriverForm(forms.ModelForm):
 	class Meta:
