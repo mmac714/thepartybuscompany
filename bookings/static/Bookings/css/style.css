@@ -145,7 +145,6 @@ blockquote {
 }
 
 blockquote.bg-light {
-	background-color: rgba(255,255,255,.8);
 	padding: 20px;
 	color: #222;
 }
@@ -2008,6 +2007,23 @@ a.btn:focus{
   border-color: #666;
 }
 .btn-red:active {
+  background-image: none;
+}
+
+.btn-colored {
+  color: #fff;
+  background-color: #3B5998;
+  border-color: #3B5998;
+}
+.btn-colored:hover,
+.btn-colored:focus,
+.btn-colored:active,
+.btn-colored.active {
+  color: #fff;
+  background-color: #666;
+  border-color: #666;
+}
+.btn-colored:active {
   background-image: none;
 }
 

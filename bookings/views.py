@@ -169,9 +169,9 @@ def price_form(request, reservation_id):
 
 			# Only give quotes and allow reservations if 
 			# within 60 days of the reservation date.
-			elif day_delta > datetime.timedelta(60):
-				return HttpResponseRedirect(reverse(
-					'bookings:more_than_sixty_days'))
+			#elif day_delta > datetime.timedelta(60):
+			#	return HttpResponseRedirect(reverse(
+			#		'bookings:more_than_sixty_days'))
 
 			# In good order - give customer the price
 			else:	

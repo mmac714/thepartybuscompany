@@ -78,6 +78,7 @@ class Customer(models.Model):
 class Bus(models.Model):
 	name = models.CharField(max_length=100)
 	cost = models.IntegerField(null=True, blank=True)
+	prom_package_price = models.IntegerField(null=True, blank=True)
 	active = models.BooleanField()
 	description = models.CharField(max_length=500, null=True, blank=True)
 	primary_image = models.ImageField(null=True, blank=True)
@@ -150,6 +151,12 @@ class Reservation(models.Model):
 		(1 + transport_charge) * (1 + tax_rate_charge)
 
 		reservation.quote_amount = price 
+
+		from .high_demand import prom_season_dates
+
+		if date in prom_season_dates:
+			reservation.quote_amount = reservation.bus.prom_package_price * 100
+			reservation.duration = 6
 
 		reservation.save()
 

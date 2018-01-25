@@ -14,7 +14,7 @@
           <div class="text-center">
             <div class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
             <div class="section-heading text-center" style="padding: 15% 0% 5% 0%;">
-              <h2 class="h-bold" style="background-color: #000; opacity: 0.7; padding: 0 10% 0 10%">Know what you're getting, book with us!</h2>
+              <h2 class="h-bold" style="background-color: #000; opacity: 0.7; padding: 0 10% 0 10%">The Most popular name in Party Buses</h2>
 
               <h2>
                 &nbsp;
@@ -25,9 +25,9 @@
               <h2 class="h-bold">Pick a bus and get your price</h2>
               <h2 class="h-bold">or</h2>
 -->
-              <h2 class="h-bold">Contact us - Risk Free Booking</h2>
+              <h2 class="h-bold">Save $50 by booking online</h2>
             </div>
-                 <a class="big-heading highlight-dark wow bounceInDown btn-red" href="tel:+18175134168">Tap to call us</a>
+                <!-- <a class="big-heading highlight-dark wow bounceInDown btn-red" href="tel:+18175134168">Tap to call us</a> -->
             </div>
           </div>
           </div>
@@ -36,13 +36,11 @@
     </div>
   </section>
 
-<section id="buses" class="home-section nopadd-bot color-dark bg-white text-center" style="padding-bottom: 10%; max-width: 100%; overflow: hidden">
+<section id="buses" class="home-section nopadd-bot color-dark bg-white text-center" style="padding-bottom: 0%; max-width: 100%; overflow: hidden">
    <div class="container marginbot-50" >
     <div class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
       <div class="section-heading text-center">
-        <h2 class="h-bold">Our Buses</h2>
-        <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
-        </div>
+        <h2 class="">We have the largest fleet available in DFW</h2>
       </div>
     </div>
   </div>
@@ -70,7 +68,7 @@
                 </div>
 
                 <div class="card-action text-center">
-                    <a class="big-heading highlight-dark wow bounceInDown btn-red " href="{% url 'bookings:get_bus_and_create_reservation' bus.id %}" >Get More Info</a>
+                    <a class="big-heading highlight-dark wow bounceInDown btn-colored" href="{% url 'bookings:get_bus_and_create_reservation' bus.id %}" >Get My Price</a>
                 </div>
 <!--
               <div class="card-action text-center">
@@ -81,11 +79,12 @@
         </div>
     </div>
   {% endfor %}
-  <div class="container marginbot-50 section-heading" style="padding:0px 5% 0% 0%">
-    <h2>More buses and sizes available, call now!</h2>
+  <div class="container marginbot-50 section-heading" style="padding:0px 5% 0% 5%">
+    <h2>Want more options?</h2>
     <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
               </div>
-     <p><a class="big-heading highlight-dark wow bounceInDown btn-red" href="tel:+18175134168">Tap to call</a></p>
+              <h2>Give us a Ring</h2>
+     <p><a class="big-heading highlight-dark wow bounceInDown" href="tel:+18175134168">Tap To Call</a></p>
   </div>
 </section>
 
@@ -98,12 +97,12 @@
               <h2 class="h-bold">Our Service</h2>
               <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
               </div>
-                <p class="wow bounceInDown" data-wow-delay="0.2s">We cater to any event from children's parties to corporate outings. You'll be assigned a Party Bus Company Concierge who will make sure your event will be perfect. 
+                <p class="wow bounceInDown" data-wow-delay="0.2s">We cater to any event from children's parties to corporate outings. Our in-house concierge will plan work with you to plan your event down to minute. We guarantee the best service in DFW.
               </p>
               <img class="img-responsive" src="{% static 'Bookings/img/website/EventPhoto.png' %}" alt="event photo">
-              <p style="padding-top: 5%">Call us or select a bus below to get started.</p>
+              <p style="padding-top: 5%">Call us or select a bus to get started.</p>
 
-              <p><a class="big-heading highlight-dark wow bounceInDown btn-red" href="tel:+18175134168">817-513-4168</a></p><!--
+              <p><a class="big-heading highlight-dark wow bounceInDown" href="tel:+18175134168">Tap To Call</a></p><!--
               <p style="padding:5% 10% 5% 10%" class="wow bounceInDown" data-wow-delay="0.2s">We've partnered with local companies to provide world class and custom party bus experiences here in The DFW.
               </p>
               <p style="padding:5% 10% 5% 10%" class="wow bounceInDown" data-wow-delay="0.2s"> We include a prive concierge for you to speak with to get ideas, tips and event planning. You will have peace of mind knowing your event will be perfect. 
@@ -143,7 +142,7 @@
               <h2 class="h-bold">Contact us!</h2>
               <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
               </div>
-              <p style="padding:5% 75px 5% 75px" class="wow bounceInDown" data-wow-delay="0.2s">Call us at <a style="color: red" href="tel:+18175134168">817-513-4168</a> or send us a message using the form below.
+              <p style="padding:5% 75px 5% 75px" class="wow bounceInDown" data-wow-delay="0.2s">Call us at <a style="color: blue" href="tel:+18175134168">817-513-4168</a> or send us a message using the form below.
               </p>
             </div>
           </div>
@@ -161,11 +160,11 @@
 
                 <div style="padding:5% 0px 10% 0px">
 
-                  <a class="big-heading highlight-dark wow bounceInDown btn-red text-center" onclick="document.getElementById('contactform').submit()">Send Message</a>
+                  <a class="big-heading highlight-dark wow bounceInDown text-center" onclick="document.getElementById('contactform').submit()">Send Message</a>
                 </div>
               </form>
 
-              <a class="big-heading highlight-dark wow bounceInDown btn-red text-center" href="{% url 'bookings:home' %}#buses">Back to the top</a>
+              <a class="big-heading highlight-dark wow bounceInDown text-center" href="{% url 'bookings:home' %}#buses">Back to the top</a>
 
 </section>
 

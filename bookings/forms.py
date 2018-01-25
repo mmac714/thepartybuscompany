@@ -148,9 +148,6 @@ class BackendReservationForm(forms.ModelForm):
 		'date',
 		'start_time',
 		'duration',
-		'location_pick_up',
-		'location_drop_off',
-		'comments',
 		'quote_amount',
 		'bus',
 		'email'
@@ -164,7 +161,6 @@ class BackendReservationForm(forms.ModelForm):
 			'duration': 'Number of Hours',
 			'location_pick_up': 'Pick Up Location',
 			'location_drop_off': 'Drop Off Location',
-			'comments': 'Service Comments or Request',
 			'quote_amount': 'Total Cost Amount',
 			}
 

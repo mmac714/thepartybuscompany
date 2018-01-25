@@ -15,10 +15,6 @@
               <h2 class="h-bold">You're one step away!</h2>
               <div class="divider-header"></div>
               <p>Complete your booking by confirming your details, then tap "Pay with Card". A $200 deposit is required to reserve your bus.*</p>
-              <p>Call us for questions: 
-              </p>
-              <p><a class="big-heading highlight-dark wow bounceInDown btn-red" href="tel:+18175134168">817-513-4168</a>
-              </p>
             </div>
           </div>
         </div>
@@ -38,6 +34,8 @@
           <p>Pick up: {{ reservation.start_time }} at {{ reservation.location_pick_up }}</p>
           <p>Hours: {{ reservation.duration }} </p>
           <p>Bus: {{ reservation.bus.name }}</p>
+          <p>Comments: {{ reservation.comments }}
+          </p>
 
           <script type="text/javascript">
           $(document).ready(function () {
@@ -53,8 +51,9 @@
             document.getElementsByID('division').innerHTML=quote;
           </script>
           <div id="division"></div>
-          <p>Total Price: ${{ reservation.quote_amount|div:100|floatformat:2 }}**</p>
-          <p class="text-left" style="font-size: x-small;">*Deposits may be refunded within 24 hours of deposit payment date.**Total Price includes 20% transport fee and sales tax. Total price does not include driver tip.</p>
+          <p style="color: green">Discount: $50.00</p>
+          <p>Final Price: ${{ reservation.quote_amount|sub:5000|div:100|floatformat:2 }}**</p>
+          <p class="text-left" style="font-size: x-small;">*Deposits may be refunded within 24 hours of deposit payment date.**Final price may have been adjusted for prom season pricing (Mar 17 - Jun 9th, 6 hour minimum). Final Price includes 20% transport fee and sales tax. Final price does not include driver's tip.</p>
           <div class="section-heading text-center">
           </div>
         </div>
@@ -96,8 +95,13 @@ Electronic Signatures and Modifications to the Agreement. I agree to transact bu
             </script>
           </form>
         </p>
-      </div>
+      <p>Call us for questions: 
+      </p>
+      <p>
+        <a class="big-heading highlight-dark wow bounceInDown" href="tel:+18175134168">817-513-4168</a>
+      </p>
     </div>
-  </section>
+  </div>
+</section>
 
 {% endblock content %}

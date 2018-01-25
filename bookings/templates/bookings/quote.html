@@ -17,21 +17,24 @@
               </div>
               <p>
                 <!--Your price is ${{ reservation.quote_amount|div:100|floatformat:2|intcomma }} for --> 
-              The {{ bus.name }} bus is available on {{ reservation.date }}.</p>
+              The {{ bus.name }} bus is available on {{ reservation.date }}. Continue your booking online and <span style="color: green">Save $50.</span> </p>
 
               <!-- Decay price logic paragraph 
               <p><span style="color: red">Prices are based on time and demand. </span>Our prices start incredibly low and edge higher the closer it gets to your reservation date. We project that you will <span style="color: green;"><strong>SAVE ${{ reservation.quote_savings|div:100|floatformat:2|intcomma }} </strong></span>by reserving today.</p>
               -->
 
-              <div style="padding:2% 0px 2% 0px">
-                <a class="big-heading highlight-dark wow bounceInDown btn-red" href="tel:+18175134168">Call to Book 817-513-4168</a>
+              <div style="padding:0% 0px 2% 0px">
+                <a class="big-heading highlight-dark wow bounceInDown btn-colored" href="{% url 'bookings:reservation_form' reservation.id %}">Continue Booking Online</a>
               </div>
-              <p>Or
+
+              <p>
+                Or
               </p>
 
               <div style="padding:0% 0px 2% 0px">
-                <a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:reservation_form' reservation.id %}">Continue Booking Online</a>
+                <a class="big-heading highlight-dark wow bounceInDown" href="tel:+18175134168">Call to Book</a>
               </div>
+
               Photos of your bus
               {% if bus.primary_image %}
               <img class="img-responsive illustration img-resize" src="{{ bus.primary_image.url }}"">
@@ -57,14 +60,14 @@
                 <div class="divider-header wow bounceInDown" data-wow-delay="0.2s"></div>
 
               <div style="padding:2% 0px 2% 0px">
-                <a class="big-heading highlight-dark wow bounceInDown btn-red" href="tel:+18175134168">Call to Book 817-513-4168</a>
+                <a class="big-heading highlight-dark wow bounceInDown" href="tel:+18175134168">Call to Book 817-513-4168</a>
               </div>
               <p>Or
               </p>
 
               </div>
                 <div style="padding:0% 0px 5% 0px">
-                <a class="big-heading highlight-dark wow bounceInDown btn-red" href="{% url 'bookings:reservation_form' reservation.id %}">Continue Booking Online</a>
+                <a class="big-heading highlight-dark wow bounceInDown btn-colored" href="{% url 'bookings:reservation_form' reservation.id %}">Continue Booking Online</a>
               </div>
 <!--
               <h2 class="h-bold">Why book now?</h2>

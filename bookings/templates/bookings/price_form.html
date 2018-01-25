@@ -13,10 +13,8 @@
         <div class="col-lg-8 col-lg-offset-2">
           <div class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
             <div class="section-heading text-center">
-              <h2 class="h-bold">We need a few things first...</h2>
-              <div class="divider-header wow bounceInDown" data-wow-delay="0.2s">
-              </div>
-              <p class="wow bounceInDown" data-wow-delay="0.2s">Complete the form and tap "Get Info".</p>
+              <h2 class="h-bold"></h2>
+              <p class="wow bounceInDown" data-wow-delay="0.2s">Enter your event info and tap "Continue".</p>
 
               <!-- Price Form -->
               <form id="PriceForm" action="{% url 'bookings:price_form' reservation.id %}" method="post" class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
@@ -27,13 +25,13 @@
                   {% bootstrap_field form.email %}
               	</div>
               	<div style="padding:0% 0px 10% 0px">
-              		<a class="big-heading highlight-dark wow bounceInDown btn-red text-center" onclick="document.getElementById('PriceForm').submit()">Get Info</a>
+              		<a class="big-heading highlight-dark wow bounceInDown btn-colored text-center" onclick="document.getElementById('PriceForm').submit()">Continue</a>
               	</div>
               </form>
           </div>
           <div class="section-heading">
           <p>Or, speak with us directly</p>
-                 <a class="big-heading highlight-dark wow bounceInDown btn-red" href="tel:+18175134168">Tap to call us</a>
+                 <a class="big-heading highlight-dark wow bounceInDown " href="tel:+18175134168">Tap to call us</a>
             </div>
       </div>
   </div>
