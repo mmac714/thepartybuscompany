@@ -70,10 +70,16 @@ class Driver(models.Model):
 		return str(self.name)
 
 class Customer(models.Model):
-	name = models.CharField(max_length=100)
-	phone_number = models.CharField(max_length=100, null=True, blank=True)
+	first_name = models.CharField(max_length=100, default='new')
+	last_name = models.CharField(max_length=100, null=True, blank=True)
+	phone_number = models.CharField(max_length=12, null=True, blank=True)
 	email = models.CharField(max_length=100, null=True, blank=True)
 	comments = models.CharField(max_length=1024, null=True, blank=True)
+	stripe_customer_id = models.CharField(max_length=30, blank=True, null=True)
+
+	def __str__(self):
+		""" Return the id of the model """
+		return str(self.reservation_id)
 
 class Bus(models.Model):
 	name = models.CharField(max_length=100)
@@ -106,18 +112,14 @@ class Reservation(models.Model):
 		default=uuid.uuid4, editable=False)
 	bus = models.ForeignKey(
 		Bus, blank=True, null=True)
-	first_name = models.CharField(max_length=100)
-	last_name = models.CharField(max_length=100)
+	customer = models.ForeignKey(Customer)
 	date = models.DateField()
 	start_time = models.TimeField(default="16:00", null=True, blank=True)
 	duration = models.IntegerField("Number of hours")
 	location_pick_up = models.CharField(max_length=1024, null=True, blank=True)
 	location_drop_off= models.CharField(max_length=1024, null=True, blank=True)
 	comments = models.CharField(max_length=1024, null=True, blank=True)
-	quote_amount = models.IntegerField(default=0)
-	phone_number = models.CharField(max_length=12)
 	created = models.DateTimeField(null=True, blank=True)
-	quote_savings = models.IntegerField(null=True, blank=True)
 	email = models.EmailField()
 	driver = models.ForeignKey(Driver, blank=True, null=True)
 	status = models.CharField(max_length=100, choices=reservation_status_choices,
@@ -298,9 +300,11 @@ class Payment(models.Model):
 	charge_amount = models.IntegerField(default=0)
 	charge_status = models.CharField(max_length=100, blank=True)
 	charge_description = models.CharField(max_length=200, blank=True)
-	stripe_customer_id = models.CharField(max_length=30, blank=True)
 	status = models.CharField(max_length=100, choices=payment_status_choices,
 		null=True, blank=True)
+	price = models.IntegerField(default=0)
+	customer = models.ForeignKey(
+		Customer, blank=True, null=True)
 
 	def __str__(self):
 		""" Return the id of the model """
@@ -357,7 +361,7 @@ class Payment(models.Model):
 		res.save()
 
 	def create_and_charge_customer(self, token, email, reservation):
-		""" Creates a new customer and charges their card for
+		""" Creates a new stripe customer and charges their card for
 		the reservation. """
 		fee = reservation.quote_amount
 		bus = reservation.bus
@@ -368,6 +372,8 @@ class Payment(models.Model):
 				source=token,
 				email=email,
 				)
+
+			# Save stripe id to customer model here?
 
 		except Exception as ce:
 			return ce
