@@ -122,7 +122,7 @@ def get_bus_and_create_reservation(request, bus_id):
 			# if the customer submits the form and goes back to edit
 			# the form and resubmit it. 
 	try:
-		Payment.objects.create(reservation=reservation,status="no deposit")
+		Charge.objects.create(reservation=reservation)
 	except IntegrityError:
 		pass
 
