@@ -6,7 +6,7 @@ import datetime
 
 from bootstrap_datepicker.widgets import DatePicker
 
-from .models import Reservation, NoResSurvey, Bus, Driver, Affiliate,\
+from .models import Reservation, Bus, Driver, Affiliate,\
 Comment
 from pb_config.settings import DATE_INPUT_FORMATS
 
@@ -14,39 +14,6 @@ from pb_config.settings import DATE_INPUT_FORMATS
 today = datetime.date.today()
 saturday = today + datetime.timedelta( (12 - today.weekday()) % 7)
 
-class QuoteForm(forms.ModelForm):
-	date = forms.DateField(initial=saturday, widget=DatePicker(
-		options=
-		{
-			"format": "mm/dd/yyyy",
-			"autoclose": True,
-		}))
-	duration = forms.IntegerField(widget=forms.NumberInput, initial=4, min_value=4,
-		max_value=12, label='Number of hours')
-
-	# extend date validation
-	def clean_date(self):
-		date = self.cleaned_data['date']
-		# Don't allow before today
-		if date < today:
-			raise forms.ValidationError("\
-				The reservation date is before today.")
-		return date
-
-	class Meta:
-		model = Reservation
-		fields = [
-		'date',
-		'duration',
-		'email',
-		'bus',
-			]
-
-		labels = {
-		'date':'Reservation Date',
-		'duration': 'Number of hours',
-		'email': 'Your email',
-			}
 
 class PriceForm(forms.ModelForm):
 	
@@ -79,13 +46,11 @@ class PriceForm(forms.ModelForm):
 		fields = [
 		'date',
 		'duration',
-		'email',
 			]
 
 		labels = {
 		'date':'Reservation Date',
 		'duration': 'Number of hours',
-		'email': 'Your email',
 			}
 
 class ReservationForm(forms.ModelForm):
@@ -105,18 +70,12 @@ class ReservationForm(forms.ModelForm):
 	class Meta:
 		model = Reservation
 		fields = [
-		'first_name', 
-		'last_name', 
-		'phone_number',
 		'start_time',
 		'location_pick_up',
 		'location_drop_off',
 		'comments',
 		] 
 		labels = {
-			'first_name': 'First Name',
-			'last_name': 'Last Name',
-			'phone_number': 'Phone Number',
 			'start_time': 'Start Time',
 			'location_pick_up': 'Pick Up Location (optional)',
 			'location_drop_off': 'Drop Off Location (optional)',
@@ -142,47 +101,32 @@ class BackendReservationForm(forms.ModelForm):
 	class Meta:
 		model = Reservation
 		fields = [
-		'first_name', 
-		'last_name', 
-		'phone_number',
 		'date',
 		'start_time',
 		'duration',
-		'quote_amount',
+		'total_price',
 		'bus',
 		'email'
 		] 
 		labels = {
-			'first_name': 'First Name',
-			'last_name': 'Last Name',
-			'phone_number': 'Phone Number',
 			'date': 'Reservation Date',
 			'start_time': 'Start Time',
 			'duration': 'Number of Hours',
 			'location_pick_up': 'Pick Up Location',
 			'location_drop_off': 'Drop Off Location',
-			'quote_amount': 'Total Cost Amount',
+			'total_price': 'Total Cost Amount',
 			}
 
 class BookingResForm(forms.ModelForm):
 	""" list all reservation objects """
 	class Meta:
 		model = Reservation
-		fields = ['date','duration', 'quote_amount','bus', 'driver',
+		fields = ['date','duration', 'total_price','bus', 'driver',
 		'location_pick_up', 'location_drop_off', 'comments' ] 
 
 class ContactForm(forms.Form):
 	from_email = forms.EmailField(required=True, label='Your email address')
 	message = forms.CharField(widget=forms.Textarea, required=True)
-
-class NoResSurveyForm(forms.ModelForm):
-	""" form to take a survey of why people did not want reserve. """
-	class Meta:
-		model = NoResSurvey
-		fields = ['reason', 'detail']
-		labels = {
-			'detail': 'Open feedback (optional)',
-			}
 
 class CreateBusForm(forms.ModelForm):
 	class Meta:

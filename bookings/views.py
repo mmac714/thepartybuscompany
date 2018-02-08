@@ -17,11 +17,11 @@ import stripe
 import datetime, time
 
 from .forms import ReservationForm, BackendReservationForm, BookingResForm,\
-ContactForm, QuoteForm, NoResSurveyForm, PriceForm, CreateBusForm, \
+ContactForm, PriceForm, CreateBusForm, \
 CreateDriverForm, CreateAffiliateForm, EditBusForm, EditAffiliateForm, \
 EditDriverForm, PriceCalculatorForm, CommentForm
 
-from .models import Reservation, Payment, NoResSurvey, SurveyManager, Bus,\
+from .models import Reservation, Charge, Bus,\
 Driver, Affiliate, Comment
 
 from pb_config.settings import STRIPE_SECRET_KEY, STRIPE_PUBLIC_KEY
