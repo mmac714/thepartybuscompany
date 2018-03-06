@@ -56,6 +56,9 @@ class Bus(models.Model):
 		verbose_name = 'Bus'
 		verbose_name_plural = 'Buses'
 
+	def get_active_buses(self):
+		return Bus.objects.filter(active=True)
+
 class Customer(models.Model):
 	first_name = models.CharField(max_length=100, default='new')
 	last_name = models.CharField(max_length=100, null=True, blank=True)
@@ -111,14 +114,17 @@ class Reservation(models.Model):
 		""" Return the id of the model """
 		return str(self.id)
 
+	def get_last_created_reservation(self):
+		return Reservation.objects.filter(
+			created__isnull=False).latest('created')
+
+
 	def get_price(self, reservation):
 		""" calculate the price and savings amount and save it to
 		total_price and quote_savings respectively. Use the bus
 		cost to get the quote amount. """
 
 		min_hours = 4
-		transport_charge = 1.15
-		tax_charge = 1.0725
 
 		# Get variables from reservation instance and bus object
 
@@ -127,16 +133,14 @@ class Reservation(models.Model):
 		day_of_week = date.weekday()
 		bus_cost = reservation.bus.cost 
 		
-
-		transport_charge = 0.20 # Standard service fee
-		tax_rate_charge = 0.0725 # County sales tax rate
+		transport_charge = 0.20 + 1# Standard service fee
+		tax_rate_charge = 0.0725 + 1 # County sales tax rate
 
 		# Friday and Saturday pricing
 		#if day_of_week in [4, 5]:
 		#	bus_cost += 10
 
-		price = bus_cost * duration * 100 * \
-		(1 + transport_charge) * (1 + tax_rate_charge)
+		price = bus_cost * duration * 100 * transport_charge *  tax_rate_charge
 
 		reservation.total_price = price 
 
@@ -147,6 +151,27 @@ class Reservation(models.Model):
 			reservation.duration = 6
 
 		reservation.save()
+
+	def create_reservation_with_bus(self, bus_id):
+		""" Called when the customer selects a bus from the home page. 
+		This function will take the bus.pk from the link and create a 
+		new reservation model with default setting and pass the reservation
+		to the price form."""
+
+		from .helper_functions import get_next_saturday, get_time_stamp
+	
+		# Retrieve the bus id from the link
+		bus = Bus.objects.get(id=bus_id)
+
+		# Create a reservation model with the bus_id and default values
+		reservation = Reservation.objects.create(
+			date=get_next_saturday(),
+			duration=4,
+			bus=bus,
+			created=get_time_stamp()
+			)
+
+
 
 
 class Charge(models.Model):
@@ -173,6 +198,12 @@ class Charge(models.Model):
 	def __str__(self):
 		""" Return the id of the model """
 		return str(self.stripe_id)
+
+	def create_charge_object(self, reservation_instance):
+		""" create a charge object for the reservation. A reservation 
+		can have many charge objects such as a deposit, additional fee charge,
+		or service completion charge. """
+		Charge.object.create(reservation=reservation_instance)
 
 class Comment(models.Model):
 	reservation = models.ForeignKey(Reservation, blank=True, null=True)

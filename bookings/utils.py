@@ -1,9 +1,50 @@
 """ Prices """
 
 
+import datetime, time
+today = datetime.date.today()
+saturday = today + datetime.timedelta( (12 - today.weekday()) % 7)
+
+def get_next_saturday():
+	""" Returns next Saturday in datetime format. """
+	today = datetime.date.today()
+	saturday = today + datetime.timedelta( (12 - today.weekday()) % 7)
+
+	return saturday
+
+def get_time_stamp():
+	return timezone.now()
 
 
 
+""" Email Functions """
+def send_contact_form_email(recipient, message)
+
+	)
+			email = request.POST.get("from_email")
+			customer_email = [str(email),]
+
+			try:
+				sender = 'service@ThePartyBusCompany.io'
+				recipient = customer_email
+				message = form.cleaned_data['message']
+				body = get_template('bookings/web_message_confirmation.html').render(
+					{'message': message,
+					})
+				# Send email to customer
+				send_mail('The Party Bus Company',"", sender, recipient,
+					html_message=body, fail_silently=False)
+				# Send email to service
+				recipient = ['service@ThePartyBusCompany.io']
+				subject = 'Web Contact - ' + str(customer_email)
+
+				send_mail(subject, "", email, recipient, html_message=body,
+					fail_silently=False)
+
+			except BadHeaderError:
+				return HttpResponse('Invalid header found.')
+
+			return HttpResponseRedirect(reverse('bookings:contact'))
 
 
 """ Stripe functions """

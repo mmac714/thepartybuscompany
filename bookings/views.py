@@ -4,8 +4,6 @@ from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from django.core.mail import send_mail
-from django.template.loader import get_template
 from django.template import Context
 from django.db.models import Q
 from django.db import IntegrityError
@@ -24,6 +22,8 @@ EditDriverForm, PriceCalculatorForm, CommentForm
 from .models import Reservation, Charge, Bus,\
 Driver, Affiliate, Comment
 
+from .helper_functions import send_contact_form_email
+
 from pb_config.settings import STRIPE_SECRET_KEY, STRIPE_PUBLIC_KEY
 
 stripe.api_key = STRIPE_SECRET_KEY
@@ -33,9 +33,6 @@ stripe_api_key = STRIPE_PUBLIC_KEY
 def prices(request):
 	return render(request, 'bookings/prices.html')
 
-def specials(request):
-	return render(request, 'bookings/specials.html')
-
 def highdemand(request):
 	return render(request, 'bookings/highdemand.html')
 
@@ -44,9 +41,6 @@ def more_than_sixty_days(request):
 
 def contact(request):
 	return render(request, 'bookings/contact.html')
-
-def faq(request):
-	return render(request, 'bookings/faq.html')
 
 def under_construction(request):
 	return render(request, 'bookings/under_construction.html')
@@ -61,78 +55,38 @@ def home(request):
 		form = ContactForm(request.POST)
 
 		if form.is_valid():
-			email = request.POST.get("from_email")
-			customer_email = [str(email),]
+			recipient = [str(request.POST.get('from_email')),]
+			message = form.cleaned_data['message']
 
-			try:
-				sender = 'service@ThePartyBusCompany.io'
-				recipient = customer_email
-				message = form.cleaned_data['message']
-				body = get_template('bookings/web_message_confirmation.html').render(
-					{'message': message,
-					})
-				# Send email to customer
-				send_mail('The Party Bus Company',"", sender, recipient,
-					html_message=body, fail_silently=False)
-				# Send email to service
-				recipient = ['service@ThePartyBusCompany.io']
-				subject = 'Web Contact - ' + str(customer_email)
-
-				send_mail(subject, "", email, recipient, html_message=body,
-					fail_silently=False)
-
-			except BadHeaderError:
-				return HttpResponse('Invalid header found.')
+			send_contact_form_email(recipient, message)
 
 			return HttpResponseRedirect(reverse('bookings:contact'))
 
-	# Display only acitve buses
-	buses = Bus.objects.filter(active=True)
-
+	#else:
+		# Display only acitve buses
+	buses = Bus().get_active_buses()
 	form = ContactForm()
 
 	context = {
-		'buses':buses,
-		'form':form,
-		}
+			'buses':buses,
+			'form':form,
+			}
 	return render(request, 'bookings/home.html', context)
 
-def get_bus_and_create_reservation(request, bus_id):
+def select_bus_link(request, bus):
 	""" Called when the customer selects a bus from the home page. 
 	This function will take the bus.id from the link and create a 
 	new reservation model with default setting and pass the reservation
 	to the price form."""
-	
-	# Retrieve the bus id from the link
-	bus = Bus.objects.get(id=bus_id)
 
-	today = datetime.date.today()
-	saturday = today + datetime.timedelta( (12 - today.weekday()) % 7)
-
-	# Create a reservation model with the bus_id and default values
-	reservation = Reservation.objects.create(
-		date=saturday,
-		duration=4,
-		bus_id=bus.id,
-		created=timezone.now()
-		)
-	# Create Payment object
-			# Try block to avoid creating a duplicate payment object
-			# if one already exist for the reservation. This may happen
-			# if the customer submits the form and goes back to edit
-			# the form and resubmit it. 
-	try:
-		Charge.objects.create(reservation=reservation)
-	except IntegrityError:
-		pass
-
+	reservation = Reservation().create_reservation_with_bus(bus)
+	request.session['reservation'] = 'reservation.pk'
 
 	# send reservation id to price form
-	return HttpResponseRedirect(reverse('bookings:price_form',
-					args=[reservation.id]))
+	return HttpResponseRedirect(reverse('bookings:price_form'))
 
 
-def price_form(request, reservation_id):
+def price_form(request):
 	""" customer is displayed the price form to complete. Once submitted,
 	the form data will be saved to the reservation instance, a payment 
 	object will be created, a price will be calculated and the customer

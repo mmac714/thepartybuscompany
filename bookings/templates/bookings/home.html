@@ -66,10 +66,10 @@
                 <div class="card-content">
                     <p>{{ bus.description }}</p>
                 </div>
-
+<!--
                 <div class="card-action text-center">
-                    <a class="big-heading highlight-dark wow bounceInDown btn-colored" href="{% url 'bookings:get_bus_and_create_reservation' bus.id %}" >Get My Price</a>
-                </div>
+                    <a class="big-heading highlight-dark wow bounceInDown btn-colored" href="{% url 'bookings:select_bus_link' bus.id %}" >Get My Price</a>
+                </div> -->
 <!--
               <div class="card-action text-center">
                     <a class="big-heading highlight-dark wow bounceInDown btn-red " href="{% url 'bookings:home' %}#contact" >Call for price</a>
@@ -148,15 +148,12 @@
           </div>
 
 
+<!--action="{% url 'bookings:home' %}"-->
 
 
-
-  <form id="contactform" action="{% url 'bookings:home' %}" method="post" class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
+  <form id="contactform" method="post" class="wow flipInY" data-wow-offset="0" data-wow-delay="0.4s">
                 {% csrf_token %}
-                <div class="form-padding form-group">
-                  {% bootstrap_field form.from_email %}
-                  {% bootstrap_field form.message %}
-                </div>
+                {% include 'includes/form.html' %}
 
                 <div style="padding:5% 0px 10% 0px">
 

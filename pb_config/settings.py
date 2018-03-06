@@ -80,6 +80,8 @@ INSTALLED_APPS = [
     'storages',
     'address',
     'mathfilters',
+    'widget_tweaks',
+    'selenium',
 
     # My apps
     'bookings',
@@ -150,7 +152,8 @@ else:
             'USER': DB_USER,
             'PASSWORD': DB_PASSWORD,
             'HOST': 'localhost',
-            'PORT': 5432
+            'PORT': 5432,
+
         }
     }
 
