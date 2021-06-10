@@ -8,7 +8,7 @@ click==6.7
 cryptography==2.1.4
 dj-database-url==0.4.2
 dj-stripe==1.0.0.post1
-Django==1.11
+Django==2.2.24
 django-address==0.1.5
 django-bootstrap-datepicker==1.2.3
 django-bootstrap3==9.1.0
